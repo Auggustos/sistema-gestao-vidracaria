@@ -1,0 +1,30 @@
+<mat-card>
+    <mat-card-header class="teste-pai">
+        <mat-card-title>{{produto.nome}} </mat-card-title>
+        <mat-card-subtitle>R{{produto.preco| currency}}</mat-card-subtitle>
+    </mat-card-header>
+    <div class="mat-content">
+        <img mat-card-image src="http://127.0.0.1:3000/files/{{produto.imagem}}" class="imagem-produto">
+        <mat-card-content>
+            <p>
+                <span style="font-weight: bold;">Descrição:</span> {{produto.descricao}}
+            </p>
+            <p>
+                <span style="font-weight: bold;">Quantidade disponível:</span> {{produto.quantidade}}
+            </p>
+            <p>
+                <span style="font-weight: bold;">Vendedor:</span> {{produto.usuario.nome}}
+            </p>
+            <p>
+                <span style="font-weight: bold;">Contato:</span> {{produto.usuario.celular}}
+            </p>
+            <div *ngIf="!produto.usuario.pagamento_cartao">
+                <span style="color: #b24c4c;">Não aceita cartão</span>
+            </div>
+            <div *ngIf="produto.usuario.pagamento_cartao">
+                <span style="color: #4CB258;">Aceita cartão</span>
+            </div>
+
+        </mat-card-content>
+    </div>
+</mat-card>

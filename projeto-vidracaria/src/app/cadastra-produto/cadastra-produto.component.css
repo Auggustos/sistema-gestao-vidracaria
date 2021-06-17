@@ -1,0 +1,84 @@
+.cadastro-form {
+    min-width: 200px;
+    max-width: 600px;
+    width: 100%;
+}
+
+.container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center
+}
+
+.example-full-width {
+    width: 100%;
+}
+
+.example-container .mat-form-field+.mat-form-field {
+    margin-left: 8px;
+}
+
+.example-right-align {
+    text-align: right;
+}
+
+input.example-right-align::-webkit-outer-spin-button,
+input.example-right-align::-webkit-inner-spin-button {
+    display: none;
+}
+
+input.example-right-align {
+    -moz-appearance: textfield;
+}
+
+.body {
+    background-color: white;
+}
+
+.button-cadastrar {
+    width: 100px;
+    margin-left: 60%;
+    background-color: #4CB258;
+    color: white;
+}
+
+.input-preco {
+    width: 155px;
+}
+
+.input-quantidade {
+    width: 155px;
+    margin-left: 20px;
+}
+
+.buttons {
+    display: inline-block;
+}
+
+.button-voltar {
+    width: 100px;
+    margin-left: 68px;
+    background-color: #b24c4c;
+    color: white;
+}
+
+.entrada-cartao {
+    width: 223px;
+    margin-left: 20px;
+}
+
+img {
+    max-width: 170px;
+    margin-left: 22%;
+}
+
+input[type=file] {
+    padding: 10px;
+    background: #2d2d2d;
+}
+
+.centralizar {
+    margin-top: 13%;
+}

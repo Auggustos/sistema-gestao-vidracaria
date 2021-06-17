@@ -1,0 +1,65 @@
+.container-sidebar {
+    width: 100%;
+    height: 100%;
+    background-color: white;
+}
+
+.container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.content {
+    flex-shrink: 1;
+    flex-grow: 1;
+}
+
+.conteudo-pagina {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.example-sidenav {
+    width: 230px;
+    background-color: #E9FFF6;
+}
+
+.button-sidebar {
+    margin-top: 100px;
+}
+
+.example-spacer {
+    flex: 1 1 auto;
+}
+
+.topnav {
+    background-color: #28BB7B;
+    color: white;
+}
+
+.mat-drawer-content {
+    background-color: #92e8d6;
+}
+
+html,
+body {
+    height: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+.icon-list {
+    margin-top: 10px;
+    display: inline-block;
+}
+
+.text-list {
+    display: inline-block;
+    float: right;
+    margin-top: 10%;
+    margin-right: 38%;
+}

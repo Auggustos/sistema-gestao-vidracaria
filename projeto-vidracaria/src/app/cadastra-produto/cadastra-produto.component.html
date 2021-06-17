@@ -1,0 +1,51 @@
+<body class="body">
+    <div class="container">
+        <div class="centralizar">
+            <mat-card>
+                <mat-card-title>
+                    Cadastro de produtos
+                </mat-card-title>
+                <form class="cadastro-form" [formGroup]="productForm">
+                    <div class="row">
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Nome</mat-label>
+                            <input matInput placeholder="nome" formControlName="nome">
+                        </mat-form-field>
+                    </div>
+                    <div class="row">
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Descriçao</mat-label>
+                            <textarea matInput placeholder="Descrição" formControlName="descricao"></textarea>
+                        </mat-form-field>
+                    </div>
+                    <div class="row">
+                        <mat-form-field class="input-preco">
+                            <mat-label>Preço unitário</mat-label>
+                            <input matInput placeholder="Preço" type="number" formControlName="preco" min="0">
+                        </mat-form-field>
+                        <mat-form-field class="input-quantidade">
+                            <mat-label>Quantidade</mat-label>
+                            <input matInput type="number" formControlName="quantidade" min="0">
+                        </mat-form-field>
+                    </div>
+                    <div class="row">
+                        <input style="display: none" type="file" (change)="readURL($event);" #fileInput>
+                        <button (click)="fileInput.click()" mat-icon-button aria-label="Example icon button with a vertical three dot icon">
+                            <mat-icon>publish</mat-icon>
+                            <mat-label>Enviar imagem</mat-label>
+                        </button>
+                    </div>
+
+                    <div class="row">
+                        <img [src]="imageSrc" alt="your image" *ngIf="imageSrc" />
+                    </div>
+                    <br>
+                    <div class="buttons">
+                        <div class="buttons"><button mat-raised-button class="button-cadastrar" (click)="onUpload()" [disabled]="!this.productForm.valid">Cadastrar</button></div>
+                        <div class="buttons"><button mat-raised-button class="button-voltar" (click)="goBack()">Voltar</button></div>
+                    </div>
+                </form>
+            </mat-card>
+        </div>
+    </div>
+</body>

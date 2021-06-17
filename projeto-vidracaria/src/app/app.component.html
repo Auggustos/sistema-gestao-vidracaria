@@ -1,0 +1,71 @@
+<div class="container">
+    <mat-toolbar class="topnav">
+        <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon" (click)="drawer.toggle()">
+          <mat-icon>menu</mat-icon>
+      </button>
+        <span>Opção Vidraçaria</span>
+        <span class="example-spacer"></span>
+
+        <span>{{usuario}}</span>
+        <button mat-icon-button *ngIf="perfil == 3" class="example-icon favorite-icon" aria-label="Example icon-button with heart icon" matTooltip="Logar" [routerLinkActive]="'active'" [routerLink]="['login']">
+          <mat-icon>login</mat-icon>
+      </button>
+        <button mat-icon-button *ngIf="perfil == 0 || perfil == 1" class="example-icon favorite-icon" aria-label="Example icon-button with heart icon" matTooltip="Deslogar" (click)="desloga()">
+          <mat-icon>power_settings_new</mat-icon>
+      </button>
+        <!--
+        <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon" matTooltip="carrinho" (click)="toCarrinho()">
+          <mat-icon [matBadge]="onBadge()" matBadgeColor="warn">shopping_cart</mat-icon>
+      </button> -->
+    </mat-toolbar>
+    <mat-drawer-container class="container-sidebar" autosize>
+        <mat-drawer #drawer class="example-sidenav" mode="side" opened>
+            <mat-selection-list #shoes [multiple]="false">
+                <mat-list-option [routerLinkActive]="'active'" [routerLink]="['servicos/']">
+                    <div>
+                        <div class="icon-list">
+                            <mat-icon matListIcon>receipt_long</mat-icon>
+                        </div>
+                        <div class="text-list">
+                            Serviços
+                        </div>
+                    </div>
+                </mat-list-option>
+                <mat-list-option [routerLinkActive]="'active'" [routerLink]="['/']">
+                    <div>
+                        <div class="icon-list">
+                            <mat-icon matListIcon>inventory</mat-icon>
+                        </div>
+                        <div class="text-list">
+                            Produtos
+                        </div>
+                    </div>
+                </mat-list-option>
+                <mat-list-option [routerLinkActive]="'active'" [routerLink]="['vendas/']">
+                    <div>
+                        <div class="icon-list">
+                            <mat-icon matListIcon>sell</mat-icon>
+                        </div>
+                        <div class="text-list">
+                            Vendas
+                        </div>
+                    </div>
+                </mat-list-option>
+                <mat-list-option [routerLinkActive]="'active'" [routerLink]="['pessoas/']">
+                    <div>
+                        <div class="icon-list">
+                            <mat-icon matListIcon>groups</mat-icon>
+                        </div>
+                        <div class="text-list">
+                            Pessoas
+                        </div>
+                    </div>
+                </mat-list-option>
+            </mat-selection-list>
+        </mat-drawer>
+        <div class="content">
+            <router-outlet #carrinho></router-outlet>
+        </div>
+
+    </mat-drawer-container>
+</div>

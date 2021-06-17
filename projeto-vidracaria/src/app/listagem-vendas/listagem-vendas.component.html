@@ -1,0 +1,76 @@
+<mat-card class="example-card">
+    <mat-card-title>
+        Listagem de Vendas
+    </mat-card-title>
+
+    <section class="content">
+        <button mat-fab color="primary" matTooltip="Cadastrar Projetos" (click)="openList()" class="sigelu-button-novo">
+                <mat-icon>add</mat-icon>
+        </button>
+
+        <div class="row">
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <mat-form-field class="campo-pesquisa">
+                    <input matInput placeholder="Pesquisar" [(ngModel)]="pesquisaCampos[0].texto" (keyup.enter)="onEnter(pesquisaCampos[0].texto)">
+                    <mat-icon class="expandir-button" style="cursor:pointer" matSuffix matTooltip="Pesquisar" (click)="onChange()">search</mat-icon>
+                    <mat-icon [class.btn-disable]="!pesquisaCampos[0].texto" class="expandir-button" style="cursor:pointer" matTooltip="Limpar" matSuffix (click)="limpaCampoPesquisa()">clear</mat-icon>
+                </mat-form-field>
+            </div>
+            <div class="col-lg-4 col-md-12 col-sm-12">
+            </div>
+            <div class="row col-lg-4 col-md-12 col-sm-12">
+            </div>
+        </div>
+
+
+
+        <mat-card-content>
+            <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+                <!--- Note that these columns can be defined in any order.
+                          The actual rendered columns are set as a property on the row definition" -->
+
+                <!-- Position Column -->
+                <ng-container matColumnDef="cliente">
+                    <th mat-header-cell *matHeaderCellDef class="mat-column"> Cliente </th>
+                    <td mat-cell *matCellDef="let element" class="mat-column"> {{element.cliente}} </td>
+                </ng-container>
+
+                <!-- Name Column -->
+                <ng-container matColumnDef="valor">
+                    <th mat-header-cell *matHeaderCellDef class="mat-column"> Valor </th>
+                    <td mat-cell *matCellDef="let element" class="mat-column"> R${{element.valor}} </td>
+                </ng-container>
+
+                <!-- Weight Column -->
+                <ng-container matColumnDef="pagamento_em">
+                    <th mat-header-cell *matHeaderCellDef class="mat-column"> Pagamento em </th>
+                    <td mat-cell *matCellDef="let element" class="mat-column"> {{element.pagamento_em}} </td>
+                </ng-container>
+
+                <!-- Symbol Column -->
+                <ng-container matColumnDef="pago">
+                    <th mat-header-cell *matHeaderCellDef class="mat-column"> Pago </th>
+                    <td mat-cell *matCellDef="let element" class="mat-column"> {{element.pago}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="acoes">
+                    <th mat-header-cell *matHeaderCellDef class="mat-column"> Ações </th>
+                    <td mat-cell *matCellDef="let element" class="mat-column">
+                        <button mat-icon-button>
+                            <mat-icon>search</mat-icon>
+                          </button>
+                        <button mat-icon-button>
+                            <mat-icon>edit</mat-icon>
+                          </button>
+                        <button mat-icon-button>
+                            <mat-icon>delete</mat-icon>
+                          </button>
+
+                    </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+        </mat-card-content>
+    </section>
+</mat-card>
