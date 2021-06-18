@@ -33,6 +33,7 @@ interface Produtos {
 })
 export class ModalCriarVendaComponent implements OnInit {
  valorVenda;
+ valorProduto;
   name = 'Angular';
  formattedAmount;
  amount;
