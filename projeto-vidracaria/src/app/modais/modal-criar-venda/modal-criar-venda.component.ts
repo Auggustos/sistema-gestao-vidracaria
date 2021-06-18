@@ -17,6 +17,10 @@ interface Situacoes {
   id: number;
   situacao: string;
 }
+interface Produtos {
+  id: number;
+  produto: string;
+}
 
 @Component({
   selector: 'app-modal-criar-venda',
@@ -45,6 +49,11 @@ export class ModalCriarVendaComponent implements OnInit {
     {id: 1, situacao:'Não Realizado' },
   ];
 
+  produtos: Produtos[] = [
+    {id: 0, produto:'parafuso' },
+    {id: 1, produto:'silicone' },
+  ];
+
   hide = true;
   
   myControl = new FormControl();
@@ -55,7 +64,7 @@ export class ModalCriarVendaComponent implements OnInit {
   vendaForm = new FormGroup({
     cliente: new FormControl('',Validators.required),
     data: new FormControl('',Validators.required),
-    local: new FormControl('',Validators.required),
+    produto: new FormControl('',Validators.required),
     tipo: new FormControl('',Validators.required),
     status: new FormControl('',Validators.required),
     valor: new FormControl('',Validators.required),
@@ -92,7 +101,7 @@ export class ModalCriarVendaComponent implements OnInit {
     return{
       cliente: this.vendaForm.value.cliente,
       data: this.vendaForm.value.data,
-      local: this.vendaForm.value.local,
+      produto: this.vendaForm.value.produto,
       tipo: this.vendaForm.value.tipo,
       status: this.vendaForm.value.status,
       valor: this.vendaForm.value.valor

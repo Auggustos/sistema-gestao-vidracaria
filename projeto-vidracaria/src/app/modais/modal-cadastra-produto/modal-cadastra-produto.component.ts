@@ -30,9 +30,7 @@ export class ModalCadastraProdutoComponent implements OnInit {
   productForm = new FormGroup({
     nome: new FormControl('', Validators.required),
     descricao: new FormControl('',Validators.required),
-    preco: new FormControl('', Validators.required),
     imagem: new FormControl('',Validators.required),
-    id_usuario: new FormControl(this.authService.getUserId(),Validators.required),
     quantidade: new FormControl('',Validators.required),
   });
 
@@ -64,9 +62,7 @@ export class ModalCadastraProdutoComponent implements OnInit {
     uploadData.append('imagem', this.selectedFile);
     uploadData.append('nome', this.productForm.value.nome);
     uploadData.append('descricao', this.productForm.value.descricao);
-    uploadData.append('preco', this.productForm.value.preco);
     uploadData.append('quantidade', this.productForm.value.quantidade);
-    uploadData.append('id_usuario', this.productForm.value.id_usuario);
 
     /*
  this.apiSevice.postProdutos(uploadData)

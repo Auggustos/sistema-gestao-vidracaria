@@ -23,11 +23,14 @@
                             <mat-datepicker #datepickerRef></mat-datepicker>
                         </mat-form-field>
                     </div>
-
                     <div class="row">
                         <mat-form-field class="example-full-width">
-                            <mat-label>Local</mat-label>
-                            <textarea matInput formControlName="local"></textarea>
+                            <mat-label>Produto</mat-label>
+                            <mat-select [(ngModel)]="valorProduto" formControlName="produto">
+                                <mat-option *ngFor="let produto of produtos" [value]="produto.id">
+                                    {{produto.produto}}
+                                </mat-option>
+                            </mat-select>
                         </mat-form-field>
                     </div>
                     <div class="row">

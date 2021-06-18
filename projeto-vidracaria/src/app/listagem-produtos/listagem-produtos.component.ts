@@ -13,7 +13,6 @@ export interface Produto {
   id: number;
   nome: string;
   descricao: string;
-  preco: number;
   imagem: string;
   quantidade: number;
 
@@ -56,10 +55,38 @@ export class ListagemProdutosComponent implements OnInit {
 
   produtos: Produto[] = [
     { id: 0,
-      nome: 'box de banheiro',
+      nome: 'Box de banheiro temperado',
       descricao: "box de banheiro xique demais",
-      preco: 800,
       imagem: "https://http2.mlstatic.com/D_NQ_NP_688189-MLB41945925550_052020-O.jpg",
+      quantidade: 10
+    },{
+      id: 0,
+      nome: 'Fechamento de pia temperado',
+      descricao: "Fechamento de pia xique demais",
+      imagem:"https://vidross.com/wp-content/uploads/2020/06/pia-vidro-temperado-fum%C3%AA.jpg",
+      quantidade: 10
+    },
+    { id: 0,
+      nome: 'Box de banheiro em acrílico',
+      descricao: "box de banheiro xique demais",
+      imagem: "https://2518.cdn.simplo7.net/static/2518/sku/box-de-banheiro-box-de-banheiro-em-acrilico-box-para-banheiro-de-acrilico-de-canto--p-1547122066382.jpg",
+      quantidade: 10
+    },{
+      id: 0,
+      nome: 'Fechamento de pia em acrílico',
+      descricao: "Fechamento de pia xique demais",
+      imagem:"https://www.shopad.com.br/ad-img/2015/10/06/fechamento-de-pia_226105772335_1444157552487_large.jpeg",
+      quantidade: 10
+    },    { id: 0,
+      nome: 'Janela Transparente Temperado',
+      descricao: "box de banheiro xique demais",
+      imagem: "https://i.pinimg.com/originals/af/7e/21/af7e211f53f02cbc7b55c4aaf02b29b7.webp",
+      quantidade: 10
+    },{
+      id: 0,
+      nome: 'Janela basculante temperado',
+      descricao: "Fechamento de pia xique demais",
+      imagem:"https://http2.mlstatic.com/D_NQ_NP_910145-MLB41061029721_032020-O.jpg",
       quantidade: 10
     }
   ];
@@ -160,6 +187,12 @@ export class ListagemProdutosComponent implements OnInit {
   }
 
   visualizaProduto(id: string) {
+    this.dialog.open(ModalVisualizarProdutoComponent, {
+      data: {
+        idProduto: id,
+      }
+    });
+    /* 
     if (!this.authService.isLoggedIn()) {
       this.dialogService.showWarning("Você precisa estar logado para adicionar algum item ao carrinho!", "Autentique-se!").then(result => {
         this.router.navigateByUrl('login').then(success => location.reload())
@@ -173,6 +206,7 @@ export class ListagemProdutosComponent implements OnInit {
         }
       });
     }
+    */
   }
 
   createProduto() {

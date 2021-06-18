@@ -19,9 +19,16 @@ export class ModalVisualizarProdutoComponent implements OnInit {
     private dialogService: DialogService, 
     private router: Router,
     @Inject(MAT_DIALOG_DATA) public data: any) { }
-    produto: Produto;
+    produto
 
   ngOnInit(): void {
+
+    this.produto =  { id: 0,
+      nome: 'Box de banheiro temperado',
+      descricao: "box de banheiro xique demais",
+      imagem: "https://http2.mlstatic.com/D_NQ_NP_688189-MLB41945925550_052020-O.jpg",
+      quantidade: 10
+    }
     /*
     this.apiService.getProdutos().subscribe(response => {
       if (this.authService.isLoggedIn()) {

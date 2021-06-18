@@ -27,7 +27,6 @@ import {MatNativeDateModule} from '@angular/material/core';
 import { CurrencyMaskModule } from "ng2-currency-mask";
 
 import { ModalVisualizarProdutoComponent } from './modais/modal-visualizar-produto/modal-visualizar-produto.component';
-import { ModalVisualizarPedidoComponent } from './modais/modal-visualizar-pedido/modal-visualizar-pedido.component';
 import { ListagemProdutosComponent } from './listagem-produtos/listagem-produtos.component';
 import { ModalCadastraProdutoComponent } from './modais/modal-cadastra-produto/modal-cadastra-produto.component';
 import { AuthGuard, AuthInterceptor, AuthService } from './shared/services/auth.service';
@@ -46,7 +45,6 @@ import { ModalCriarPessoaComponent } from './modais/modal-criar-pessoa/modal-cri
 @NgModule({
   declarations: [
     ModalVisualizarProdutoComponent,    
-    ModalVisualizarPedidoComponent,
     ModalCriarServicoComponent,
     ListagemProdutosComponent,
     ListagemServicosComponent,
@@ -104,7 +102,6 @@ import { ModalCriarPessoaComponent } from './modais/modal-criar-pessoa/modal-cri
     DialogService
   ],
   entryComponents: [
-    ModalVisualizarPedidoComponent,
     ModalCriarServicoComponent,
     ModalCriarVendaComponent,
     ModalCriarPessoaComponent,
