@@ -3,6 +3,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../shared/services/auth.service';
 import { DialogService } from '../shared/services/dialog/dialog.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ModalCriarPessoaComponent } from '../modais/modal-criar-pessoa/modal-criar-pessoa.component';
 
 @Component({
   selector: 'app-tela-login',
@@ -13,7 +15,8 @@ export class TelaLoginComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private dialogService: DialogService) { }
+    private dialogService: DialogService,
+    public dialog: MatDialog) { }
 
   loginForm = new FormGroup({
     usuario: new FormControl('', Validators.required),
@@ -40,6 +43,10 @@ export class TelaLoginComponent implements OnInit {
       }
     );
 
+  }
+  createPessoa() {
+    this.dialog.open(ModalCriarPessoaComponent, {
+    });
   }
 
 
