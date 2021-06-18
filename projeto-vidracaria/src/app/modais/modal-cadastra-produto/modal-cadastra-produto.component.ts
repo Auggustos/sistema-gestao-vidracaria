@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Produto } from '../classes/produto.class';
+import { Produto } from '../../classes/produto.class';
 import { Router } from "@angular/router";
 
-import { DialogService } from '../shared/services/dialog/dialog.service'
-import { ApiService } from '../shared/services/api.service';
-import { AuthService } from '../shared/services/auth.service';
+import { DialogService } from '../../shared/services/dialog/dialog.service'
+import { ApiService } from '../../shared/services/api.service';
+import { AuthService } from '../../shared/services/auth.service';
 @Component({
-  selector: 'app-cadastra-produto',
-  templateUrl: './cadastra-produto.component.html',
-  styleUrls: ['./cadastra-produto.component.css']
+  selector: 'app-modal-cadastra-produto',
+  templateUrl: './modal-cadastra-produto.component.html',
+  styleUrls: ['./modal-cadastra-produto.component.css']
 })
-export class CadastraProdutoComponent implements OnInit {
+export class ModalCadastraProdutoComponent implements OnInit {
 
   constructor(private dialogService: DialogService, private router: Router, private apiSevice: ApiService, private authService: AuthService) { }
 

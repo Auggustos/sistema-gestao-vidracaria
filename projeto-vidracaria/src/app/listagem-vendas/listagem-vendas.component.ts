@@ -1,5 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { PageEvent } from '@angular/material/paginator';
 import { Router } from "@angular/router";
+import { Produto } from '../classes/produto.class';
+import { ApiService } from '../shared/services/api.service'
+import { AuthService } from '../shared/services/auth.service';
+import { DialogService } from '../shared/services/dialog/dialog.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ModalCriarVendaComponent } from '../modais/modal-criar-venda/modal-criar-venda.component';
 
 export interface PeriodicElement {
   cliente: string;
@@ -33,12 +40,14 @@ export class ListagemVendasComponent implements OnInit {
   displayedColumns: string[] = ['cliente', 'valor', 'pagamento_em', 'pago','acoes'];
   dataSource = ELEMENT_DATA;
 
-  constructor(private router: Router) { }
+  constructor(private apiService: ApiService, private authService: AuthService, private dialogService: DialogService, private router: Router,
+    public dialog: MatDialog) { }
 
   ngOnInit(): void {
   }
-  openList() {
-    this.router.navigateByUrl('/projeto-v2/create').then();
+  createVenda() {
+    this.dialog.open(ModalCriarVendaComponent, {
+    });
   }
   onEnter(e) {
     //this.pesquisaCampos[0].texto = e.value.id

@@ -1,6 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { PageEvent } from '@angular/material/paginator';
 import { Router } from "@angular/router";
-
+import { Produto } from '../classes/produto.class';
+import { ApiService } from '../shared/services/api.service'
+import { AuthService } from '../shared/services/auth.service';
+import { DialogService } from '../shared/services/dialog/dialog.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ModalCriarPessoaComponent } from '../modais/modal-criar-pessoa/modal-criar-pessoa.component';
 
 export interface PeriodicElement {
   nome: string;
@@ -33,12 +39,14 @@ export class ListagemPessoasComponent implements OnInit {
   displayedColumns: string[] = ['nome', 'contato', 'tipo','acoes'];
   dataSource = ELEMENT_DATA;
 
-  constructor(private router: Router) { }
+  constructor(private apiService: ApiService, private authService: AuthService, private dialogService: DialogService, private router: Router,
+    public dialog: MatDialog) { }
 
   ngOnInit(): void {
   }
-  openList() {
-    this.router.navigateByUrl('/projeto-v2/create').then();
+  createPessoa() {
+    this.dialog.open(ModalCriarPessoaComponent, {
+    });
   }
   onEnter(e) {
     //this.pesquisaCampos[0].texto = e.value.id

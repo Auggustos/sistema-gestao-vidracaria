@@ -1,12 +1,23 @@
 import { Component, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { Router } from "@angular/router";
-import { Produto } from '../classes/produto.class';
 import { ApiService } from '../shared/services/api.service'
 import { AuthService } from '../shared/services/auth.service';
 import { DialogService } from '../shared/services/dialog/dialog.service';
-import { ModalVisualizarProdutoComponent } from '../modais/modal-visualizar-produto/modal-visualizar-produto.component';
 import { MatDialog } from '@angular/material/dialog';
+import { ModalVisualizarProdutoComponent } from '../modais/modal-visualizar-produto/modal-visualizar-produto.component';
+import { ModalCadastraProdutoComponent } from '../modais/modal-cadastra-produto/modal-cadastra-produto.component';
+
+export interface Produto {
+
+  id: number;
+  nome: string;
+  descricao: string;
+  preco: number;
+  imagem: string;
+  quantidade: number;
+
+  }
 
 @Component({
   selector: 'app-listagem-produtos',
@@ -18,6 +29,16 @@ export class ListagemProdutosComponent implements OnInit {
   length = 100;
   pageSize = 10;
   pageSizeOptions: number[] = [5, 10, 25, 100];
+
+  pesquisaCampos = [{ coluna: '', texto: '' },
+  { coluna: 'codigo', texto: '' },
+  { coluna: 'nome', texto: '' },
+  { coluna: 'situacao', texto: '' },
+  { coluna: 'tipo', texto: '' },
+  { coluna: 'bairro', texto: '' },
+  { coluna: 'fase', texto: '' },
+  { coluna: "ids_setor_primario", texto: '' },
+  { coluna: "ids_setor_secundario", texto: '' }];
 
   // MatPaginator Output
   pageEvent: PageEvent;
@@ -31,7 +52,17 @@ export class ListagemProdutosComponent implements OnInit {
 
   constructor(private apiService: ApiService, private authService: AuthService, private dialogService: DialogService, private router: Router,
     public dialog: MatDialog) { }
-  produtos: Produto[] = [];
+
+
+  produtos: Produto[] = [
+    { id: 0,
+      nome: 'box de banheiro',
+      descricao: "box de banheiro xique demais",
+      preco: 800,
+      imagem: "https://http2.mlstatic.com/D_NQ_NP_688189-MLB41945925550_052020-O.jpg",
+      quantidade: 10
+    }
+  ];
 
   showFiller = false;
 
@@ -82,10 +113,6 @@ export class ListagemProdutosComponent implements OnInit {
       this.quantidadeProduto.push({ id: idProduto, quantidade: quantidade - 1 });
     }
 
-
-
-
-
     if (this.carrinho.length > 0) {
       let flag = 0;
       for (let i = 0; i < this.carrinho.length; i++) {
@@ -114,6 +141,7 @@ export class ListagemProdutosComponent implements OnInit {
       })
     }
   }
+
   desabilitaCarrinho(idProduto): boolean {
     let flag = 0;
     if (this.quantidadeProduto.length > 0) {
@@ -147,5 +175,38 @@ export class ListagemProdutosComponent implements OnInit {
     }
   }
 
+  createProduto() {
+    this.dialog.open(ModalCadastraProdutoComponent, {
+    });
+  }
+  onEnter(e) {
+    //this.pesquisaCampos[0].texto = e.value.id
+//    this.projetoTableChild.onChange();
+  }
+  onClean() {
+    /*
+    this.disableFiltroRapido = true;
+    this.pesquisaCampos.forEach(e => {
+      e.texto = "";
+    });
+    this.tipo_filtro = [];
+    this.fase_filtro = [];
+    this.filterAdvancedForm.patchValue({
+      situacao_filtro: [],
+      setorp_selecionados: [],
+      setors_selecionados: []
+    })
+    this.onChange();
+    */
+  }
+
+  onChange() {
+   // this.projetoTableChild.onChange();
+  }
+
+  limpaCampoPesquisa() {
+    this.pesquisaCampos[0].texto = '';
+    this.onChange();
+  }
 
 }

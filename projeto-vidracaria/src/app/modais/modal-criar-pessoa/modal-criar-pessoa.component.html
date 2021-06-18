@@ -1,0 +1,38 @@
+<body class="body">
+    <div>
+        <div>
+            <mat-card>
+                <mat-card-title>
+                    Cadastro de Pessoa
+                </mat-card-title>
+                <form class="cadastro-form" [formGroup]="pessoaForm">
+                    <div class="row">
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Nome</mat-label>
+                            <input matInput formControlName="nome" />
+                        </mat-form-field>
+                    </div>
+                    <div class="row">
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Contato</mat-label>
+                            <input [textMask]="{mask: mask}" type="text" matInput placeholder="(99) 999999999" formControlName="celular">
+                        </mat-form-field>
+                    </div>
+
+                    <div class="row">
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Endereco</mat-label>
+                            <textarea matInput formControlName="endereco"></textarea>
+                        </mat-form-field>
+                    </div>
+
+                    <br>
+                    <div class="buttons">
+                        <div class="buttons"><button mat-raised-button class="button-cadastrar" (click)="cadastraUsuario()" [disabled]="!this.pessoaForm.valid">Cadastrar</button></div>
+                        <div class="buttons"><button mat-raised-button class="button-voltar" (click)="goBack()">Voltar</button></div>
+                    </div>
+                </form>
+            </mat-card>
+        </div>
+    </div>
+</body>

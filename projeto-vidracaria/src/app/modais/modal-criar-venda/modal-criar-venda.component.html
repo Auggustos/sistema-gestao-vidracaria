@@ -1,0 +1,69 @@
+<body class="body">
+    <div>
+        <div>
+            <mat-card>
+                <mat-card-title>
+                    Cadastro de Venda
+                </mat-card-title>
+                <form class="cadastro-form" [formGroup]="vendaForm">
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Cliente</mat-label>
+                        <input type="text" placeholder="Selecione um" matInput formControlName="cliente" [matAutocomplete]="auto">
+                        <mat-autocomplete #auto="matAutocomplete">
+                            <mat-option *ngFor="let cliente of filteredOptions | async" [value]="cliente">
+                                {{cliente}}
+                            </mat-option>
+                        </mat-autocomplete>
+                    </mat-form-field>
+
+                    <div class="row">
+                        <mat-form-field class="example-full-width">
+                            <input matInput placeholder="Selecione uma data" [matDatepicker]="datepickerRef" formControlName="data" required readonly/>
+                            <mat-datepicker-toggle [for]="datepickerRef" matSuffix></mat-datepicker-toggle>
+                            <mat-datepicker #datepickerRef></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="row">
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Local</mat-label>
+                            <textarea matInput formControlName="local"></textarea>
+                        </mat-form-field>
+                    </div>
+                    <div class="row">
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Tipos</mat-label>
+                            <mat-select [(ngModel)]="valorTipo" formControlName="tipo">
+                                <mat-option *ngFor="let tipo of tipos" [value]="tipo.id">
+                                    {{tipo.tipo}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="row">
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Status</mat-label>
+                            <mat-select [(ngModel)]="valorStatus" formControlName="status">
+                                <mat-option *ngFor="let situacao of situacoes" [value]="situacao.id">
+                                    {{situacao.situacao}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="row">
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Valor</mat-label>
+                            <input currencyMask matInput [(ngModel)]="valorVenda" formControlName="valor" [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" />
+                        </mat-form-field>
+                    </div>
+
+                    <br>
+                    <div class="buttons">
+                        <div class="buttons"><button mat-raised-button class="button-cadastrar" (click)="cadastraUsuario()" [disabled]="!this.vendaForm.valid">Cadastrar</button></div>
+                        <div class="buttons"><button mat-raised-button class="button-voltar" (click)="goBack()">Voltar</button></div>
+                    </div>
+                </form>
+            </mat-card>
+        </div>
+    </div>
+</body>

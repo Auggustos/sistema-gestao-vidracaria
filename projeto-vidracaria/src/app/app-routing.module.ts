@@ -10,10 +10,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { ListagemProdutosComponent } from './listagem-produtos/listagem-produtos.component';
 import { AuthGuard } from './shared/services/auth.service';
 import { AtualizaProdutoComponent } from './atualiza-produto/atualiza-produto.component';
-import { CadastraProdutoComponent } from './cadastra-produto/cadastra-produto.component';
 import { GerirProdutosComponent } from './gerir-produtos/gerir-produtos.component';
 import { ErrorComponent } from './error/error.component';
-import { CadastraUsuarioComponent } from './cadastra-usuario/cadastra-usuario.component';
 import { TelaLoginComponent } from './tela-login/tela-login.component'; 
 import { ListagemServicosComponent } from './listagem-servicos/listagem-servicos.component';
 import { ListagemVendasComponent } from './listagem-vendas/listagem-vendas.component';
@@ -24,20 +22,12 @@ const routes: Routes = [
     component: TelaLoginComponent
   },
   {
-    path: 'usuario/cadastra',
-    component: CadastraUsuarioComponent
-  },
-  {
     path: 'produto/gerir',
     component: GerirProdutosComponent, canActivate: [AuthGuard]
   },
   {
     path: 'produto/:id/atualiza',
     component: AtualizaProdutoComponent, canActivate: [AuthGuard]
-  },
-  {
-    path: 'produto/cadastra',
-    component: CadastraProdutoComponent, canActivate: [AuthGuard]
   },
   {
     path: '',

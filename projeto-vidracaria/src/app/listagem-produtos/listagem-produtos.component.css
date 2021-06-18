@@ -73,3 +73,66 @@ body {
 .mat-content {
     margin-top: 10px;
 }
+
+table {
+    width: 100%;
+}
+
+.mat-column {
+    word-wrap: break-word !important;
+    white-space: unset !important;
+    flex: 0 0 28% !important;
+    width: 20% !important;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word;
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+}
+
+.sigelu-button-novo {
+    background-color: #287f7c;
+    border-color: #257573;
+    position: absolute;
+    right: 30px;
+    top: 10px;
+}
+
+.mat-form-field {
+    width: 100%;
+}
+
+.pesquisa-avancada {
+    padding: 10px 0px;
+}
+
+.pesquisa-button {
+    color: #fff;
+    background-color: #287f7c;
+    margin-right: 100px;
+    margin-top: 18px;
+}
+
+.limpar-button {
+    background-color: #ABB2B9;
+    float: right;
+    color: black;
+    margin-top: -36px;
+    margin-right: 200px;
+}
+
+#busca {
+    width: 100%;
+    text-align: end;
+}
+
+.btn-disable {
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+.campo-pesquisa {
+    width: 30%;
+}
