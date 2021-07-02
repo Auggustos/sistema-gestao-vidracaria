@@ -18,19 +18,23 @@
 
                     <div class="row">
                         <mat-form-field class="example-full-width">
+                            <mat-label>Valor</mat-label>
+                            <input currencyMask matInput [(ngModel)]="valorVenda" formControlName="valor" [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" />
+                        </mat-form-field>
+                    </div>
+
+                    <div class="row">
+                        <mat-form-field class="example-full-width">
                             <input matInput placeholder="Selecione uma data" [matDatepicker]="datepickerRef" formControlName="data" required readonly/>
                             <mat-datepicker-toggle [for]="datepickerRef" matSuffix></mat-datepicker-toggle>
                             <mat-datepicker #datepickerRef></mat-datepicker>
                         </mat-form-field>
                     </div>
+
                     <div class="row">
-                        <mat-form-field class="example-full-width">
-                            <mat-label>Produto</mat-label>
-                            <mat-select [(ngModel)]="valorProduto" formControlName="produto">
-                                <mat-option *ngFor="let produto of produtos" [value]="produto.id">
-                                    {{produto.produto}}
-                                </mat-option>
-                            </mat-select>
+                        <mat-form-field class="example-full-width" appearance="fill">
+                            <mat-label>Itens</mat-label>
+                            <textarea matInput placeholder="digite os produtos/serviços" [(ngModel)]="valorProduto" formControlName="produto"></textarea>
                         </mat-form-field>
                     </div>
                     <div class="row">
@@ -43,22 +47,29 @@
                             </mat-select>
                         </mat-form-field>
                     </div>
+
                     <div class="row">
                         <mat-form-field class="example-full-width">
-                            <mat-label>Status</mat-label>
-                            <mat-select [(ngModel)]="valorStatus" formControlName="status">
-                                <mat-option *ngFor="let situacao of situacoes" [value]="situacao.id">
-                                    {{situacao.situacao}}
+                            <mat-label>Pagamento</mat-label>
+                            <mat-select [(ngModel)]="valorPagamento" formControlName="pagamento">
+                                <mat-option *ngFor="let pagamento of pagamentos" [value]="pagamento.id">
+                                    {{pagamento.pagamento}}
                                 </mat-option>
                             </mat-select>
                         </mat-form-field>
                     </div>
+
                     <div class="row">
                         <mat-form-field class="example-full-width">
-                            <mat-label>Valor</mat-label>
-                            <input currencyMask matInput [(ngModel)]="valorVenda" formControlName="valor" [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" />
+                            <mat-label>Pago</mat-label>
+                            <mat-select [(ngModel)]="valorPagamento" formControlName="pagamento">
+                                <mat-option *ngFor="let pa of pago" [value]="pa.id">
+                                    {{pa.p}}
+                                </mat-option>
+                            </mat-select>
                         </mat-form-field>
                     </div>
+
 
                     <br>
                     <div class="buttons">

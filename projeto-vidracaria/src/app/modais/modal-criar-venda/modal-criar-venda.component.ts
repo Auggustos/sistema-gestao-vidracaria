@@ -17,9 +17,15 @@ interface Situacoes {
   id: number;
   situacao: string;
 }
-interface Produtos {
+
+interface Pagamentos {
   id: number;
-  produto: string;
+  pagamento: string;
+}
+
+interface Pago {
+  id: number;
+  p: string;
 }
 
 @Component({
@@ -32,17 +38,16 @@ interface Produtos {
   ]
 })
 export class ModalCriarVendaComponent implements OnInit {
+ name = 'Angular';
  valorVenda;
  valorProduto;
-  name = 'Angular';
  formattedAmount;
  amount;
   constructor(private apiService: ApiService, private dialogService: DialogService, private router : Router) { }
 
   tipos: Tipos[] = [
-    {id: 0, tipo:'Reforma' },
-    {id: 1, tipo:'Orçamento' },
-    {id: 2, tipo:'Instalação' },
+    {id: 0, tipo:'Serviço' },
+    {id: 1, tipo:'Produto' },
   ];
 
   situacoes: Situacoes[] = [
@@ -50,9 +55,14 @@ export class ModalCriarVendaComponent implements OnInit {
     {id: 1, situacao:'Não Realizado' },
   ];
 
-  produtos: Produtos[] = [
-    {id: 0, produto:'parafuso' },
-    {id: 1, produto:'silicone' },
+  pagamentos: Pagamentos[] = [
+    {id: 0, pagamento:'Pagamento em cartão' },
+    {id: 1, pagamento:'Pagamento em dinheiro' },
+  ];
+
+  pago: Pago[] = [
+    {id: 0, p:'Sim' },
+    {id: 1, p:'Não' },
   ];
 
   hide = true;
@@ -65,13 +75,14 @@ export class ModalCriarVendaComponent implements OnInit {
   vendaForm = new FormGroup({
     cliente: new FormControl('',Validators.required),
     data: new FormControl('',Validators.required),
-    produto: new FormControl('',Validators.required),
-    tipo: new FormControl('',Validators.required),
-    status: new FormControl('',Validators.required),
+    itens: new FormControl('',Validators.required),
     valor: new FormControl('',Validators.required),
+    pagamento: new FormControl('',Validators.required),
+    pago: new FormControl('',Validators.required),
   });
  valorTipo: number;
  valorStatus: number;
+ valorPagamento: number;
 
   ngOnInit() {
     this.filteredOptions = this.myControl.valueChanges
@@ -102,10 +113,10 @@ export class ModalCriarVendaComponent implements OnInit {
     return{
       cliente: this.vendaForm.value.cliente,
       data: this.vendaForm.value.data,
-      produto: this.vendaForm.value.produto,
-      tipo: this.vendaForm.value.tipo,
-      status: this.vendaForm.value.status,
-      valor: this.vendaForm.value.valor
+      itens: this.vendaForm.value.produto,
+      valor: this.vendaForm.value.valor,
+      pagamento: this.vendaForm.value.pagamento,
+      pago: this.vendaForm.value.pago,
     }
   }
   
