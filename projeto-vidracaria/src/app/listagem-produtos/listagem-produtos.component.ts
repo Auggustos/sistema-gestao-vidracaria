@@ -21,15 +21,7 @@ export class ListagemProdutosComponent implements OnInit {
   pageSize = 10;
   pageSizeOptions: number[] = [5, 10, 25, 100];
 
-  pesquisaCampos = [{ coluna: '', texto: '' },
-  { coluna: 'codigo', texto: '' },
-  { coluna: 'nome', texto: '' },
-  { coluna: 'situacao', texto: '' },
-  { coluna: 'tipo', texto: '' },
-  { coluna: 'bairro', texto: '' },
-  { coluna: 'fase', texto: '' },
-  { coluna: "ids_setor_primario", texto: '' },
-  { coluna: "ids_setor_secundario", texto: '' }];
+  pesquisaCampos = [{ coluna: '', texto: '' }];
 
   // MatPaginator Output
   pageEvent: PageEvent;
@@ -57,19 +49,9 @@ export class ListagemProdutosComponent implements OnInit {
 
     this.apiService.getProdutos().subscribe(response => {
       let resposta = response;
-     // console.log(resposta)
-     // if (this.authService.isLoggedIn()) {
-     //   const userId = this.authService.getUserId();
-     //   response.forEach(produto => {
-     //    if (produto.id_usuario != userId && produto.quantidade > 0) {
-     //        this.produtos.push(produto);
-     //      }
-     //   })
-     // } else {
         resposta.results.forEach(produto => {
           this.produtos.push(produto);      
         })
-      //}
     },
       error => {
         this.dialogService.showError(`${error.error.error}`, "Erro ao Listar Produtos!")
@@ -83,48 +65,12 @@ export class ListagemProdutosComponent implements OnInit {
         idProduto: id,
       }
     });
-    /* 
-    if (!this.authService.isLoggedIn()) {
-      this.dialogService.showWarning("Você precisa estar logado para adicionar algum item ao carrinho!", "Autentique-se!").then(result => {
-        this.router.navigateByUrl('login').then(success => location.reload())
-      })
-    } else {
-      this.dialog.open(ModalVisualizarProdutoComponent, {
-        width: '20%',
-        height: '601px',
-        data: {
-          idProduto: id,
-        }
-      });
-    }
-    */
   }
 
   createProduto() {
     this.dialog.open(ModalCadastraProdutoComponent, {
     });
   }
-  onEnter(e) {
-    //this.pesquisaCampos[0].texto = e.value.id
-//    this.projetoTableChild.onChange();
-  }
-  onClean() {
-    /*
-    this.disableFiltroRapido = true;
-    this.pesquisaCampos.forEach(e => {
-      e.texto = "";
-    });
-    this.tipo_filtro = [];
-    this.fase_filtro = [];
-    this.filterAdvancedForm.patchValue({
-      situacao_filtro: [],
-      setorp_selecionados: [],
-      setors_selecionados: []
-    })
-    this.onChange();
-    */
-  }
-
   onDelete(id: string, name: string){
     this.dialogService.showConfirm('Excluir produto', 'Deseja excluir o produto?').then(result =>{
       if(result.value == true){
@@ -144,12 +90,25 @@ export class ListagemProdutosComponent implements OnInit {
    }
 
   onChange() {
-   // this.projetoTableChild.onChange();
   }
 
-  limpaCampoPesquisa() {
+  onEnter(e) {
+    this.produtos = [];
+    this.apiService.getProdutos().subscribe(response => {
+      let resposta = response;
+        resposta.results.forEach(produto => {
+          if(produto.name.toLowerCase().includes(this.pesquisaCampos[0].texto.toLowerCase())){
+            this.produtos.push(produto);      
+          }          
+        })
+    },
+      error => {
+        this.dialogService.showError(`${error.error.error}`, "Erro ao filtrar lista de produtos!")
+      });
+  }
+  onClean() {
     this.pesquisaCampos[0].texto = '';
-    this.onChange();
+    this.ngOnInit();
   }
 
 }

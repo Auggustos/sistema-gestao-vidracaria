@@ -13,7 +13,7 @@
                 <mat-form-field class="campo-pesquisa">
                     <input matInput placeholder="Pesquisar" [(ngModel)]="pesquisaCampos[0].texto" (keyup.enter)="onEnter(pesquisaCampos[0].texto)">
                     <mat-icon class="expandir-button" style="cursor:pointer" matSuffix matTooltip="Pesquisar" (click)="onChange()">search</mat-icon>
-                    <mat-icon [class.btn-disable]="!pesquisaCampos[0].texto" class="expandir-button" style="cursor:pointer" matTooltip="Limpar" matSuffix (click)="limpaCampoPesquisa()">clear</mat-icon>
+                    <mat-icon [class.btn-disable]="!pesquisaCampos[0].texto" class="expandir-button" style="cursor:pointer" matTooltip="Limpar" matSuffix (click)="onClean()">clear</mat-icon>
                 </mat-form-field>
             </div>
             <div class="col-lg-4 col-md-12 col-sm-12">
