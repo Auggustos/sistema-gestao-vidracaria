@@ -18,11 +18,13 @@
      "shared/*"
     ]
    },
-   "esModuleInterop": true,
    "experimentalDecorators": true,
    "emitDecoratorMetadata": true,
    "skipLibCheck": true,
    "sourceMap": true,
-   "forceConsistentCasingInFileNames": true
+   "forceConsistentCasingInFileNames": true,
+   "resolveJsonModule": true,
+  "esModuleInterop": true,
+  "allowSyntheticDefaultImports": true
   }
  }

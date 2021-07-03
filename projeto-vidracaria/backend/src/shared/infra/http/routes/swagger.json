@@ -1,0 +1,188 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Backend servidor trabalho Opção Vidraçaria",
+    "description": "API com objetivo de desenvolver um trabalho para a disciplina de Desenvolvimento de Sistemas",
+    "contact": {
+      "email": "thiagosiqueira@unifei.edu.br"
+    },
+    "version": "1.0.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000",
+      "description": "Endpoint pra testes"
+    }
+  ],
+  "paths": {
+    "/products": {
+      "post": {
+        "summary": "Cadastro de produto",
+        "description": "Esta rota será responsável por cadastrar um novo produto",
+        "tags": [
+          "Products"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Product"
+              },
+              "examples": {
+                "product": {
+                  "value": {
+                    "name": "Box blindado",
+                    "description": "Box blindado com espessura 300mm",
+                    "quantity": 6
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "product": {
+                    "type": "object",
+                    "$": "#/components/schemas/Product"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/products/{id}": {
+      "get": {
+        "summary": "Buscar produto pelo id",
+        "description": "Buscar produto pelo id",
+        "tags": [
+          "Products"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID do produto para busca",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "product": {
+                    "type": "object",
+                    "$": "#/components/schemas/Product"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/customers": {
+      "post": {
+        "summary": "Cadastro de cliente",
+        "description": "Esta rota será responsável por cadastrar um novo cliente",
+        "tags": [
+          "Customers"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Customer"
+              },
+              "examples": {
+                "product": {
+                  "value": {
+                    "name": "Zé da Fruta",
+                    "phone": "(35) 99937-4435",
+                    "address": "Rua dos Jacarés",
+                    "type": 0
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "customer": {
+                    "type": "object",
+                    "$": "#/components/schemas/Customer"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Product": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "quantity": {
+            "type": "number"
+          }
+        }
+      },
+      "Customer": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "phone": {
+            "type": "string"
+          },
+          "address": {
+            "type": "number"
+          },
+          "type": {
+            "type": "number"
+          }
+        }
+      }
+    },
+    "securitySchemas": {
+      "bearerAuth": {
+        "type": "http",
+        "schema": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}
