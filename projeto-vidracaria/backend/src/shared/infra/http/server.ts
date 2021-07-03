@@ -35,5 +35,5 @@ app.use(
 );
 
 app.listen(3000, () => {
-  console.log('Servidor backend iniciado!');
+  console.log('Servidor backend iniciado! 😀');
 });
