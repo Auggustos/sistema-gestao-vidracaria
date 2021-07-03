@@ -1,0 +1,24 @@
+<mat-card>
+    <mat-card-header class="teste-pai">
+        <mat-card-title>Dados Pessoa</mat-card-title>
+        <!--
+        <mat-card-subtitle>R{{produto.preco| currency}}</mat-card-subtitle>
+        -->
+    </mat-card-header>
+    <div class="mat-content">
+        <mat-card-content>
+            <p>
+                <span style="font-weight: bold;">Nome:</span> {{pessoa.name}}
+            </p>
+            <p>
+                <span style="font-weight: bold;">Contato:</span> {{pessoa.phone}}
+            </p>
+            <p>
+                <span style="font-weight: bold;">Endereço:</span> {{pessoa.address}}
+            </p>
+            <p>
+                <span style="font-weight: bold;">Tipo:</span> {{pessoa.type == 0 ? 'Cliente' : 'Fornecedor'}}
+            </p>
+        </mat-card-content>
+    </div>
+</mat-card>

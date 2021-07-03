@@ -1,23 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { Router } from "@angular/router";
-import { Produto } from '../classes/produto.class';
+import { Pessoa } from '../classes/pessoa.class';
 import { ApiService } from '../shared/services/api.service'
 import { AuthService } from '../shared/services/auth.service';
 import { DialogService } from '../shared/services/dialog/dialog.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalCriarPessoaComponent } from '../modais/modal-criar-pessoa/modal-criar-pessoa.component';
+import { ModalVisualizarPessoaComponent } from '../modais/modal-visualizar-pessoa/modal-visualizar-pessoa.component';
 
 export interface PeriodicElement {
-  nome: string;
-  contato: string;
-  tipo: string;
+  name: string;
+  phone: string;
+  type: number;
 }
 
-const ELEMENT_DATA: PeriodicElement[] = [
-  {nome: "Marcio da Silva", contato: '(35)9 91919191', tipo: 'Cliente'},
-  {nome: "Andrea Siqueira de Paula", contato: '(35)9 92929292', tipo: 'Fornecedor'},
-];
+let ELEMENT_DATA: Pessoa[] = [];
 
 @Component({
   selector: 'app-listagem-pessoas',
@@ -43,14 +41,66 @@ export class ListagemPessoasComponent implements OnInit {
     public dialog: MatDialog) { }
 
   ngOnInit(): void {
+    this.montaTabela();
   }
   createPessoa() {
     this.dialog.open(ModalCriarPessoaComponent, {
     });
   }
+  montaTabela() {
+
+    let dadosTabela : Pessoa[] = []
+    this.apiService.getPessoas().subscribe(response =>{
+      dadosTabela = response.results;
+      ELEMENT_DATA = dadosTabela;
+      this.atualizaTabela();     
+
+    }, error => {
+      this.dialogService.showError("Erro ao obter dados das pessoas!","Erro");
+    });
+  }
+
+  atualizaTabela() {
+    this.dataSource = ELEMENT_DATA;
+  }
+
+  onChange() {
+   // this.projetoTableChild.onChange();
+  }
+
+  onView(id: string){
+    this.dialog.open(ModalVisualizarPessoaComponent, {
+      data: {
+        idPessoa: id,
+      }
+    });
+  }
+  onDelete(id: string,name:string){
+    this.dialogService.showConfirm('Excluir pessoa', 'Deseja excluir a pessoa?').then(result =>{
+      if(result.value == true){
+        this.apiService.deletaPessoa(id).subscribe(response =>{
+            this.dialogService.showSuccess(`${name} Deletado(a) com sucesso!`, "Pessoa Deletado!").then(result => {
+            this.router.navigateByUrl('').then(success => location.reload())
+            });
+        },
+          error =>{
+            this.dialogService.showError(`${error.error.error}`, "Erro ao Excluir Pessoa!")
+          })
+      }
+    });
+  }
+  onEdit(id: string){
+    //inserir aqui
+  }
+
+  limpaCampoPesquisa() {
+    this.pesquisaCampos[0].texto = '';
+    this.onChange();
+  }
+
   onEnter(e) {
     //this.pesquisaCampos[0].texto = e.value.id
-//    this.projetoTableChild.onChange();
+    //    this.projetoTableChild.onChange();
   }
   onClean() {
     /*
@@ -67,14 +117,5 @@ export class ListagemPessoasComponent implements OnInit {
     })
     this.onChange();
     */
-  }
-
-  onChange() {
-   // this.projetoTableChild.onChange();
-  }
-
-  limpaCampoPesquisa() {
-    this.pesquisaCampos[0].texto = '';
-    this.onChange();
   }
 }

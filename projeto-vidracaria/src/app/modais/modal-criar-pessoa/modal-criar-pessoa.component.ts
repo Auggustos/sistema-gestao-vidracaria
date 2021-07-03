@@ -13,12 +13,6 @@ interface Tipos {
   tipo: string;
 }
 
-interface Situacoes {
-  id: number;
-  situacao: string;
-}
-
-
 @Component({
   selector: 'app-modal-criar-pessoa',
   templateUrl: './modal-criar-pessoa.component.html',
@@ -30,15 +24,10 @@ export class ModalCriarPessoaComponent implements OnInit {
   public mask = ['(', /[1-9]/, /\d/, ')',' ', /\d/,' ', /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
 
   tipos: Tipos[] = [
-    {id: 0, tipo:'Reforma' },
-    {id: 1, tipo:'Orçamento' },
-    {id: 2, tipo:'Instalação' },
+    {id: 0, tipo: 'Cliente'},
+    {id: 1, tipo: 'Fornecedor'}
   ];
 
-  situacoes: Situacoes[] = [
-    {id: 0, situacao:'Realizado' },
-    {id: 1, situacao:'Não Realizado' },
-  ];
 
  valorTipo: number;
  valorStatus: number;
@@ -51,24 +40,10 @@ export class ModalCriarPessoaComponent implements OnInit {
   
   myControl = new FormControl();
 
-  clientes: string[] = ['Ana', 'Marcos', 'Gabriel'];
-
   filteredOptions: Observable<string[]>;
 
 
-  ngOnInit() {
-    this.filteredOptions = this.myControl.valueChanges
-      .pipe(
-        startWith(''),
-        map(value => this._filter(value))
-      );
-  }
-
-  private _filter(value: string): string[] {
-    const filterValue = value.toLowerCase();
-
-    return this.clientes.filter(option => option.toLowerCase().includes(filterValue));
-  }
+  ngOnInit() { }
 
   constructor(private apiService: ApiService, private dialogService: DialogService, private router : Router) { }
 
@@ -78,27 +53,33 @@ export class ModalCriarPessoaComponent implements OnInit {
     nome: new FormControl('',Validators.required),
     celular: new FormControl('',Validators.required),
     endereco: new FormControl('',Validators.required),
+    tipo: new FormControl('',Validators.required),
+
   });
   goBack() {
     window.history.back();
   }
   cadastraUsuario() {
     const body = this.loadObject();
-    /*this.apiService.postUsuario(body).subscribe(success =>{
-      this.dialogService.showSuccess(`Usuário ${body.nome} cadastrado com sucesso!`,"Cadastro Concluido").then(result => {
+    console.log(body);
+   
+    this.apiService.postPessoa(body).subscribe(success =>{
+      this.dialogService.showSuccess(`Usuário ${body.name} cadastrado(a) com sucesso!`,"Cadastro Concluido").then(result => {
         this.router.navigateByUrl('login').then(success => location.reload())
       });
     },
     error => {
       this.dialogService.showError(`${error.error.message}`, "Acesso Negado!")
     });
-    */
+    
+
   }
   loadObject(){
     return{
-      nome: this.pessoaForm.value.cliente,
-      celular: this.pessoaForm.value.data,
-      endereco: this.pessoaForm.value.local,
+      name: this.pessoaForm.value.nome,
+      phone: this.pessoaForm.value.celular,
+      address: this.pessoaForm.value.endereco,
+      type: this.pessoaForm.value.tipo,
     }
   }
 

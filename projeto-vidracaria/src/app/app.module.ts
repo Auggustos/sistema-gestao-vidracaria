@@ -41,6 +41,7 @@ import { ListagemVendasComponent } from './listagem-vendas/listagem-vendas.compo
 import { ModalCriarServicoComponent } from './modais/modal-criar-servico/modal-criar-servico.component';
 import { ModalCriarVendaComponent } from './modais/modal-criar-venda/modal-criar-venda.component';
 import { ModalCriarPessoaComponent } from './modais/modal-criar-pessoa/modal-criar-pessoa.component';
+import { ModalVisualizarPessoaComponent } from './modais/modal-visualizar-pessoa/modal-visualizar-pessoa.component';
 
 @NgModule({
   declarations: [
@@ -58,6 +59,7 @@ import { ModalCriarPessoaComponent } from './modais/modal-criar-pessoa/modal-cri
     ErrorComponent,
     AppComponent,
     ModalCriarPessoaComponent,
+    ModalVisualizarPessoaComponent,
   ],
   imports: [
     BrowserAnimationsModule,
@@ -105,7 +107,8 @@ import { ModalCriarPessoaComponent } from './modais/modal-criar-pessoa/modal-cri
     ModalCriarServicoComponent,
     ModalCriarVendaComponent,
     ModalCriarPessoaComponent,
-    ModalCadastraProdutoComponent
+    ModalCadastraProdutoComponent,
+    ModalVisualizarPessoaComponent
   ],
   bootstrap: [AppComponent]
 })
