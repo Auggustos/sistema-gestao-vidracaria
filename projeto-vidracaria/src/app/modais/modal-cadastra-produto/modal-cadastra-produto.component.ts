@@ -6,6 +6,7 @@ import { Router } from "@angular/router";
 import { DialogService } from '../../shared/services/dialog/dialog.service'
 import { ApiService } from '../../shared/services/api.service';
 import { AuthService } from '../../shared/services/auth.service';
+
 @Component({
   selector: 'app-modal-cadastra-produto',
   templateUrl: './modal-cadastra-produto.component.html',
@@ -24,14 +25,12 @@ export class ModalCadastraProdutoComponent implements OnInit {
   hide = true;
 
   produto: Produto;
- /*
 
- */
   productForm = new FormGroup({
-    nome: new FormControl('', Validators.required),
-    descricao: new FormControl('',Validators.required),
-    imagem: new FormControl('',Validators.required),
-    quantidade: new FormControl('',Validators.required),
+    name: new FormControl('', Validators.required),
+    description: new FormControl('',Validators.required),
+    imageUrl: new FormControl('',Validators.required),
+    quantity: new FormControl('',Validators.required),
   });
 
   ngOnInit(): void {
@@ -46,7 +45,7 @@ export class ModalCadastraProdutoComponent implements OnInit {
       const file = event.target.files[0];
       this.uploadData = new FormData();
 
-      this.uploadData.append('imagem', this.selectedFile, this.selectedFile.name);
+      this.uploadData.append('imageUrl', this.selectedFile, this.selectedFile.name);
 
       const reader = new FileReader();
       reader.onload = e => this.imageSrc = reader.result;
@@ -54,29 +53,37 @@ export class ModalCadastraProdutoComponent implements OnInit {
       reader.readAsDataURL(file);
     }
 
-    this.productForm.controls['imagem'].setValue(this.selectedFile);
+    this.productForm.controls['imageUrl'].setValue(this.selectedFile);
   }
 
   onUpload() {
-    const uploadData = new FormData();
-    uploadData.append('imagem', this.selectedFile);
-    uploadData.append('nome', this.productForm.value.nome);
-    uploadData.append('descricao', this.productForm.value.descricao);
-    uploadData.append('quantidade', this.productForm.value.quantidade);
 
-    /*
- this.apiSevice.postProdutos(uploadData)
+    const uploadData = new FormData();
+   // uploadData.append('imageUrl', this.selectedFile);
+   uploadData.append('imageUrl', 'string de imagem');
+    uploadData.append('name', this.productForm.value.name);
+    uploadData.append('description', this.productForm.value.description);
+    uploadData.append('quantity', this.productForm.value.quantity);
+
+    let body = { // trocar isso aqui no futuro
+      imageUrl: 'string de imagem',
+      name: this.productForm.value.name,
+      description: this.productForm.value.description,
+      quantity: this.productForm.value.quantity
+    }
+    //this.apiSevice.postProdutos(uploadData)
+    this.apiSevice.postProdutos(body) // usar isso aqui quando a api estiver esperando um formdata
       .subscribe(
         success => {
-          this.dialogService.showSuccess(`${this.productForm.value.nome} cadastrado com sucesso!`, "Produto Cadastrado!").then(result => {
-            this.router.navigateByUrl('').then(success => location.reload())
+          this.dialogService.showSuccess(`${this.productForm.value.name} cadastrado com sucesso!`, "Produto Cadastrado!").then(result => {
+          this.router.navigateByUrl('').then(success => location.reload())
           });
         },
         error => {
           this.dialogService.showError(`${error.error.error}`, "Erro no Cadastro!");
         }
       );
- */
+ 
    
   }
 

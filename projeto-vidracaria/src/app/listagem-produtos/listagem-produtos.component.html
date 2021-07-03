@@ -27,13 +27,16 @@
             <div class="container-card">
                 <mat-card class="example-card" *ngFor="let produto of produtos">
                     <mat-card-header class="teste-pai">
-                        <!--
-                        <button mat-icon-button class="teste-filho" matTooltip="Acicionar ao carrinho" (click)="adicionaAoCarrinho(produto.id, produto.preco, produto.nome,produto.quantidade)" [disabled]="(!desabilitaCarrinho(produto.id) || produto.quantidade <= 0)">
-                            <mat-icon>add_shopping_cart</mat-icon>
-                        </button>
-                        -->
 
-                        <mat-card-title>{{produto.nome}} </mat-card-title>
+                        <button mat-icon-button class="button-delete" matTooltip="Deletar produto" (click)="onDelete(produto.id,produto.name)">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+
+                        <button mat-icon-button class="button-edit" matTooltip="Editar produto" (click)="onDelete(produto.id)">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+
+                        <mat-card-title>{{produto.name}} </mat-card-title>
                         <!--
                         <mat-card-subtitle>
                             <div *ngIf="!produto.usuario.pagamento_cartao">
@@ -48,10 +51,10 @@
                     </mat-card-header>
                     <div (click)="visualizaProduto(produto.id)" class="mat-content">
                         <!--<img mat-card-image src="http://127.0.0.1:3000/files/{{produto.imagem}}" class="imagem-produto">-->
-                        <img mat-card-image src="{{produto.imagem}}" class="imagem-produto">
+                        <img mat-card-image src="{{produto.imageUrl}}" class="imagem-produto">
                         <mat-card-content>
                             <p>
-                                <span style="font-weight: bold;">Descricao:</span> {{produto.descricao}}
+                                <span style="font-weight: bold;">Descricao:</span> {{produto.description}}
                             </p>
                         </mat-card-content>
                     </div>

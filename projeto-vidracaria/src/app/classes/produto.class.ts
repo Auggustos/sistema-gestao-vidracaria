@@ -2,21 +2,21 @@ import { Usuario } from './usuario.class';
 
 export class Produto {
     id: string;
-    nome: string;
-    descricao: string;
-    preco: number;
-    imagem: string;
-    id_usuario: string;
-    quantidade: number;
-    usuario: Usuario;
-    constructor(id, nome, descricao, preco, imagem, id_usuario, quantidade,usuario) {
+    name: string;
+    description: string;
+    quantity: number;
+    imageUrl: string;
+    created_at: string;
+    updated_at: number;
+    deleted_at: Date;
+    constructor(id, name, description, quantity, imageUrl, created_at, updated_at,deleted_at) {
         this.id = id;
-        this.nome = nome;
-        this.descricao = descricao;
-        this.preco = preco;
-        this.imagem = imagem;
-        this.id_usuario = id_usuario;
-        this.quantidade = quantidade;
-        this.usuario = usuario
+        this.name = name;
+        this.description = description;
+        this.quantity = quantity;
+        this.imageUrl = imageUrl;
+        this.created_at = created_at;
+        this.updated_at = updated_at;
+        this.deleted_at = deleted_at
     }
 }
