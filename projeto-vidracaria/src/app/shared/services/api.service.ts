@@ -13,7 +13,7 @@ export class ApiService {
   constructor(private http: HttpClient) { }
   url = "http://localhost:3000";
 
-  getProduto(id): Observable<any>{
+  getProduto(id): Observable<any>{// retorna um produto específico
     return this.http.get<Produto>(`${this.url}/products/${id}`)
     .pipe();
   }
@@ -29,6 +29,25 @@ export class ApiService {
 
   deletaProduto(id): Observable<{}> { // deleta um produto
     return this.http.delete(`${this.url}/products/${id}`)
+      .pipe();
+  }
+
+  getPessoa(id): Observable<any>{ //retorna uma pessoa específica
+    return this.http.get<Produto>(`${this.url}/customers/${id}`)
+    .pipe();
+  }
+  getPessoas(): Observable<any> { // retorna todas as pessoas
+    return this.http.get<Produto[]>(`${this.url}/customers`)
+    .pipe();
+  }
+
+  postPessoa(body): Observable<any> { //cria uma pessoa
+    console.log(body)
+    return this.http.post(`${this.url}/customers`, body).pipe();
+  }
+
+  deletaPessoa(id): Observable<{}> { // deleta uma pessoa
+    return this.http.delete(`${this.url}/customers/${id}`)
       .pipe();
   }
 

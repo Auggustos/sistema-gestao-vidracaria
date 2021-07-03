@@ -26,6 +26,17 @@
                         </mat-form-field>
                     </div>
 
+                    <div class="row">
+                        <mat-form-field class="example-full-width">
+                            <mat-label>Tipo</mat-label>
+                            <mat-select name="food" formControlName="tipo">
+                                <mat-option *ngFor="let tipo of tipos" [value]="tipo.id">
+                                    {{tipo.tipo}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+
                     <br>
                     <div class="buttons">
                         <div class="buttons"><button mat-raised-button class="button-cadastrar" (click)="cadastraUsuario()" [disabled]="!this.pessoaForm.valid">Cadastrar</button></div>

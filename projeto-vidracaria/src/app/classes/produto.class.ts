@@ -1,5 +1,3 @@
-import { Usuario } from './usuario.class';
-
 export class Produto {
     id: string;
     name: string;
