@@ -93,6 +93,54 @@
           }
         }
       }
+    },
+    "/customers": {
+      "post": {
+        "summary": "Cadastro de cliente",
+        "description": "Esta rota será responsável por cadastrar um novo cliente",
+        "tags": [
+          "Customers"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Customer"
+              },
+              "examples": {
+                "product": {
+                  "value": {
+                    "name": "Zé da Fruta",
+                    "phone": "(35) 99937-4435",
+                    "address": "Rua dos Jacarés",
+                    "type": 0
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "customer": {
+                    "type": "object",
+                    "$": "#/components/schemas/Customer"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -107,6 +155,23 @@
             "type": "string"
           },
           "quantity": {
+            "type": "number"
+          }
+        }
+      },
+      "Customer": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "phone": {
+            "type": "string"
+          },
+          "address": {
+            "type": "number"
+          },
+          "type": {
             "type": "number"
           }
         }
