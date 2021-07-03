@@ -3,6 +3,8 @@ import 'reflect-metadata';
 import express, { NextFunction, Response, Request } from 'express';
 import 'express-async-errors';
 import cors from 'cors';
+import { errors } from 'celebrate';
+
 import uploadConfig from '@config/upload';
 import AppError from '@shared/errors/AppError';
 import routes from './routes';
@@ -17,6 +19,8 @@ app.use(express.json());
 app.use('/files', express.static(uploadConfig.directory));
 app.use(routes);
 
+app.use(errors());
+
 app.use(
   (err: Error, request: Request, response: Response, _next: NextFunction) => {
     if (err instanceof AppError) {
@@ -27,6 +31,7 @@ app.use(
     }
 
     console.log(err);
+
     return response.status(500).json({
       status: '500',
       message: 'Internal server error',
@@ -35,5 +40,5 @@ app.use(
 );
 
 app.listen(3000, () => {
-  console.log('Servidor backend iniciado! 😀');
+  console.log('🚀 Servidor backend iniciado na porta 3000');
 });
