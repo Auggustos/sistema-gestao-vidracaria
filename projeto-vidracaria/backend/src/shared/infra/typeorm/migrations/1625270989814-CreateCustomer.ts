@@ -12,21 +12,19 @@ export default class CreateCustomer1625270989814 implements MigrationInterface {
             type: 'varchar',
             isPrimary: true,
             generationStrategy: 'uuid',
+            default: 'uuid_generate_v4()',
           },
           {
             name: 'name',
             type: 'varchar',
-            isNullable: true,
           },
           {
             name: 'phone',
             type: 'varchar',
-            isNullable: true,
           },
           {
             name: 'address',
             type: 'varchar',
-            isNullable: true,
           },
           {
             name: 'type',
