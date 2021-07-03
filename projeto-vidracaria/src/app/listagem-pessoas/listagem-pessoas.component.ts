@@ -24,15 +24,7 @@ let ELEMENT_DATA: Pessoa[] = [];
 })
 export class ListagemPessoasComponent implements OnInit {
 
-  pesquisaCampos = [{ coluna: '', texto: '' },
-  { coluna: 'codigo', texto: '' },
-  { coluna: 'nome', texto: '' },
-  { coluna: 'situacao', texto: '' },
-  { coluna: 'tipo', texto: '' },
-  { coluna: 'bairro', texto: '' },
-  { coluna: 'fase', texto: '' },
-  { coluna: "ids_setor_primario", texto: '' },
-  { coluna: "ids_setor_secundario", texto: '' }];
+  pesquisaCampos = [{ coluna: '', texto: '' }];
 
   displayedColumns: string[] = ['nome', 'contato', 'tipo','acoes'];
   dataSource = ELEMENT_DATA;
@@ -48,7 +40,6 @@ export class ListagemPessoasComponent implements OnInit {
     });
   }
   montaTabela() {
-
     let dadosTabela : Pessoa[] = []
     this.apiService.getPessoas().subscribe(response =>{
       dadosTabela = response.results;
@@ -80,7 +71,7 @@ export class ListagemPessoasComponent implements OnInit {
       if(result.value == true){
         this.apiService.deletaPessoa(id).subscribe(response =>{
             this.dialogService.showSuccess(`${name} Deletado(a) com sucesso!`, "Pessoa Deletado!").then(result => {
-            this.router.navigateByUrl('').then(success => location.reload())
+            this.router.navigateByUrl('/pessoas').then(success => location.reload())
             });
         },
           error =>{
@@ -99,23 +90,20 @@ export class ListagemPessoasComponent implements OnInit {
   }
 
   onEnter(e) {
-    //this.pesquisaCampos[0].texto = e.value.id
-    //    this.projetoTableChild.onChange();
+    let dadosTabela : Pessoa[] = []
+    this.apiService.getPessoas().subscribe(response =>{
+      response.results.forEach(pessoa =>{
+        if(pessoa.name.toLowerCase().includes(this.pesquisaCampos[0].texto.toLowerCase()) || pessoa.phone.toLowerCase().includes(this.pesquisaCampos[0].texto.toLowerCase())|| pessoa.address.toLowerCase().includes(this.pesquisaCampos[0].texto.toLowerCase()) || this.pesquisaCampos[0].texto.toLowerCase() == 'cliente' ? pessoa.type == 0 : {} || this.pesquisaCampos[0].texto.toLowerCase() == 'fornecedor' ? pessoa.type == 1 : {}){
+          dadosTabela.push(pessoa);
+        }
+      })
+      ELEMENT_DATA = dadosTabela;
+      this.atualizaTabela();     
+    }, error => {
+      this.dialogService.showError("Erro ao filtrar a lista de pessoas!","Erro");
+    });
   }
   onClean() {
-    /*
-    this.disableFiltroRapido = true;
-    this.pesquisaCampos.forEach(e => {
-      e.texto = "";
-    });
-    this.tipo_filtro = [];
-    this.fase_filtro = [];
-    this.filterAdvancedForm.patchValue({
-      situacao_filtro: [],
-      setorp_selecionados: [],
-      setors_selecionados: []
-    })
-    this.onChange();
-    */
+    this.ngOnInit()
   }
 }

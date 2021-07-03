@@ -65,7 +65,7 @@ export class ModalCriarPessoaComponent implements OnInit {
    
     this.apiService.postPessoa(body).subscribe(success =>{
       this.dialogService.showSuccess(`Usuário ${body.name} cadastrado(a) com sucesso!`,"Cadastro Concluido").then(result => {
-        this.router.navigateByUrl('login').then(success => location.reload())
+        this.router.navigateByUrl('/pessoas').then(success => location.reload())
       });
     },
     error => {
