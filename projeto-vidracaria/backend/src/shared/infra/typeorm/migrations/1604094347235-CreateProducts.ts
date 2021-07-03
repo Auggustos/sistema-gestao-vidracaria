@@ -1,4 +1,4 @@
-import { MigrationInterface, QueryRunner, TableForeignKey } from 'typeorm';
+import { MigrationInterface, QueryRunner } from 'typeorm';
 import { Table } from 'typeorm/schema-builder/table/Table';
 
 export default class CreateProducts1604094347235 implements MigrationInterface {
@@ -12,21 +12,19 @@ export default class CreateProducts1604094347235 implements MigrationInterface {
             type: 'varchar',
             isPrimary: true,
             generationStrategy: 'uuid',
+            default: 'uuid_generate_v4()',
           },
           {
             name: 'name',
             type: 'varchar',
-            isNullable: false,
           },
           {
             name: 'quantity',
             type: 'integer',
-            isNullable: false,
           },
           {
             name: 'description',
             type: 'varchar',
-            isNullable: false,
           },
           {
             name: 'imageUrl',
