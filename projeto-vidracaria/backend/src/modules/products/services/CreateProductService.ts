@@ -1,4 +1,5 @@
 import Product from '@modules/products/infra/typeorm/entities/Product';
+import AppError from '@shared/errors/AppError';
 import { injectable, inject } from 'tsyringe';
 import IProductsRepository from '../repositories/IProductsRepository';
 
@@ -28,6 +29,12 @@ class CreateProductService {
       quantity,
       name,
     });
+
+    if (quantity < 0) {
+      throw new AppError(
+        'Não é possível criar um produto com quantidade negativa.'
+      );
+    }
 
     await this.productsRepository.save(product);
 
