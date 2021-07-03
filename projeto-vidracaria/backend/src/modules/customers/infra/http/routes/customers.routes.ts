@@ -7,6 +7,6 @@ const customersController = new CustomersController();
 costumersRouter.post('/', customersController.create);
 costumersRouter.get('/', customersController.index);
 costumersRouter.get('/:id', customersController.show);
-// costumersRouter.delete('/:id', customersController.delete);
+costumersRouter.delete('/:id', customersController.delete);
 
 export default costumersRouter;
