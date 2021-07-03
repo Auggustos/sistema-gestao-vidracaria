@@ -63,11 +63,18 @@ body {
     position: relative;
 }
 
-.teste-filho {
-    color: #4CB258;
+.button-delete {
+    color: #de4a3a;
     position: absolute;
     top: 0;
     right: 0;
+}
+
+.button-edit {
+    color: #0076F7;
+    position: absolute;
+    top: 0;
+    margin-left: 94%;
 }
 
 .mat-content {
@@ -135,4 +142,9 @@ table {
 
 .campo-pesquisa {
     width: 30%;
+}
+
+.imagem-produto {
+    height: 315px;
+    width: 315px;
 }
