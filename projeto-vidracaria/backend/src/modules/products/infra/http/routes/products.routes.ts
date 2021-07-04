@@ -12,6 +12,7 @@ productsRouter.post(
       name: Joi.string().required(),
       description: Joi.string().required(),
       quantity: Joi.number().required(),
+      imageUrl: Joi.string(),
     },
   }),
   productsController.create
