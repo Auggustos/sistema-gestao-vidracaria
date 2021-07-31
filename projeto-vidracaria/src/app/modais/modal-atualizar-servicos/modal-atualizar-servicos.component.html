@@ -1,6 +1,6 @@
-<h2 mat-dialog-title> Cadastro de Venda</h2>
+<h2 mat-dialog-title> Atualizar Serviço</h2>
 <mat-dialog-content class="mat-typography">
-    <form class="cadastro-form" [formGroup]="vendaForm">
+    <form class="cadastro-form" [formGroup]="serviceForm">
         <mat-form-field class="example-full-width">
             <mat-label>Cliente</mat-label>
             <input type="text" placeholder="Selecione um" matInput formControlName="cliente" [matAutocomplete]="auto">
@@ -13,13 +13,6 @@
 
         <div class="row">
             <mat-form-field class="example-full-width">
-                <mat-label>Valor</mat-label>
-                <input currencyMask matInput [(ngModel)]="valorVenda" formControlName="valor" [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" />
-            </mat-form-field>
-        </div>
-
-        <div class="row">
-            <mat-form-field class="example-full-width">
                 <input matInput placeholder="Selecione uma data" [matDatepicker]="datepickerRef" formControlName="data" required readonly/>
                 <mat-datepicker-toggle [for]="datepickerRef" matSuffix></mat-datepicker-toggle>
                 <mat-datepicker #datepickerRef></mat-datepicker>
@@ -27,9 +20,9 @@
         </div>
 
         <div class="row">
-            <mat-form-field class="example-full-width" appearance="fill">
-                <mat-label>Itens</mat-label>
-                <textarea matInput placeholder="digite os produtos/serviços" [(ngModel)]="valorProduto" formControlName="produto"></textarea>
+            <mat-form-field class="example-full-width">
+                <mat-label>Local</mat-label>
+                <textarea matInput formControlName="local"></textarea>
             </mat-form-field>
         </div>
         <div class="row">
@@ -42,35 +35,20 @@
                 </mat-select>
             </mat-form-field>
         </div>
-
         <div class="row">
             <mat-form-field class="example-full-width">
-                <mat-label>Pagamento</mat-label>
-                <mat-select [(ngModel)]="valorPagamento" formControlName="pagamento">
-                    <mat-option *ngFor="let pagamento of pagamentos" [value]="pagamento.id">
-                        {{pagamento.pagamento}}
+                <mat-label>Status</mat-label>
+                <mat-select [(ngModel)]="valorStatus" formControlName="status">
+                    <mat-option *ngFor="let situacao of situacoes" [value]="situacao.id">
+                        {{situacao.situacao}}
                     </mat-option>
                 </mat-select>
             </mat-form-field>
         </div>
-
-        <div class="row">
-            <mat-form-field class="example-full-width">
-                <mat-label>Pago</mat-label>
-                <mat-select [(ngModel)]="valorPagamento" formControlName="pagamento">
-                    <mat-option *ngFor="let pa of pago" [value]="pa.id">
-                        {{pa.p}}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-        </div>
-
-
         <br>
-
     </form>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-    <div class="buttons"><button mat-raised-button class="button-cadastrar" (click)="cadastraUsuario()" [disabled]="!this.vendaForm.valid">Cadastrar</button></div>
+    <div class="buttons"><button mat-raised-button class="button-cadastrar" (click)="cadastraUsuario()" [disabled]="!this.serviceForm.valid">Cadastrar</button></div>
     <div class="buttons"><button mat-raised-button class="button-voltar" mat-dialog-close>Voltar</button></div>
 </mat-dialog-actions>

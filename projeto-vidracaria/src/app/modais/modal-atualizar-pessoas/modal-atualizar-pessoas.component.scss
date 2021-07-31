@@ -1,0 +1,92 @@
+.cadastro-form {
+    min-width: 200px;
+    max-width: 600px;
+    width: 100%;
+}
+
+.container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center
+}
+
+.example-full-width {
+    width: 100%;
+}
+
+.example-container .mat-form-field+.mat-form-field {
+    margin-left: 8px;
+}
+
+.example-right-align {
+    text-align: right;
+}
+
+input.example-right-align::-webkit-outer-spin-button,
+input.example-right-align::-webkit-inner-spin-button {
+    display: none;
+}
+
+input.example-right-align {
+    -moz-appearance: textfield;
+}
+
+.body {
+    background-color: white;
+}
+
+.button-cadastrar {
+    width: 100px;
+    margin-left: 120%;
+    background-color: #4CB258;
+    color: white;
+}
+
+.entrada-nome {
+    width: 223px;
+}
+
+.entrada-sobrenome {
+    width: 223px;
+    margin-left: 20px;
+}
+
+.buttons {
+    display: inline-block;
+}
+
+.button-voltar {
+    width: 100px;
+    margin-left: 131px;
+    background-color: #b24c4c;
+    color: white;
+}
+
+.entrada-cartao {
+    width: 223px;
+    margin-left: 20px;
+}
+
+.centralizar {
+    margin-top: 9%;
+}
+
+.body {
+    width: 100%;
+}
+
+.example-form {
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+}
+
+.example-full-width {
+    width: 100%;
+}
+
+.example-form-field {
+    width: 200px;
+}

@@ -9,6 +9,7 @@ import { ModalVisualizarProdutoComponent } from '../modais/modal-visualizar-prod
 import { ModalCadastraProdutoComponent } from '../modais/modal-cadastra-produto/modal-cadastra-produto.component';
 
 import { Produto } from 'src/app/classes/produto.class';
+import { ModalAtualizarProdutosComponent } from '../modais/modal-atualizar-produtos/modal-atualizar-produtos.component';
 
 @Component({
   selector: 'app-listagem-produtos',
@@ -49,9 +50,9 @@ export class ListagemProdutosComponent implements OnInit {
 
     this.apiService.getProdutos().subscribe(response => {
       let resposta = response;
-        resposta.results.forEach(produto => {
-          this.produtos.push(produto);      
-        })
+      resposta.results.forEach(produto => {
+        this.produtos.push(produto);
+      })
     },
       error => {
         this.dialogService.showError(`${error.error.error}`, "Erro ao Listar Produtos!")
@@ -71,24 +72,27 @@ export class ListagemProdutosComponent implements OnInit {
     this.dialog.open(ModalCadastraProdutoComponent, {
     });
   }
-  onDelete(id: string, name: string){
-    this.dialogService.showConfirm('Excluir produto', 'Deseja excluir o produto?').then(result =>{
-      if(result.value == true){
-        this.apiService.deletaProduto(id).subscribe(response =>{
-            this.dialogService.showSuccess(`${name} Deletado com sucesso!`, "Produto Deletado!").then(result => {
+  onDelete(id: string, name: string) {
+    this.dialogService.showConfirmWaring('Excluir produto', 'Tem certeza que deseja excluir o produto? eles será excluído permanentemente.').then(result => {
+      if (result.value == true) {
+        this.apiService.deletaProduto(id).subscribe(response => {
+          this.dialogService.showSuccess(`${name} Deletado com sucesso!`, "Produto Deletado!").then(result => {
             this.router.navigateByUrl('').then(success => location.reload())
-            });
+          });
         },
-          error =>{
+          error => {
             this.dialogService.showError(`${error.error.error}`, "Erro ao Excluir Produto!")
           })
       }
     });
-   }
-   onEdit(){
-  
-   }
-
+  }
+  onUpdate(id: string) {
+    this.dialog.open(ModalAtualizarProdutosComponent, {
+      data: {
+        idProduto: id,
+      }
+    });
+  }
   onChange() {
   }
 
@@ -96,11 +100,11 @@ export class ListagemProdutosComponent implements OnInit {
     this.produtos = [];
     this.apiService.getProdutos().subscribe(response => {
       let resposta = response;
-        resposta.results.forEach(produto => {
-          if(produto.name.toLowerCase().includes(this.pesquisaCampos[0].texto.toLowerCase())){
-            this.produtos.push(produto);      
-          }          
-        })
+      resposta.results.forEach(produto => {
+        if (produto.name.toLowerCase().includes(this.pesquisaCampos[0].texto.toLowerCase())) {
+          this.produtos.push(produto);
+        }
+      })
     },
       error => {
         this.dialogService.showError(`${error.error.error}`, "Erro ao filtrar lista de produtos!")

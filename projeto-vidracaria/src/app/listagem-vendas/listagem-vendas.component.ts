@@ -7,6 +7,8 @@ import { AuthService } from '../shared/services/auth.service';
 import { DialogService } from '../shared/services/dialog/dialog.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalCriarVendaComponent } from '../modais/modal-criar-venda/modal-criar-venda.component';
+import { ModalVisualizarVendasComponent } from '../modais/modal-visualizar-vendas/modal-visualizar-vendas.component';
+import { ModalAtualizarVendasComponent } from '../modais/modal-atualizar-vendas/modal-atualizar-vendas.component';
 
 export interface PeriodicElement {
   cliente: string;
@@ -16,8 +18,8 @@ export interface PeriodicElement {
 }
 
 const ELEMENT_DATA: PeriodicElement[] = [
-  {cliente: "Marcio da Silva", valor: 820, pagamento_em: "Dinheiro", pago: 'Sim'},
-  {cliente: "Andrea Siqueira de Paula", valor: 430, pagamento_em: "Cartão", pago: 'Não'},
+  { cliente: "Marcio da Silva", valor: 820, pagamento_em: "Dinheiro", pago: 'Sim' },
+  { cliente: "Andrea Siqueira de Paula", valor: 430, pagamento_em: "Cartão", pago: 'Não' },
 ];
 
 @Component({
@@ -37,7 +39,7 @@ export class ListagemVendasComponent implements OnInit {
   { coluna: "ids_setor_primario", texto: '' },
   { coluna: "ids_setor_secundario", texto: '' }];
 
-  displayedColumns: string[] = ['cliente', 'valor', 'pagamento_em', 'pago','acoes'];
+  displayedColumns: string[] = ['cliente', 'valor', 'pagamento_em', 'pago', 'acoes'];
   dataSource = ELEMENT_DATA;
 
   constructor(private apiService: ApiService, private authService: AuthService, private dialogService: DialogService, private router: Router,
@@ -51,7 +53,7 @@ export class ListagemVendasComponent implements OnInit {
   }
   onEnter(e) {
     //this.pesquisaCampos[0].texto = e.value.id
-//    this.projetoTableChild.onChange();
+    //    this.projetoTableChild.onChange();
   }
   onClean() {
     /*
@@ -71,7 +73,7 @@ export class ListagemVendasComponent implements OnInit {
   }
 
   onChange() {
-   // this.projetoTableChild.onChange();
+    // this.projetoTableChild.onChange();
   }
 
   limpaCampoPesquisa() {
@@ -79,8 +81,34 @@ export class ListagemVendasComponent implements OnInit {
     this.onChange();
   }
 
+  onView(id: string) {
+    this.dialog.open(ModalVisualizarVendasComponent, {
+      data: {
+        idServico: id,
+      }
+    });
+  }
 
+  onUpdate(id: string) {
+    this.dialog.open(ModalAtualizarVendasComponent, {
+      data: {
+        idVenda: id,
+      }
+    });
+  }
 
-
-
+  onDelete(id: string, name: string) {
+    this.dialogService.showConfirmWaring('Excluir Venda', 'Tem certeza que deseja excluir a venda? ela será excluída permanentemente.').then(result => {
+      if (result.value == true) {
+        this.apiService.deletaPessoa(id).subscribe(response => {
+          this.dialogService.showSuccess(`${name} Deletado(a) com sucesso!`, "Pessoa Deletado!").then(result => {
+            this.router.navigateByUrl('/pessoas').then(success => location.reload())
+          });
+        },
+          error => {
+            this.dialogService.showError(`${error.error.error}`, "Erro ao Excluir Pessoa!")
+          })
+      }
+    });
+  }
 }

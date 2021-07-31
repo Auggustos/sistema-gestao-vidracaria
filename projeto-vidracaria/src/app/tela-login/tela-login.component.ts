@@ -18,6 +18,8 @@ export class TelaLoginComponent implements OnInit {
     private dialogService: DialogService,
     public dialog: MatDialog) { }
 
+    imageSrc: '../../assets/logo.png';
+
   loginForm = new FormGroup({
     usuario: new FormControl('', Validators.required),
     senha: new FormControl('',  [Validators.required,Validators.minLength(6)]),
