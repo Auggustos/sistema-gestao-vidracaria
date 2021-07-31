@@ -1,12 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ApiService } from '../../shared/services/api.service'
-import{ DialogService } from '../../shared/services/dialog/dialog.service'
-import {Observable} from 'rxjs';
-import {map, startWith} from 'rxjs/operators';
-import {DateAdapter, MAT_DATE_FORMATS} from '@angular/material/core';
+import { DialogService } from '../../shared/services/dialog/dialog.service'
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
+import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
 import { AppDateAdapter, APP_DATE_FORMATS } from 'src/app/shared/format-datepicker';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 interface Tipos {
   id: number;
@@ -23,41 +24,70 @@ interface Situacoes {
   templateUrl: './modal-atualizar-servicos.component.html',
   styleUrls: ['./modal-atualizar-servicos.component.scss'],
   providers: [
-    {provide: DateAdapter, useClass: AppDateAdapter},
-    {provide: MAT_DATE_FORMATS, useValue: APP_DATE_FORMATS}
+    { provide: DateAdapter, useClass: AppDateAdapter },
+    { provide: MAT_DATE_FORMATS, useValue: APP_DATE_FORMATS }
   ]
 })
 export class ModalAtualizarServicosComponent implements OnInit {
 
 
   tipos: Tipos[] = [
-    {id: 0, tipo:'Reforma' },
-    {id: 1, tipo:'Orçamento' },
-    {id: 2, tipo:'Instalação' },
+    { id: 0, tipo: 'Reforma' },
+    { id: 1, tipo: 'Orçamento' },
+    { id: 2, tipo: 'Instalação' },
   ];
 
   situacoes: Situacoes[] = [
-    {id: 0, situacao:'Realizado' },
-    {id: 1, situacao:'Não Realizado' },
+    { id: 0, situacao: 'Realizado' },
+    { id: 1, situacao: 'Não Realizado' },
   ];
 
- valorTipo: number;
- valorStatus: number;
+  valorTipo: number;
+  valorStatus: number;
 
   myFilter = (d: Date | null): boolean => {
     const day = (d || new Date()).getDay();
     // Prevent Saturday and Sunday from being selected.
     return day !== 0 && day !== 6;
   }
-  
+
   myControl = new FormControl();
 
   clientes: string[] = ['Ana', 'Marcos', 'Gabriel'];
 
   filteredOptions: Observable<string[]>;
 
+  constructor(private apiService: ApiService, private dialogService: DialogService, private router: Router, @Inject(MAT_DIALOG_DATA) public data: any) { }
+
+  hide = true;
+
+  serviceForm = new FormGroup({
+    cliente: new FormControl('', Validators.required),
+    data: new FormControl('', Validators.required),
+    local: new FormControl('', Validators.required),
+    tipo: new FormControl('', Validators.required),
+    status: new FormControl('', Validators.required),
+  });
+
 
   ngOnInit() {
+
+    // alto preenchimento dos campos
+    let servico = {
+      cliente:'juca',
+      data: new Date(),
+      local: 'Avenida luiz correa cardoso nº234 bairro turquia - maria da fé - MG',
+      tipo: 0,
+      status: 0,
+    };
+
+    this.valorStatus = 0
+    this.valorTipo = 0;
+    this.serviceForm.setValue(servico);
+
+
+
+
     this.filteredOptions = this.myControl.valueChanges
       .pipe(
         startWith(''),
@@ -71,17 +101,7 @@ export class ModalAtualizarServicosComponent implements OnInit {
     return this.clientes.filter(option => option.toLowerCase().includes(filterValue));
   }
 
-  constructor(private apiService: ApiService, private dialogService: DialogService, private router : Router) { }
 
-  hide = true;
-
-  serviceForm = new FormGroup({
-    cliente: new FormControl('',Validators.required),
-    data: new FormControl('',Validators.required),
-    local: new FormControl('',Validators.required),
-    tipo: new FormControl('',Validators.required),
-    status: new FormControl('',Validators.required),
-  });
   goBack() {
     window.history.back();
   }
@@ -97,8 +117,8 @@ export class ModalAtualizarServicosComponent implements OnInit {
     });
     */
   }
-  loadObject(){
-    return{
+  loadObject() {
+    return {
       cliente: this.serviceForm.value.cliente,
       data: this.serviceForm.value.data,
       local: this.serviceForm.value.local,

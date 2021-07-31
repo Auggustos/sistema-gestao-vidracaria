@@ -29,7 +29,7 @@
         <div class="row">
             <mat-form-field class="example-full-width" appearance="fill">
                 <mat-label>Itens</mat-label>
-                <textarea matInput placeholder="digite os produtos/serviços" [(ngModel)]="valorProduto" formControlName="produto"></textarea>
+                <textarea matInput placeholder="digite os produtos/serviços" [(ngModel)]="itens" formControlName="produto"></textarea>
             </mat-form-field>
         </div>
         <div class="row">
@@ -46,7 +46,7 @@
         <div class="row">
             <mat-form-field class="example-full-width">
                 <mat-label>Pagamento</mat-label>
-                <mat-select [(ngModel)]="valorPagamento" formControlName="pagamento">
+                <mat-select [(ngModel)]="tipoPagamento" formControlName="pagamento">
                     <mat-option *ngFor="let pagamento of pagamentos" [value]="pagamento.id">
                         {{pagamento.pagamento}}
                     </mat-option>
@@ -57,7 +57,7 @@
         <div class="row">
             <mat-form-field class="example-full-width">
                 <mat-label>Pago</mat-label>
-                <mat-select [(ngModel)]="valorPagamento" formControlName="pagamento">
+                <mat-select [(ngModel)]="foiPago" formControlName="pagamento">
                     <mat-option *ngFor="let pa of pago" [value]="pa.id">
                         {{pa.p}}
                     </mat-option>

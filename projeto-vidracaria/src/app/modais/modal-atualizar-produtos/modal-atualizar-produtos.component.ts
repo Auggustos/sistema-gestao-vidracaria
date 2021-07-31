@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,Inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Produto } from '../../classes/produto.class';
 import { Router } from "@angular/router";
@@ -6,6 +6,8 @@ import { Router } from "@angular/router";
 import { DialogService } from '../../shared/services/dialog/dialog.service'
 import { ApiService } from '../../shared/services/api.service';
 import { AuthService } from '../../shared/services/auth.service';
+
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 @Component({
   selector: 'app-modal-atualizar-produtos',
   templateUrl: './modal-atualizar-produtos.component.html',
@@ -13,7 +15,7 @@ import { AuthService } from '../../shared/services/auth.service';
 })
 export class ModalAtualizarProdutosComponent implements OnInit {
 
-  constructor(private dialogService: DialogService, private router: Router, private apiSevice: ApiService, private authService: AuthService) { }
+  constructor(private dialogService: DialogService, private router: Router, private apiSevice: ApiService, private authService: AuthService, @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   uploadData = new FormData();
 
@@ -33,6 +35,21 @@ export class ModalAtualizarProdutosComponent implements OnInit {
   });
 
   ngOnInit(): void {
+
+     // alto preenchimento dos campos
+     let produto = {
+      name: 'Box de banheiro',
+      description: 'Box de banheiro temperado 8mm incolor',
+      imageUrl: 'https://http2.mlstatic.com/D_NQ_NP_662609-MLB46566032725_062021-O.webp',
+      quantity: 2,
+    };
+
+    //this.valorStatus = 0
+    //this.valorTipo = 0;
+    this.productForm.setValue(produto);
+
+
+
   }
   goBack() {
     window.history.back();
