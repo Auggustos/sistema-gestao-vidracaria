@@ -7,7 +7,7 @@ import {
     DeleteDateColumn,
   } from 'typeorm';
   
-  @Entity('users') // referencia da tabela no banco de dados
+  @Entity('usuarios') // referencia da tabela no banco de dados
   class User {
     @PrimaryGeneratedColumn('uuid')
     id: string;
