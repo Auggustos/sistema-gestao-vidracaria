@@ -6,7 +6,7 @@ import IProductsRepository from '../repositories/IProductsRepository';
 
 interface IRequest {
   description: string;
-  imageFileName: string;
+  imageFileName: any;
   quantity: number;
   name: string;
 }

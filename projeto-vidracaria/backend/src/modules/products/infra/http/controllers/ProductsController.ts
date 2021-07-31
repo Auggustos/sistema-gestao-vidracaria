@@ -14,7 +14,7 @@ export default class ProductsController {
 
     const product = await createProduct.execute({
       description,
-      imageFileName: request.file.filename,
+      imageFileName: request?.file?.filename,
       quantity,
       name,
     });
