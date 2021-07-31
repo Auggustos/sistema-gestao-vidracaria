@@ -77,7 +77,9 @@ export class ModalCriarVendaComponent implements OnInit {
     data: new FormControl('',Validators.required),
     itens: new FormControl('',Validators.required),
     valor: new FormControl('',Validators.required),
+    produto: new FormControl('',Validators.required),
     pagamento: new FormControl('',Validators.required),
+    tipo: new FormControl('',Validators.required),
     pago: new FormControl('',Validators.required),
   });
  valorTipo: number;
@@ -96,11 +98,11 @@ export class ModalCriarVendaComponent implements OnInit {
     window.history.back();
   }
 
-  cadastraUsuario() {
+  cadastraVenda() {
     const body = this.loadObject();
-    /*this.apiService.postUsuario(body).subscribe(success =>{
-      this.dialogService.showSuccess(`Usuário ${body.nome} cadastrado com sucesso!`,"Cadastro Concluido").then(result => {
-        this.router.navigateByUrl('login').then(success => location.reload())
+    /*this.apiService.postVenda(body).subscribe(success =>{
+      this.dialogService.showSuccess(`Venda cadastrada com sucesso!`,"Cadastro Concluido").then(result => {
+        this.router.navigateByUrl('').then(success => location.reload())
       });
     },
     error => {
@@ -115,7 +117,9 @@ export class ModalCriarVendaComponent implements OnInit {
       data: this.vendaForm.value.data,
       itens: this.vendaForm.value.produto,
       valor: this.vendaForm.value.valor,
+      produto: this.vendaForm.value.produto,
       pagamento: this.vendaForm.value.pagamento,
+      tipo: this.vendaForm.value.tipo,
       pago: this.vendaForm.value.pago,
     }
   }

@@ -23,26 +23,19 @@ export class AppComponent {
 
   constructor(private router: Router, private authService: AuthService, private dialogService: DialogService, private apiService: ApiService) {
   }
-  carrinho;
   usuario = '';
-  perfil = 3;
   usuarioId = '';
+
+  logado = false;
 
   ngOnInit() {
 
     if (!this.authService.isLoggedIn()) {
       this.usuario = '';
-      this.perfil = 3;
+      this.logado = false
     } else {
-      if (this.authService.getUser().length > 1) {
-        let userId = this.authService.getUserId();
-        this.usuarioId = userId;
-      //  this.apiService.getUsuario(userId).subscribe(response => {
-      //    this.usuario = response.nome;
-      //    this.perfil = parseInt(this.authService.getPerfil());
-      //  });
-
-      }
+      this.usuario = this.authService.getUser();
+      this.logado = true;
     }
   }
 
@@ -50,45 +43,19 @@ export class AppComponent {
     location.reload();
     this.authService.logout();
     this.usuario = this.authService.getUser();
-    this.perfil = parseInt(this.authService.getPerfil());
     if (!this.authService.isLoggedIn()) {
       this.usuario = '';
-      this.perfil = 3;
     }
-  //this.dialogService.showSuccess("Logout realizado com sucesso!", "Logout");
+    this.dialogService.showSuccess("Logout realizado com sucesso!", "Logout");
   }
 
   itensSidebar: rotas[] = [
-    { nome: 'Meus dados', rota: 'usuario/atualiza' },
-    { nome: 'Gerenciar Vendas', rota: 'gerir' },
-    { nome: 'Cadastrar Produtos', rota: 'produto/cadastra' },
-    { nome: 'Pedidos', rota: 'pedidos' },
-    { nome: 'Ofertas', rota: '' }];
+    { nome: 'pessoas', rota: 'pessoas' },
+    { nome: 'vendas', rota: 'vendas' },
+    { nome: 'servicos', rota: 'servicos' },
+    { nome: 'Produtos', rota: '' }];
   onRowClicked(item: rotas) {
     this.router.navigate([item.rota]);
-  }
-
-  toCarrinho() {
-    this.router.navigate(['/carrinho']);
-  }
-
-  onBadge() {
-    if (this.authService.isLoggedIn()) {
-      if (this.authService.getCarrinho()) {
-        this.carrinho = JSON.parse(this.authService.getCarrinho())
-        if (this.carrinho != null) {
-          let count = 0;
-          this.carrinho.forEach(produto => {
-            count += produto.quantidade;
-          })
-          return count;
-        } else {
-          return '';
-        }
-      }
-    } else {
-      return '';
-    }
 
   }
 }

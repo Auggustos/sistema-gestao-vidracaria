@@ -30,7 +30,7 @@ export class ModalCadastraProdutoComponent implements OnInit {
     name: new FormControl('', Validators.required),
     description: new FormControl('',Validators.required),
     imageUrl: new FormControl('',Validators.required),
-    quantity: new FormControl('',Validators.required),
+    quantity: new FormControl('',[Validators.required,Validators.min(1)]),
   });
 
   ngOnInit(): void {
@@ -59,20 +59,11 @@ export class ModalCadastraProdutoComponent implements OnInit {
   onUpload() {
 
     const uploadData = new FormData();
-   // uploadData.append('imageUrl', this.selectedFile);
-   uploadData.append('imageUrl', 'string de imagem');
+    uploadData.append('imageUrl', this.selectedFile);
     uploadData.append('name', this.productForm.value.name);
     uploadData.append('description', this.productForm.value.description);
     uploadData.append('quantity', this.productForm.value.quantity);
-
-    let body = { // trocar isso aqui no futuro
-      imageUrl: 'string de imagem',
-      name: this.productForm.value.name,
-      description: this.productForm.value.description,
-      quantity: this.productForm.value.quantity
-    }
-    //this.apiSevice.postProdutos(uploadData)
-    this.apiSevice.postProdutos(body) // usar isso aqui quando a api estiver esperando um formdata
+    this.apiSevice.postProdutos(uploadData) // usar isso aqui quando a api estiver esperando um formdata
       .subscribe(
         success => {
           this.dialogService.showSuccess(`${this.productForm.value.name} cadastrado com sucesso!`, "Produto Cadastrado!").then(result => {

@@ -14,25 +14,25 @@ import { DialogService } from 'src/app/shared/services/dialog/dialog.service';
 export class ModalVisualizarPessoaComponent implements OnInit {
 
   constructor(
-    private apiService: ApiService, 
-    private authService: AuthService, 
-    private dialogService: DialogService, 
+    private apiService: ApiService,
+    private authService: AuthService,
+    private dialogService: DialogService,
     private router: Router,
     @Inject(MAT_DIALOG_DATA) public data: any) { }
-    pessoa: Pessoa = null;
+  pessoa: Pessoa = null;
 
-  ngOnInit(): void {
-    console.log();
-    this.apiService.getPessoa(this.data.idPessoa).subscribe(response =>{
-      console.log(response);
+  ngOnInit(): void {    
+    this.apiService.getPessoa(this.data.idPessoa).subscribe(response => {
+    console.log(response);
 
-      if(response.id == this.data.idPessoa){
-        
-        this.pessoa = response;
-      }
-    },
-      error =>{
-        this.dialogService.showError(`${error.error.error}`, "Erro ao Exibir Pessoa!")
-      })
- }
+    if (response.id == this.data.idPessoa) {
+
+      this.pessoa = response;
+    }
+  },
+    error => {
+      this.dialogService.showError(`${error.error.error}`, "Erro ao Exibir Pessoa!")
+    })
+
+  }
 }
