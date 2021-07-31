@@ -4,7 +4,7 @@
         Listagem de Produtos
     </mat-card-title>
     <section class="content">
-        <button mat-fab color="primary" matTooltip="Cadastrar Produto" (click)="createProduto()" class="sigelu-button-novo">
+        <button *ngIf='logado' mat-fab color="primary" matTooltip="Cadastrar Produto" (click)="createProduto()" class="sigelu-button-novo">
                     <mat-icon>add</mat-icon>
             </button>
 

@@ -40,13 +40,17 @@ export class AppComponent {
   }
 
   desloga() {
-    location.reload();
-    this.authService.logout();
-    this.usuario = this.authService.getUser();
-    if (!this.authService.isLoggedIn()) {
-      this.usuario = '';
-    }
-    this.dialogService.showSuccess("Logout realizado com sucesso!", "Logout");
+    this.dialogService.showConfirmWaring('Deslogar', 'Tem certeza que deseja encerrar sua sessão?').then(result => {
+      if (result.value == true) {
+        location.reload();
+        this.authService.logout();
+        this.usuario = this.authService.getUser();
+        if (!this.authService.isLoggedIn()) {
+          this.usuario = '';
+        }
+        this.dialogService.showSuccess("Logout realizado com sucesso!", "Logout");
+      }
+    });
   }
 
   itensSidebar: rotas[] = [

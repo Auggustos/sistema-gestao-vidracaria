@@ -48,3 +48,10 @@ input.example-right-align {
 .centralizar {
     margin-top: 11%;
 }
+
+.displayed {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}

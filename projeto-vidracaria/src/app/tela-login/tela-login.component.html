@@ -2,13 +2,13 @@
     <div class="container">
         <div class="centralizar">
             <mat-card>
-                <img src="../../assets/logo.png" alt="some text" width=260>
+                <img class="displayed" src="../../assets/logo.png" alt="some text" width=260>
                 <mat-card-title>
-                    Login
+                    <div class="displayed">Login</div>
                 </mat-card-title>
                 <form class="login-form" [formGroup]="loginForm">
                     <mat-form-field class="example-full-width">
-                        <mat-label>Usuário</mat-label>
+                        <mat-label>Email</mat-label>
                         <input matInput placeholder="usuário123" formControlName="usuario" name="usuario">
                         <!-- <mat-hint>Errors appear instantly!</mat-hint> -->
                         <!-- <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
@@ -28,10 +28,6 @@
                     </mat-form-field>
                     <br>
                     <button mat-raised-button type="submit" class="button-login" (click)="verificaUser()" [disabled]="!this.loginForm.valid">Login</button>
-                    <!--
-<p>Não é cadastrado? <a (click)="createPessoa()">cadastre-se agora clicando aqui!</a> </p>
-                    -->
-
                 </form>
             </mat-card>
         </div>
