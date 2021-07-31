@@ -7,15 +7,15 @@ import authConfig from '@config/auth';
 import { sign } from "jsonwebtoken";
 
 interface IRequest {
-    email: string;
-    password: string;
-  }
+  email: string;
+  password: string;
+}
 
-  interface IResponse {
-    user: User;
-    token: string;
-  }
-  
+interface IResponse {
+  user: User;
+  token: string;
+}
+
 @injectable()
 class AuthenticateUserService {
   constructor(
@@ -23,7 +23,7 @@ class AuthenticateUserService {
     private usersRepository: IUsersRepository,
     @inject('HashProvider')
     private hashProvider: IHashProvider,
-  ) {}
+  ) { }
 
   public async execute({
     email,
@@ -32,30 +32,30 @@ class AuthenticateUserService {
 
     const user = await this.usersRepository.findByEmail(email)
 
-    if(!user){
-        throw new AppError('Combinação de email / senha inválido.', 401);
+    if (!user) {
+      throw new AppError('Combinação de email / senha inválido.', 401);
     }
 
     const passwordMatched = await this.hashProvider.compareHash(
-        password,
-        user.password
+      password,
+      user.password
     )
-    
-    if(!passwordMatched){
-        throw new AppError('Combinação de email / senha inválido.', 401);
+
+    if (!passwordMatched) {
+      throw new AppError('Combinação de email / senha inválido.', 401);
 
     }
 
     const { secret, expiresIn } = authConfig.jwt;
 
     const token = sign({}, secret, {
-        subject: user.id,
-        expiresIn
+      subject: user.id,
+      expiresIn
     })
 
     return {
-        user,
-        token
+      user,
+      token
     }
   }
 }
