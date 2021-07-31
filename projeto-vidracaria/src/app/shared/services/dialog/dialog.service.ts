@@ -42,6 +42,12 @@ export class DialogService {
     return Swal.fire({ title: title, text: text, type: 'question', reverseButtons: true, showCancelButton: showCancelButton, confirmButtonText: confirmButtonText,
     cancelButtonText: cancelButtonText, confirmButtonColor: confirmButtonColor});
   }
+  showConfirmWaring(title: string , text: string,  confirmButtonText = 'Sim',
+  cancelButtonText = 'Não', confirmButtonColor = '#d10000', showCancelButton =  true){
+
+    return Swal.fire({ title: title, text: text, type: 'question', reverseButtons: false, showCancelButton: showCancelButton, confirmButtonText: confirmButtonText,
+    cancelButtonText: cancelButtonText, confirmButtonColor: confirmButtonColor});
+  }
 
   showLoading() {
     this.closeAll();

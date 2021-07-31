@@ -42,6 +42,12 @@ import { ModalCriarServicoComponent } from './modais/modal-criar-servico/modal-c
 import { ModalCriarVendaComponent } from './modais/modal-criar-venda/modal-criar-venda.component';
 import { ModalCriarPessoaComponent } from './modais/modal-criar-pessoa/modal-criar-pessoa.component';
 import { ModalVisualizarPessoaComponent } from './modais/modal-visualizar-pessoa/modal-visualizar-pessoa.component';
+import { ModalVisualizarServicosComponent } from './modais/modal-visualizar-servicos/modal-visualizar-servicos.component';
+import { ModalVisualizarVendasComponent } from './modais/modal-visualizar-vendas/modal-visualizar-vendas.component';
+import { ModalAtualizarVendasComponent } from './modais/modal-atualizar-vendas/modal-atualizar-vendas.component';
+import { ModalAtualizarProdutosComponent } from './modais/modal-atualizar-produtos/modal-atualizar-produtos.component';
+import { ModalAtualizarServicosComponent } from './modais/modal-atualizar-servicos/modal-atualizar-servicos.component';
+import { ModalAtualizarPessoasComponent } from './modais/modal-atualizar-pessoas/modal-atualizar-pessoas.component';
 
 @NgModule({
   declarations: [
@@ -60,6 +66,12 @@ import { ModalVisualizarPessoaComponent } from './modais/modal-visualizar-pessoa
     AppComponent,
     ModalCriarPessoaComponent,
     ModalVisualizarPessoaComponent,
+    ModalVisualizarServicosComponent,
+    ModalVisualizarVendasComponent,
+    ModalAtualizarVendasComponent,
+    ModalAtualizarProdutosComponent,
+    ModalAtualizarServicosComponent,
+    ModalAtualizarPessoasComponent,
   ],
   imports: [
     BrowserAnimationsModule,

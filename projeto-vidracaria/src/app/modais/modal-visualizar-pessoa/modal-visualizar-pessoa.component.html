@@ -1,24 +1,15 @@
-<mat-card>
-    <mat-card-header class="teste-pai">
-        <mat-card-title>Dados Pessoa</mat-card-title>
-        <!--
-        <mat-card-subtitle>R{{produto.preco| currency}}</mat-card-subtitle>
-        -->
-    </mat-card-header>
-    <div class="mat-content">
-        <mat-card-content>
-            <p>
-                <span style="font-weight: bold;">Nome:</span> {{pessoa.name}}
-            </p>
-            <p>
-                <span style="font-weight: bold;">Contato:</span> {{pessoa.phone}}
-            </p>
-            <p>
-                <span style="font-weight: bold;">Endereço:</span> {{pessoa.address}}
-            </p>
-            <p>
-                <span style="font-weight: bold;">Tipo:</span> {{pessoa.type == 0 ? 'Cliente' : 'Fornecedor'}}
-            </p>
-        </mat-card-content>
-    </div>
-</mat-card>
+<h2 mat-dialog-title>Dados da Pessoa</h2>
+<mat-dialog-content class="mat-typography">
+    <mat-list>
+        <mat-list-item>Nome: {{pessoa.name}} </mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item>Contato: {{pessoa.phone}}</mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item>Endereço: {{pessoa.address}}</mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item>Tipo: {{pessoa.type == 0 ? 'Cliente' : 'Fornecedor'}} </mat-list-item>
+    </mat-list>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Ok</button>
+</mat-dialog-actions>

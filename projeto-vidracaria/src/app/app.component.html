@@ -7,12 +7,10 @@
         <span class="example-spacer"></span>
 
         <span>{{usuario}}</span>
-        <!--
+
         <button mat-icon-button *ngIf="perfil == 3" class="example-icon favorite-icon" aria-label="Example icon-button with heart icon" matTooltip="Logar" [routerLinkActive]="'active'" [routerLink]="['login']">
           <mat-icon>login</mat-icon>
       </button>
-        -->
-
         <button mat-icon-button *ngIf="perfil == 0 || perfil == 1" class="example-icon favorite-icon" aria-label="Example icon-button with heart icon" matTooltip="Deslogar" (click)="desloga()">
           <mat-icon>power_settings_new</mat-icon>
       </button>
@@ -24,7 +22,6 @@
     <mat-drawer-container class="container-sidebar" autosize>
         <mat-drawer #drawer class="example-sidenav" mode="side" opened>
             <mat-selection-list #shoes [multiple]="false">
-                <!--
                 <mat-list-option [routerLinkActive]="'active'" [routerLink]="['servicos/']">
                     <div>
                         <div class="icon-list">
@@ -35,7 +32,6 @@
                         </div>
                     </div>
                 </mat-list-option>
-                -->
 
                 <mat-list-option [routerLinkActive]="'active'" [routerLink]="['/']">
                     <div>
@@ -47,7 +43,7 @@
                         </div>
                     </div>
                 </mat-list-option>
-                <!--
+
                 <mat-list-option [routerLinkActive]="'active'" [routerLink]="['vendas/']">
                     <div>
                         <div class="icon-list">
@@ -58,7 +54,7 @@
                         </div>
                     </div>
                 </mat-list-option>
-                -->
+
                 <mat-list-option [routerLinkActive]="'active'" [routerLink]="['pessoas/']">
                     <div>
                         <div class="icon-list">

@@ -7,6 +7,8 @@ import { AuthService } from '../shared/services/auth.service';
 import { DialogService } from '../shared/services/dialog/dialog.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalCriarServicoComponent } from '../modais/modal-criar-servico/modal-criar-servico.component';
+import { ModalVisualizarServicosComponent } from '../modais/modal-visualizar-servicos/modal-visualizar-servicos.component';
+import { ModalAtualizarServicosComponent } from '../modais/modal-atualizar-servicos/modal-atualizar-servicos.component';
 export interface PeriodicElement {
   cliente: string;
   data: string;
@@ -15,8 +17,8 @@ export interface PeriodicElement {
 }
 
 const ELEMENT_DATA: PeriodicElement[] = [
-  {cliente: "Marcio da Silva", data: '06/06/21', local: "Avenida luiz correa cardoso nº 234 -  Turquia", tipo: 'Serviço'},
-  {cliente: "Andrea Siqueira de Paula", data: '15/06/21', local: "Avenida luiz correa cardoso nº 234 -  Turquia", tipo: 'Orçamento'},
+  { cliente: "Marcio da Silva", data: '06/06/21', local: "Avenida luiz correa cardoso nº 234 -  Turquia", tipo: 'Serviço' },
+  { cliente: "Andrea Siqueira de Paula", data: '15/06/21', local: "Avenida luiz correa cardoso nº 234 -  Turquia", tipo: 'Orçamento' },
 ];
 
 @Component({
@@ -36,13 +38,14 @@ export class ListagemServicosComponent implements OnInit {
   { coluna: "ids_setor_primario", texto: '' },
   { coluna: "ids_setor_secundario", texto: '' }];
 
-  displayedColumns: string[] = ['cliente', 'data', 'local', 'tipo','acoes'];
+  displayedColumns: string[] = ['cliente', 'data', 'local', 'tipo', 'acoes'];
   dataSource = ELEMENT_DATA;
-  
+
   constructor(private apiService: ApiService, private authService: AuthService, private dialogService: DialogService, private router: Router,
     public dialog: MatDialog) { }
 
   ngOnInit(): void {
+
   }
 
   createServico() {
@@ -51,7 +54,7 @@ export class ListagemServicosComponent implements OnInit {
   }
   onEnter(e) {
     //this.pesquisaCampos[0].texto = e.value.id
-//    this.projetoTableChild.onChange();
+    //    this.projetoTableChild.onChange();
   }
   onClean() {
     /*
@@ -71,7 +74,7 @@ export class ListagemServicosComponent implements OnInit {
   }
 
   onChange() {
-   // this.projetoTableChild.onChange();
+    // this.projetoTableChild.onChange();
   }
 
   limpaCampoPesquisa() {
@@ -79,4 +82,35 @@ export class ListagemServicosComponent implements OnInit {
     this.onChange();
   }
 
+  onView(id: string) {
+    this.dialog.open(ModalVisualizarServicosComponent, {
+      data: {
+        idServico: id,
+      },
+      panelClass: 'custom-dialog-container'
+    });
+  }
+
+  onUpdate(id: string) {
+    this.dialog.open(ModalAtualizarServicosComponent, {
+      data: {
+        idServico: id,
+      }
+    });
+  }
+
+  onDelete(id: string, name: string) {
+    this.dialogService.showConfirmWaring('Excluir Serviço', 'Tem certeza que deseja excluir o serviço? ele será excluído permanentemente.').then(result => {
+      if (result.value == true) {
+        this.apiService.deletaProduto(id).subscribe(response => {
+          this.dialogService.showSuccess(`${name} Deletado com sucesso!`, "Produto Deletado!").then(result => {
+            this.router.navigateByUrl('').then(success => location.reload())
+          });
+        },
+          error => {
+            this.dialogService.showError(`${error.error.error}`, "Erro ao Excluir Produto!")
+          })
+      }
+    });
+  }
 }
