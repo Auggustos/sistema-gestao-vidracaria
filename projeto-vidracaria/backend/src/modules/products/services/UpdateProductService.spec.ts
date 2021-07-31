@@ -18,7 +18,7 @@ describe('Product :: UpdateProductService', () => {
       name: 'Box blindado',
       description: 'Box blindado com espessura 300mm',
       quantity: 6,
-      imageUrl:
+      imageFileName:
         'http://windowsbulletin.com/wp-content/uploads/2020/07/How-to-Get-the-Size-of-an-Amazon-S3-Bucket.png',
     });
 
