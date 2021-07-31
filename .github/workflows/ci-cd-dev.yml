@@ -47,3 +47,4 @@ jobs:
         heroku_api_key: 2af73ae6-0379-4de9-b09a-5999c1ecb674
         heroku_app_name: trablina
         heroku_email: thiagosiqueira@unifei.edu.br
+        appdir: "./projeto-vidracaria/backend"
