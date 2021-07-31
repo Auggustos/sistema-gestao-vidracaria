@@ -1,4 +1,3 @@
-require('dotenv/config');
 
 const rootDir = process.env.NODE_ENV === "development" ?
   "src" :

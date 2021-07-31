@@ -1,3 +1,4 @@
+import { Expose, Exclude } from 'class-transformer';
 import {
   Entity,
   Column,
@@ -6,6 +7,7 @@ import {
   UpdateDateColumn,
   DeleteDateColumn,
 } from 'typeorm';
+import uploadConfig from '@config/upload';
 
 @Entity('produtos') // referencia da tabela no banco de dados
 class Product {
@@ -24,7 +26,7 @@ class Product {
   quantity: number;
 
   @Column()
-  imageUrl: string;
+  image: string;
 
   @CreateDateColumn()
   created_at: Date;
@@ -34,6 +36,22 @@ class Product {
 
   @DeleteDateColumn()
   deleted_at: Date;
+
+  @Expose({ name: 'image_url' })
+  getImageUrl(): string | null {
+    if (!this.image) {
+      return null
+    }
+
+    switch (uploadConfig.driver) {
+      case 'disk':
+        return `${process.env.APP_API_URL}/files/${this.image}`;
+      case 's3':
+        return `https://${uploadConfig.config.aws.bucket}.s3.sa-east-1.amazonaws.com/${this.image}`;
+      default:
+        return null;
+    }
+  }
 }
 
 export default Product;
