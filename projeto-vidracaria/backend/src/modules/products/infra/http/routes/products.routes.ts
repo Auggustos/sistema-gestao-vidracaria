@@ -1,20 +1,18 @@
 import { Router } from 'express';
+import multer from 'multer';
+import uploadConfig from '@config/upload';
 
 import { celebrate, Segments, Joi } from 'celebrate';
 import ProductsController from '../controllers/ProductsController';
+import { join } from 'path/posix';
+
+const upload = multer(uploadConfig.multer);
 
 const productsRouter = Router();
 const productsController = new ProductsController();
 productsRouter.post(
   '/',
-  celebrate({
-    [Segments.BODY]: {
-      name: Joi.string().required(),
-      description: Joi.string().required(),
-      quantity: Joi.number().required(),
-      imageUrl: Joi.string(),
-    },
-  }),
+  upload.single('image'),
   productsController.create
 );
 productsRouter.get('/', productsController.index);

@@ -26,9 +26,9 @@ export default class CreateProducts1604094347235 implements MigrationInterface {
             type: 'varchar',
           },
           {
-            name: 'imageUrl',
+            name: 'image',
             type: 'varchar',
-            isNullable: false,
+            isNullable: true,
           },
           {
             name: 'created_at',
