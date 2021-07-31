@@ -22,6 +22,9 @@ export class ListagemProdutosComponent implements OnInit {
   pageSize = 10;
   pageSizeOptions: number[] = [5, 10, 25, 100];
 
+  logado = false
+
+
   pesquisaCampos = [{ coluna: '', texto: '' }];
 
   // MatPaginator Output
@@ -47,6 +50,12 @@ export class ListagemProdutosComponent implements OnInit {
   itensSidebar: string[] = ['Meus dados', 'Minhas compras'];
 
   ngOnInit(): void {
+
+    if (!this.authService.isLoggedIn()) {
+      this.logado = false
+    } else {
+      this.logado = true;
+    }
 
     this.apiService.getProdutos().subscribe(response => {
       let resposta = response;

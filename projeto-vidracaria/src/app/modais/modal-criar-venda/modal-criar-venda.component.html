@@ -20,7 +20,7 @@
 
         <div class="row">
             <mat-form-field class="example-full-width">
-                <input matInput placeholder="Selecione uma data" [matDatepicker]="datepickerRef" formControlName="data" required readonly/>
+                <input matInput placeholder="Selecione uma data" [matDatepicker]="datepickerRef" formControlName="data" required readonly />
                 <mat-datepicker-toggle [for]="datepickerRef" matSuffix></mat-datepicker-toggle>
                 <mat-datepicker #datepickerRef></mat-datepicker>
             </mat-form-field>
@@ -64,13 +64,10 @@
                 </mat-select>
             </mat-form-field>
         </div>
-
-
         <br>
-
     </form>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-    <div class="buttons"><button mat-raised-button class="button-cadastrar" (click)="cadastraUsuario()" [disabled]="!this.vendaForm.valid">Cadastrar</button></div>
+    <div class="buttons"><button mat-raised-button class="button-cadastrar" (click)="cadastraVenda()" [disabled]="!this.vendaForm.valid">Cadastrar</button></div>
     <div class="buttons"><button mat-raised-button class="button-voltar" mat-dialog-close>Voltar</button></div>
 </mat-dialog-actions>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ApiService } from '../../shared/services/api.service'
@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
 import { AppDateAdapter, APP_DATE_FORMATS } from 'src/app/shared/format-datepicker';
-
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 interface Tipos {
   id: number;
   tipo: string;
@@ -38,13 +38,13 @@ export class ModalAtualizarPessoasComponent implements OnInit {
   }
 
   myControl = new FormControl();
-
+  pessoa;
   filteredOptions: Observable<string[]>;
 
 
 
 
-  constructor(private apiService: ApiService, private dialogService: DialogService, private router: Router) { }
+  constructor(private apiService: ApiService, private dialogService: DialogService, private router: Router, @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   hide = true;
 
@@ -58,35 +58,39 @@ export class ModalAtualizarPessoasComponent implements OnInit {
 
   ngOnInit() {
 
-    // alto preenchimento dos campos
-    let pessoa = {
-      nome: 'Rafael',
-      celular: 35998454746,
-      endereco: 'Sitio nossa senhora aparecida bairro palha do rocha -Maria da fé - MG',
-      tipo: 0,
-    };
-    this.valorTipo = 0;
-    this.pessoaForm.setValue(pessoa);
-
+    this.apiService.getPessoa(this.data.idPessoa).subscribe(response => {
+      if (response.id == this.data.idPessoa) {
+        // alto preenchimento dos campos
+        this.pessoa = {
+          nome: response.name,
+          celular: response.phone,
+          endereco: response.address,
+          tipo: response.type,
+        };
+        this.valorTipo = 0;
+        this.pessoaForm.setValue(this.pessoa);
+      }
+    },
+      error => {
+        this.dialogService.showError(`${error.error.error}`, "Erro ao Exibir Pessoa!")
+      })
   }
 
   goBack() {
     window.history.back();
   }
-  cadastraUsuario() {
+  atualizaUsuario() {
     const body = this.loadObject();
-    console.log(body);
-
-    this.apiService.postPessoa(body).subscribe(success => {
-      this.dialogService.showSuccess(`Usuário ${body.name} cadastrado(a) com sucesso!`, "Cadastro Concluido").then(result => {
+    /*
+    this.apiService.putPessoa(this.data.idPessoa,body).subscribe(success => {
+      this.dialogService.showSuccess(`Usuário ${body.name} atualizado(a) com sucesso!`, "Atualização Concluida").then(result => {
         this.router.navigateByUrl('/pessoas').then(success => location.reload())
       });
     },
       error => {
         this.dialogService.showError(`${error.error.message}`, "Acesso Negado!")
       });
-
-
+  */
   }
   loadObject() {
     return {

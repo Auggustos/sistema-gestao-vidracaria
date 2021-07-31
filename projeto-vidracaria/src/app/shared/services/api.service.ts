@@ -56,9 +56,7 @@ export class ApiService {
     return this.http.post(`${this.url}/users`, body)
       .pipe();
   }
-  getUsuario(id): Observable<any> { // retora um usuário especifico
-    return this.http.get<Usuario>(`${this.url}/profile`, id);
-  }
+
   atualizaUsuario(body, token): Observable<any> { // atualiza um usuário
     return this.http.put(`${this.url}/profile`, body, token)
       .pipe();

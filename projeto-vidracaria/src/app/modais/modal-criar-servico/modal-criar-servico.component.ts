@@ -85,10 +85,10 @@ export class ModalCriarServicoComponent implements OnInit {
   goBack() {
     window.history.back();
   }
-  cadastraUsuario() {
+  cadastraServico() {
     const body = this.loadObject();
-    /*this.apiService.postUsuario(body).subscribe(success =>{
-      this.dialogService.showSuccess(`Usuário ${body.nome} cadastrado com sucesso!`,"Cadastro Concluido").then(result => {
+    /*this.apiService.postServico(body).subscribe(success =>{
+      this.dialogService.showSuccess(`Serviço cadastrado com sucesso!`,"Cadastro Concluido").then(result => {
         this.router.navigateByUrl('login').then(success => location.reload())
       });
     },

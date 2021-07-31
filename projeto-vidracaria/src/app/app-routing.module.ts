@@ -21,56 +21,27 @@ const routes: Routes = [
     path: 'login',
     component: TelaLoginComponent
   },
-  {
-    path: 'produto/gerir',
-    component: GerirProdutosComponent, canActivate: [AuthGuard]
-  },
-  {
-    path: 'produto/:id/atualiza',
-    component: AtualizaProdutoComponent, canActivate: [AuthGuard]
-  },
+
   {
     path: '',
     component: ListagemProdutosComponent
   },
   {
     path: 'servicos',
-    component: ListagemServicosComponent
+    component: ListagemServicosComponent, canActivate: [AuthGuard]
   },
   {
     path: 'vendas',
-    component: ListagemVendasComponent
+    component: ListagemVendasComponent, canActivate: [AuthGuard]
   },
   {
     path: 'pessoas',
-    component: ListagemPessoasComponent
+    component: ListagemPessoasComponent, canActivate: [AuthGuard]
   },
   {
     path: '**',
     component: ErrorComponent
   },
- /* 
-  {
-    path: 'usuario/atualiza',
-    component: AtualizaUsuarioComponent, canActivate: [AuthGuard]
-  },
-   {
-    path: 'pedidos',
-    component: PedidosComponent, canActivate: [AuthGuard]
-  },
-  {
-    path: 'gerir',
-    component: GerirVendasComponent, canActivate: [AuthGuard]
-  },
-  {
-    path: 'carrinho',
-    component: CarrinhoComponent, canActivate: [AuthGuard]
-  },
-  {
-    path: 'relatorio-vendas',
-    component: RelatorioVendasComponent, canActivate: [AuthGuard]
-  },
- */
 ];
 
 @NgModule({

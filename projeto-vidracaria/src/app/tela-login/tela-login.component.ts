@@ -29,7 +29,6 @@ export class TelaLoginComponent implements OnInit {
   hide = true;
 
   ngOnInit(): void {
-
   }
 
   verificaUser() {
@@ -37,6 +36,7 @@ export class TelaLoginComponent implements OnInit {
     this.authService.login(this.loginForm.value.usuario, this.loginForm.value.senha).subscribe(
       success => {
         this.dialogService.showSuccess(`Bem vindo ${this.authService.getUser()}`, "Login Realizado!").then(result => {
+          console.log(result);
           this.router.navigateByUrl('').then(success => location.reload())
         })
       },

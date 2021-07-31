@@ -24,7 +24,7 @@ export class AuthService {
 
     localStorage.setItem('token', authResult.token);
     localStorage.setItem('expires_at', JSON.stringify(expiresAt.valueOf()));
-    localStorage.setItem('usuario', authResult.user.nome);
+    localStorage.setItem('usuario', authResult.user.name);
     localStorage.setItem('usuario_id', authResult.user.id);
     localStorage.setItem('perfil', authResult.user.perfil);
     localStorage.setItem('userCelular', authResult.user.celular);
@@ -49,13 +49,13 @@ export class AuthService {
     return localStorage.getItem('token');
   }
 
-  login(usuario: string, senha: string) {
+  login(email: string, password: string) {
     return this.http.post(
-      this.apiRoot.concat('sessions'),
-      { usuario, senha }
+      this.apiRoot.concat('auth'),
+      { email, password }
     ).pipe(
       tap(response => this.setSession(response)),
-      shareReplay(),
+      shareReplay()
     );
   }
 
