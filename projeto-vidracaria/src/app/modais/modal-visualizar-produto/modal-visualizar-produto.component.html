@@ -1,38 +1,10 @@
-<mat-card>
-    <mat-card-header class="teste-pai">
-        <mat-card-title>{{produto.name}}</mat-card-title>
-        <!--
-        <mat-card-subtitle>R{{produto.preco| currency}}</mat-card-subtitle>
-        -->
-    </mat-card-header>
-    <div class="mat-content">
-        <!--
-        <img mat-card-image src="http://127.0.0.1:3000/files/{{produto.imageUrl}}" class="imagem-produto">
-        --><img mat-card-image src="{{produto.image_url}}" class="imagem-produto">
+<h2 mat-dialog-title>Produto: {{produto.name}}</h2>
 
-        <mat-card-content>
-            <p>
-                <span style="font-weight: bold;">Descrição:</span> {{produto.description}}
-            </p>
-            <p>
-                <span style="font-weight: bold;">Quantidade disponível:</span> {{produto.quantity}}
-            </p>
-            <!--
-                <p>
-                <span style="font-weight: bold;">Vendedor:</span> {{produto.usuario.nome}}
-            </p>
-            <p>
-                <span style="font-weight: bold;">Contato:</span> {{produto.usuario.celular}}
-            </p>
-            <div *ngIf="!produto.usuario.pagamento_cartao">
-                <span style="color: #b24c4c;">Não aceita cartão</span>
-            </div>
-            <div *ngIf="produto.usuario.pagamento_cartao">
-                <span style="color: #4CB258;">Aceita cartão</span>
-            </div>
-            -->
-
-
-        </mat-card-content>
-    </div>
-</mat-card>
+<mat-dialog-content class="mat-typography">
+    <img mat-card-image src="{{produto.image_url}}" class="imagem-produto">
+    <mat-list>
+        <mat-list-item>Descrição: {{produto.description}} </mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item>Quantidade disponível: {{produto.quantity}}</mat-list-item>
+    </mat-list>
+</mat-dialog-content>

@@ -47,11 +47,6 @@ body {
     margin-right: 12px;
 }
 
-.button-adicionar-carrinho {
-    background-color: #4CB258;
-    color: white;
-}
-
 .mat-card-actions .mat-button:first-child,
 .mat-card-actions .mat-raised-button:first-child,
 .mat-card-actions .mat-stroked-button:first-child {
@@ -73,3 +68,5 @@ body {
 .mat-content {
     margin-top: 10px;
 }
+
+.imagem-produto {}
