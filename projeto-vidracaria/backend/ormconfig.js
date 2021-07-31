@@ -6,10 +6,10 @@ const rootDir = process.env.NODE_ENV === "development" ?
 
 module.exports = {
   "type": "mysql",
-  "host": "mysql742.umbler.com",
-  "port": 41890,
-  "username": "jpedrojos",
-  "password": "Jpacmed2399*",
+  "host": "database-2.cdo16xu9mxq8.sa-east-1.rds.amazonaws.com",
+  "port": 3306,
+  "username": "admin",
+  "password": "TesteLina2021",
   "database": "bancoov",
   "entities": [rootDir + "/modules/**/infra/typeorm/entities/*.{js,ts}"],
   "migrations": [rootDir + "/shared/infra/typeorm/migrations/*.{js,ts}"],
