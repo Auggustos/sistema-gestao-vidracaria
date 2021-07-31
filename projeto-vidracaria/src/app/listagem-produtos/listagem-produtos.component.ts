@@ -59,6 +59,7 @@ export class ListagemProdutosComponent implements OnInit {
 
     this.apiService.getProdutos().subscribe(response => {
       let resposta = response;
+      console.log(response)
       resposta.results.forEach(produto => {
         this.produtos.push(produto);
       })

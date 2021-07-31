@@ -29,7 +29,6 @@ export class ModalCadastraProdutoComponent implements OnInit {
   productForm = new FormGroup({
     name: new FormControl('', Validators.required),
     description: new FormControl('',Validators.required),
-    imageUrl: new FormControl('',Validators.required),
     quantity: new FormControl('',[Validators.required,Validators.min(1)]),
   });
 
@@ -45,7 +44,7 @@ export class ModalCadastraProdutoComponent implements OnInit {
       const file = event.target.files[0];
       this.uploadData = new FormData();
 
-      this.uploadData.append('imageUrl', this.selectedFile, this.selectedFile.name);
+      this.uploadData.append('image', this.selectedFile, this.selectedFile.name);
 
       const reader = new FileReader();
       reader.onload = e => this.imageSrc = reader.result;
@@ -53,13 +52,13 @@ export class ModalCadastraProdutoComponent implements OnInit {
       reader.readAsDataURL(file);
     }
 
-    this.productForm.controls['imageUrl'].setValue(this.selectedFile);
+    this.productForm.controls['image'].setValue(this.selectedFile);
   }
 
   onUpload() {
 
     const uploadData = new FormData();
-    uploadData.append('imageUrl', this.selectedFile);
+    uploadData.append('image', this.selectedFile);
     uploadData.append('name', this.productForm.value.name);
     uploadData.append('description', this.productForm.value.description);
     uploadData.append('quantity', this.productForm.value.quantity);
