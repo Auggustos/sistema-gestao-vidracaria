@@ -27,7 +27,7 @@ export default class ProductsController {
 
     const products = await listProducts.execute();
 
-    return response.json({ results: products });
+    return response.json({ results: classToClass(products) });
   }
 
   public async show(request: Request, response: Response): Promise<Response> {
@@ -37,7 +37,7 @@ export default class ProductsController {
 
     const product = await showProduct.execute(id);
 
-    return response.json(product);
+    return response.json(classToClass(product));
   }
 
   public async delete(request: Request, response: Response): Promise<Response> {
