@@ -1,0 +1,50 @@
+name: NodeJS with Webpack
+
+on:
+  push:
+    branches: [ Develop ]
+  pull_request:
+    branches: [ Develop ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./projeto-vidracaria/frontend
+
+    strategy:
+      matrix:
+        node-version: [14.x]
+    
+    steps:
+    - uses: actions/checkout@v2
+    
+
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+        
+    - uses: actions/cache@v2
+      id: yarn-cache
+      with:
+        path: |
+          **/node_modules
+          **/.eslintcache
+          ${{ steps.yarn-cache-dir-path.outputs.dir }}
+        key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+        restore-keys: |
+         ${{ runner.os }}-yarn-
+    - name: Build
+      run: |
+        npm install
+        npm run build
+        
+    - name: Deploy to Heroku
+      uses: akhileshns/heroku-deploy@v3.12.12
+      with:
+        heroku_api_key: 2af73ae6-0379-4de9-b09a-5999c1ecb674
+        heroku_app_name: trablina-frontend
+        heroku_email: thiagosiqueira@unifei.edu.br
+        appdir: "./projeto-vidracaria/frontend"

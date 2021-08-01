@@ -1,6 +1,6 @@
 
 const rootDir = process.env.STAGE === "dev" ?
-  "src" :
+  "dist" :
   "dist"
 
 module.exports = {
