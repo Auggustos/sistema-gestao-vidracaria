@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpInterceptor, HttpRequest, HttpHandler, HttpEvent } from '@angular/common/http';
 import { CanActivate, Router } from '@angular/router';
+import { environment } from '../../../environments/environment';
 
 import { Observable } from 'rxjs';
 import { tap, shareReplay } from 'rxjs/operators';
@@ -11,7 +12,7 @@ import * as moment from 'moment';
 @Injectable()
 export class AuthService {
 
-  private apiRoot = 'http://localhost:3000/';
+  private apiRoot = environment.API_URL;
 
   response;
   constructor(private http: HttpClient) { }
