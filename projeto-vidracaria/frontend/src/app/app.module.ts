@@ -30,8 +30,6 @@ import { ModalVisualizarProdutoComponent } from './modais/modal-visualizar-produ
 import { ListagemProdutosComponent } from './listagem-produtos/listagem-produtos.component';
 import { ModalCadastraProdutoComponent } from './modais/modal-cadastra-produto/modal-cadastra-produto.component';
 import { AuthGuard, AuthInterceptor, AuthService } from './shared/services/auth.service';
-import { AtualizaProdutoComponent } from './atualiza-produto/atualiza-produto.component';
-import { GerirProdutosComponent } from './gerir-produtos/gerir-produtos.component';
 import { TelaLoginComponent } from './tela-login/tela-login.component';
 import { ErrorComponent } from './error/error.component';
 import { AppComponent } from './app.component';
@@ -56,11 +54,9 @@ import { ModalAtualizarPessoasComponent } from './modais/modal-atualizar-pessoas
     ListagemProdutosComponent,
     ListagemServicosComponent,
     ModalCadastraProdutoComponent,
-    AtualizaProdutoComponent,
     ModalCriarVendaComponent,
     ListagemPessoasComponent,
     ListagemVendasComponent,
-    GerirProdutosComponent,
     TelaLoginComponent,
     ErrorComponent,
     AppComponent,

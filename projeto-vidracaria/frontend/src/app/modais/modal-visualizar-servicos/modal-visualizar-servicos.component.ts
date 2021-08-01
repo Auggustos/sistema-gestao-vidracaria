@@ -20,16 +20,16 @@ export class ModalVisualizarServicosComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any) { }
     pessoa: Pessoa = null;
     ngOnInit(): void {
-      console.log();
+      this.dialogService.showLoading();
       this.apiService.getPessoa(this.data.idPessoa).subscribe(response =>{
-        console.log(response);
-  
+        this.dialogService.closeAll();
         if(response.id == this.data.idPessoa){
           
           this.pessoa = response;
         }
       },
         error =>{
+          this.dialogService.closeAll();
           this.dialogService.showError(`${error.error.error}`, "Erro ao Exibir Pessoa!")
         })
    }

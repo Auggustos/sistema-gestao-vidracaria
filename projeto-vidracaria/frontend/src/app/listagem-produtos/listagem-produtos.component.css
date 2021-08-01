@@ -148,3 +148,9 @@ table {
     height: 315px;
     width: 315px;
 }
+
+.card-title {
+    margin-bottom: 10%;
+    max-width: 76%;
+    font-size: large;
+}

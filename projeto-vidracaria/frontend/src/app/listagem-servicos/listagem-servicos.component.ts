@@ -102,12 +102,15 @@ export class ListagemServicosComponent implements OnInit {
   onDelete(id: string, name: string) {
     this.dialogService.showConfirmWaring('Excluir Serviço', 'Tem certeza que deseja excluir o serviço? ele será excluído permanentemente.').then(result => {
       if (result.value == true) {
+        this.dialogService.showLoading();
         this.apiService.deletaProduto(id).subscribe(response => {
+          this.dialogService.closeAll();
           this.dialogService.showSuccess(`${name} Deletado com sucesso!`, "Produto Deletado!").then(result => {
             this.router.navigateByUrl('').then(success => location.reload())
           });
         },
           error => {
+            this.dialogService.closeAll();
             this.dialogService.showError(`${error.error.error}`, "Erro ao Excluir Produto!")
           })
       }

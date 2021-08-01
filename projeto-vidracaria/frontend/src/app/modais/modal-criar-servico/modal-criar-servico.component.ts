@@ -43,6 +43,7 @@ export class ModalCriarServicoComponent implements OnInit {
 
  valorTipo: number;
  valorStatus: number;
+ valorVenda
 
   myFilter = (d: Date | null): boolean => {
     const day = (d || new Date()).getDay();
@@ -80,6 +81,7 @@ export class ModalCriarServicoComponent implements OnInit {
     data: new FormControl('',Validators.required),
     local: new FormControl('',Validators.required),
     tipo: new FormControl('',Validators.required),
+    valor: new FormControl('',Validators.required),
     status: new FormControl('',Validators.required),
   });
   goBack() {
@@ -103,6 +105,7 @@ export class ModalCriarServicoComponent implements OnInit {
       data: this.serviceForm.value.data,
       local: this.serviceForm.value.local,
       tipo: this.serviceForm.value.tipo,
+      valor: this.serviceForm.value.valor,
       status: this.serviceForm.value.status,
     }
   }

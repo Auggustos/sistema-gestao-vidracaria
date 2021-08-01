@@ -62,14 +62,17 @@ export class ModalCadastraProdutoComponent implements OnInit {
     uploadData.append('name', this.productForm.value.name);
     uploadData.append('description', this.productForm.value.description);
     uploadData.append('quantity', this.productForm.value.quantity);
+    this.dialogService.showLoading();
     this.apiSevice.postProdutos(uploadData) // usar isso aqui quando a api estiver esperando um formdata
       .subscribe(
         success => {
+          this.dialogService.closeAll();
           this.dialogService.showSuccess(`${this.productForm.value.name} cadastrado com sucesso!`, "Produto Cadastrado!").then(result => {
           this.router.navigateByUrl('').then(success => location.reload())
           });
         },
         error => {
+          this.dialogService.closeAll();
           this.dialogService.showError(`${error.error.error}`, "Erro no Cadastro!");
         }
       );

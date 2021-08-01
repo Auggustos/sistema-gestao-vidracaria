@@ -42,12 +42,15 @@ export class ListagemPessoasComponent implements OnInit {
   }
   montaTabela() {
     let dadosTabela: Pessoa[] = []
+    this.dialogService.showLoading();
     this.apiService.getPessoas().subscribe(response => {
+      this.dialogService.closeAll();
       dadosTabela = response.results;
       ELEMENT_DATA = dadosTabela;
       this.atualizaTabela();
 
     }, error => {
+      this.dialogService.closeAll();
       this.dialogService.showError("Erro ao obter dados das pessoas!", "Erro");
     });
   }
@@ -70,12 +73,15 @@ export class ListagemPessoasComponent implements OnInit {
   onDelete(id: string, name: string) {
     this.dialogService.showConfirmWaring('Excluir pessoa', 'Tem certeza que deseja excluir a pessoa? ela será excluída permanentemente.').then(result => {
       if (result.value == true) {
+        this.dialogService.showLoading();
         this.apiService.deletaPessoa(id).subscribe(response => {
+          this.dialogService.closeAll();
           this.dialogService.showSuccess(`${name} Deletado(a) com sucesso!`, "Pessoa Deletado!").then(result => {
             this.router.navigateByUrl('/pessoas').then(success => location.reload())
           });
         },
           error => {
+            this.dialogService.closeAll();
             this.dialogService.showError(`${error.error.error}`, "Erro ao Excluir Pessoa!")
           })
       }

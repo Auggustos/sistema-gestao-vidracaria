@@ -22,9 +22,9 @@ export class ModalVisualizarProdutoComponent implements OnInit {
     produto: Produto = null;
 
   ngOnInit(): void {
-    console.log();
+    this.dialogService.showLoading();
     this.apiService.getProduto(this.data.idProduto).subscribe(response =>{
-      console.log(response);
+      this.dialogService.closeAll();
 
       if(response.id == this.data.idProduto){
         
@@ -32,6 +32,7 @@ export class ModalVisualizarProdutoComponent implements OnInit {
       }
     },
       error =>{
+        this.dialogService.closeAll();
         this.dialogService.showError(`${error.error.error}`, "Erro ao Exibir Produto!")
       })
  }

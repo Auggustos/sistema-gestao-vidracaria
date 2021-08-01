@@ -62,13 +62,16 @@ export class ModalCriarPessoaComponent implements OnInit {
   cadastraUsuario() {
     const body = this.loadObject();
     console.log(body);
-   
+    
+    this.dialogService.showLoading();
     this.apiService.postPessoa(body).subscribe(success =>{
+      this.dialogService.closeAll();
       this.dialogService.showSuccess(`Usuário ${body.name} cadastrado(a) com sucesso!`,"Cadastro Concluido").then(result => {
         this.router.navigateByUrl('/pessoas').then(success => location.reload())
       });
     },
     error => {
+      this.dialogService.closeAll();
       this.dialogService.showError(`${error.error.message}`, "Acesso Negado!")
     });
     

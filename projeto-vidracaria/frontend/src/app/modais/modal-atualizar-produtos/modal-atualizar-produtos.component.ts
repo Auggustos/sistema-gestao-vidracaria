@@ -1,4 +1,4 @@
-import { Component, OnInit,Inject } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Produto } from '../../classes/produto.class';
 import { Router } from "@angular/router";
@@ -15,7 +15,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 })
 export class ModalAtualizarProdutosComponent implements OnInit {
 
-  constructor(private dialogService: DialogService, private router: Router, private apiSevice: ApiService, private authService: AuthService, @Inject(MAT_DIALOG_DATA) public data: any) { }
+  constructor(private dialogService: DialogService, private router: Router, private apiService: ApiService, private authService: AuthService, @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   uploadData = new FormData();
 
@@ -25,31 +25,35 @@ export class ModalAtualizarProdutosComponent implements OnInit {
 
   hide = true;
 
-  produto: Produto;
-
+  produto ;
   productForm = new FormGroup({
     name: new FormControl('', Validators.required),
-    description: new FormControl('',Validators.required),
-    imageUrl: new FormControl('',Validators.required),
-    quantity: new FormControl('',Validators.required),
+    description: new FormControl('', Validators.required),
+    quantity: new FormControl('', Validators.required),
+    image: new FormControl('', Validators.required),
   });
 
   ngOnInit(): void {
 
-     // alto preenchimento dos campos
-     let produto = {
-      name: 'Box de banheiro',
-      description: 'Box de banheiro temperado 8mm incolor',
-      imageUrl: 'https://http2.mlstatic.com/D_NQ_NP_662609-MLB46566032725_062021-O.webp',
-      quantity: 2,
-    };
+    this.dialogService.showLoading()
+    this.apiService.getProduto(this.data.idProduto).subscribe(response => {
+      if (response.id == this.data.idProduto) {
+        console.log(response);
 
-    //this.valorStatus = 0
-    //this.valorTipo = 0;
-    this.productForm.setValue(produto);
-
-
-
+        this.produto = {
+          name: response.name,
+          description: response.description,
+          quantity: response.quantity,
+          image: null
+        }
+        this.productForm.setValue(this.produto);
+        this.dialogService.closeAll();
+      }
+    },
+      error => {
+        this.dialogService.closeAll();
+        this.dialogService.showError(`${error.error.error}`, "Erro ao Recuperar Produto!")
+      })
   }
   goBack() {
     window.history.back();
@@ -61,7 +65,7 @@ export class ModalAtualizarProdutosComponent implements OnInit {
       const file = event.target.files[0];
       this.uploadData = new FormData();
 
-      this.uploadData.append('imageUrl', this.selectedFile, this.selectedFile.name);
+      this.uploadData.append('image', this.selectedFile, this.selectedFile.name);
 
       const reader = new FileReader();
       reader.onload = e => this.imageSrc = reader.result;
@@ -69,37 +73,31 @@ export class ModalAtualizarProdutosComponent implements OnInit {
       reader.readAsDataURL(file);
     }
 
-    this.productForm.controls['imageUrl'].setValue(this.selectedFile);
+    this.productForm.controls['image'].setValue(this.selectedFile);
   }
 
   onUpload() {
 
     const uploadData = new FormData();
-   // uploadData.append('imageUrl', this.selectedFile);
-   uploadData.append('imageUrl', 'string de imagem');
+    uploadData.append('image', this.selectedFile);
     uploadData.append('name', this.productForm.value.name);
     uploadData.append('description', this.productForm.value.description);
     uploadData.append('quantity', this.productForm.value.quantity);
-
-    let body = { // trocar isso aqui no futuro
-      imageUrl: 'string de imagem',
-      name: this.productForm.value.name,
-      description: this.productForm.value.description,
-      quantity: this.productForm.value.quantity
-    }
-    //this.apiSevice.postProdutos(uploadData)
-    this.apiSevice.postProdutos(body) // usar isso aqui quando a api estiver esperando um formdata
+    this.dialogService.showLoading();
+    this.apiService.postProdutos(uploadData) // usar isso aqui quando a api estiver esperando um formdata
       .subscribe(
         success => {
+          this.dialogService.closeAll();
           this.dialogService.showSuccess(`${this.productForm.value.name} cadastrado com sucesso!`, "Produto Cadastrado!").then(result => {
           this.router.navigateByUrl('').then(success => location.reload())
           });
         },
         error => {
+          this.dialogService.closeAll();
           this.dialogService.showError(`${error.error.error}`, "Erro no Cadastro!");
         }
       );
- 
-   
+
+
   }
 }

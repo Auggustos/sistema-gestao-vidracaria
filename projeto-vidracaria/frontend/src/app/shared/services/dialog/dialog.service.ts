@@ -53,8 +53,7 @@ export class DialogService {
     this.closeAll();
 
     Swal.fire({
-      html: '<img src="assets/icons/icone-sigelu-principal.svg" class="sigelu-icone-loading">' +
-        '<h2 class="swal2-title" id="swal2-title"><font color="white">Carregando...</font></h2>',
+      html: '<h2 class="swal2-title" id="swal2-title"><font color="white">Carregando...</font></h2>',
       background: 'transparent',
       showCancelButton: false,
       showConfirmButton: false,

@@ -45,10 +45,6 @@ export class ListagemProdutosComponent implements OnInit {
 
   showFiller = false;
 
-  quantidadeProduto: { id: string, quantidade: number }[] = [];
-
-  itensSidebar: string[] = ['Meus dados', 'Minhas compras'];
-
   ngOnInit(): void {
 
     if (!this.authService.isLoggedIn()) {
@@ -56,8 +52,9 @@ export class ListagemProdutosComponent implements OnInit {
     } else {
       this.logado = true;
     }
-
+    this.dialogService.showLoading();
     this.apiService.getProdutos().subscribe(response => {
+      this.dialogService.closeAll();
       let resposta = response;
       console.log(response)
       resposta.results.forEach(produto => {
@@ -65,6 +62,7 @@ export class ListagemProdutosComponent implements OnInit {
       })
     },
       error => {
+        this.dialogService.closeAll();
         this.dialogService.showError(`${error.error.error}`, "Erro ao Listar Produtos!")
       });
 
@@ -85,12 +83,15 @@ export class ListagemProdutosComponent implements OnInit {
   onDelete(id: string, name: string) {
     this.dialogService.showConfirmWaring('Excluir produto', 'Tem certeza que deseja excluir o produto? eles será excluído permanentemente.').then(result => {
       if (result.value == true) {
+        this.dialogService.showLoading();
         this.apiService.deletaProduto(id).subscribe(response => {
+          this.dialogService.closeAll();
           this.dialogService.showSuccess(`${name} Deletado com sucesso!`, "Produto Deletado!").then(result => {
             this.router.navigateByUrl('').then(success => location.reload())
           });
         },
           error => {
+            this.dialogService.closeAll();
             this.dialogService.showError(`${error.error.error}`, "Erro ao Excluir Produto!")
           })
       }

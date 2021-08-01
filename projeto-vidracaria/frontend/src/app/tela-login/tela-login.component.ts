@@ -32,15 +32,17 @@ export class TelaLoginComponent implements OnInit {
   }
 
   verificaUser() {
-
+    this.dialogService.showLoading();
     this.authService.login(this.loginForm.value.usuario, this.loginForm.value.senha).subscribe(
       success => {
+        this.dialogService.closeAll();
         this.dialogService.showSuccess(`Bem vindo ${this.authService.getUser()}`, "Login Realizado!").then(result => {
           console.log(result);
           this.router.navigateByUrl('').then(success => location.reload())
         })
       },
       error => {
+        this.dialogService.closeAll();
         this.dialogService.showError('Usuário ou senha inválidos', "Acesso Negado!")
       }
     );

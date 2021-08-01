@@ -57,7 +57,7 @@ export class ModalAtualizarPessoasComponent implements OnInit {
   });
 
   ngOnInit() {
-
+    this.dialogService.showLoading()
     this.apiService.getPessoa(this.data.idPessoa).subscribe(response => {
       if (response.id == this.data.idPessoa) {
         // alto preenchimento dos campos
@@ -69,9 +69,11 @@ export class ModalAtualizarPessoasComponent implements OnInit {
         };
         this.valorTipo = 0;
         this.pessoaForm.setValue(this.pessoa);
+        this.dialogService.closeAll();
       }
     },
       error => {
+        this.dialogService.closeAll();
         this.dialogService.showError(`${error.error.error}`, "Erro ao Exibir Pessoa!")
       })
   }

@@ -9,8 +9,6 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { ListagemProdutosComponent } from './listagem-produtos/listagem-produtos.component';
 import { AuthGuard } from './shared/services/auth.service';
-import { AtualizaProdutoComponent } from './atualiza-produto/atualiza-produto.component';
-import { GerirProdutosComponent } from './gerir-produtos/gerir-produtos.component';
 import { ErrorComponent } from './error/error.component';
 import { TelaLoginComponent } from './tela-login/tela-login.component'; 
 import { ListagemServicosComponent } from './listagem-servicos/listagem-servicos.component';

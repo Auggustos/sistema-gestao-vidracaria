@@ -19,34 +19,16 @@
         </div>
 
         <div class="row">
-            <mat-form-field class="example-full-width">
-                <input matInput placeholder="Selecione uma data" [matDatepicker]="datepickerRef" formControlName="data" required readonly />
-                <mat-datepicker-toggle [for]="datepickerRef" matSuffix></mat-datepicker-toggle>
-                <mat-datepicker #datepickerRef></mat-datepicker>
-            </mat-form-field>
-        </div>
-
-        <div class="row">
             <mat-form-field class="example-full-width" appearance="fill">
                 <mat-label>Itens</mat-label>
-                <textarea matInput placeholder="digite os produtos/serviços" [(ngModel)]="valorProduto" formControlName="produto"></textarea>
-            </mat-form-field>
-        </div>
-        <div class="row">
-            <mat-form-field class="example-full-width">
-                <mat-label>Tipos</mat-label>
-                <mat-select [(ngModel)]="valorTipo" formControlName="tipo">
-                    <mat-option *ngFor="let tipo of tipos" [value]="tipo.id">
-                        {{tipo.tipo}}
-                    </mat-option>
-                </mat-select>
+                <textarea matInput placeholder="digite os produtos/serviços" [(ngModel)]="itens" formControlName="produto"></textarea>
             </mat-form-field>
         </div>
 
         <div class="row">
             <mat-form-field class="example-full-width">
                 <mat-label>Pagamento</mat-label>
-                <mat-select [(ngModel)]="valorPagamento" formControlName="pagamento">
+                <mat-select [(ngModel)]="tipoPagamento" formControlName="tipo_pagamento">
                     <mat-option *ngFor="let pagamento of pagamentos" [value]="pagamento.id">
                         {{pagamento.pagamento}}
                     </mat-option>
@@ -57,7 +39,7 @@
         <div class="row">
             <mat-form-field class="example-full-width">
                 <mat-label>Pago</mat-label>
-                <mat-select [(ngModel)]="valorPagamento" formControlName="pagamento">
+                <mat-select [(ngModel)]="estaPago" formControlName="pago">
                     <mat-option *ngFor="let pa of pago" [value]="pa.id">
                         {{pa.p}}
                     </mat-option>

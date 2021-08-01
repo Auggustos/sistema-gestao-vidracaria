@@ -100,12 +100,15 @@ export class ListagemVendasComponent implements OnInit {
   onDelete(id: string, name: string) {
     this.dialogService.showConfirmWaring('Excluir Venda', 'Tem certeza que deseja excluir a venda? ela será excluída permanentemente.').then(result => {
       if (result.value == true) {
+        this.dialogService.showLoading();
         this.apiService.deletaPessoa(id).subscribe(response => {
+          this.dialogService.closeAll();
           this.dialogService.showSuccess(`${name} Deletado(a) com sucesso!`, "Pessoa Deletado!").then(result => {
             this.router.navigateByUrl('/pessoas').then(success => location.reload())
           });
         },
           error => {
+            this.dialogService.closeAll();
             this.dialogService.showError(`${error.error.error}`, "Erro ao Excluir Pessoa!")
           })
       }
