@@ -6,15 +6,19 @@ import ShowProductService from '@modules/products/services/ShowProductService';
 import SoftDeleteProductService from '@modules/products/services/SoftDeleteProductService';
 import { classToClass } from 'class-transformer';
 
+
 export default class ProductsController {
   public async create(request: Request, response: Response): Promise<Response> {
     const { description, quantity, name } = request.body;
 
     const createProduct = container.resolve(CreateProductService);
 
+
+    const fileName = request.s3File ? request.s3File?.key : request.file?.filename;
+
     const product = await createProduct.execute({
       description,
-      imageFileName: request?.file?.filename,
+      imageFileName: fileName,
       quantity,
       name,
     });
