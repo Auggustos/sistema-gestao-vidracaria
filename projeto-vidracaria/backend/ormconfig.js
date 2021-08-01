@@ -1,5 +1,5 @@
 
-const rootDir = process.env.NODE_ENV === "development" ?
+const rootDir = process.env.STAGE === "dev" ?
   "src" :
   "dist"
 
