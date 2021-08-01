@@ -5,7 +5,7 @@ import aws, { S3 } from 'aws-sdk';
 import uploadConfig from '@config/upload';
 import IStorageProvider from '../models/IStorageProvider';
 
-class DiskStorageProvider implements IStorageProvider {
+class S3StorageProvider implements IStorageProvider {
     private client: S3;
 
     constructor() {
@@ -15,7 +15,7 @@ class DiskStorageProvider implements IStorageProvider {
     }
 
     public async saveFile(file: string): Promise<string> {
-        const originalPath = path.resolve(uploadConfig.tmpFolder, file);
+        /*const originalPath = path.resolve(uploadConfig.tmpFolder, file);
 
         const ContentType = mime.lookup(originalPath);
 
@@ -35,7 +35,7 @@ class DiskStorageProvider implements IStorageProvider {
             })
             .promise();
 
-        await fs.promises.unlink(originalPath);
+        await fs.promises.unlink(originalPath);*/
 
         return file;
     }
@@ -50,4 +50,4 @@ class DiskStorageProvider implements IStorageProvider {
     }
 }
 
-export default DiskStorageProvider;
+export default S3StorageProvider;

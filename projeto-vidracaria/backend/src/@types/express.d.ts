@@ -3,5 +3,6 @@ declare namespace Express {
     user: {
       id: string;
     };
+    s3File?: Express.MulterS3.File
   }
 }
