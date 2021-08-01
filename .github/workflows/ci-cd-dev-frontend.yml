@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./projeto-vidracaria/backend
+        working-directory: ./projeto-vidracaria/frontend
 
     strategy:
       matrix:
@@ -45,6 +45,6 @@ jobs:
       uses: akhileshns/heroku-deploy@v3.12.12
       with:
         heroku_api_key: 2af73ae6-0379-4de9-b09a-5999c1ecb674
-        heroku_app_name: trablina
+        heroku_app_name: trablina-frontend
         heroku_email: thiagosiqueira@unifei.edu.br
-        appdir: "./projeto-vidracaria/backend"
+        appdir: "./projeto-vidracaria/frontend"
