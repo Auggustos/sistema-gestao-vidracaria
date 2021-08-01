@@ -6,16 +6,17 @@ import CustomersController from '../controllers/CustomersController';
 
 const costumersRouter = Router();
 const customersController = new CustomersController();
-costumersRouter.post('/', customersController.create);
-costumersRouter.get('/', customersController.index);
-costumersRouter.get('/:id', customersController.show);
-costumersRouter.delete('/:id', customersController.delete);
+costumersRouter.post('/', ensureAuthenticated, customersController.create);
+costumersRouter.get('/', ensureAuthenticated, customersController.index);
+costumersRouter.get('/:id', ensureAuthenticated, customersController.show);
+costumersRouter.delete('/:id', ensureAuthenticated, customersController.delete);
 costumersRouter.put('/', celebrate({
     [Segments.BODY]: {
         id: Joi.string().uuid().required(),
         name: Joi.string(),
-        description: Joi.string(),
-        quantity: Joi.number(),
+        phone: Joi.string(),
+        address: Joi.string(),
+        type: Joi.number(),
 
     },
 }), ensureAuthenticated, customersController.update);
