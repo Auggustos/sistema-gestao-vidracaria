@@ -5,6 +5,7 @@ import ListProductsService from '@modules/products/services/ListProductsService'
 import ShowProductService from '@modules/products/services/ShowProductService';
 import SoftDeleteProductService from '@modules/products/services/SoftDeleteProductService';
 import { classToClass } from 'class-transformer';
+import UpdateProductService from '@modules/products/services/UpdateProductService';
 
 
 export default class ProductsController {
@@ -53,5 +54,20 @@ export default class ProductsController {
     });
 
     return response.json(product);
+  }
+
+  public async update(request: Request, response: Response): Promise<Response> {
+    const { id, name, description, quantity } = request.body;
+
+    const updateProduct = container.resolve(UpdateProductService);
+
+    const product = await updateProduct.execute({
+      id,
+      name,
+      description,
+      quantity
+    });
+
+    return response.json(classToClass(product));
   }
 }

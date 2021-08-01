@@ -4,6 +4,8 @@ import CreateCustomerService from '@modules/customers/services/CreateCostumerSer
 import ListCostumersService from '@modules/customers/services/ListCostumersService';
 import ShowCostumerService from '@modules/customers/services/ShowCostumerService';
 import SoftDeleteCostumerService from '@modules/customers/services/SoftDeleteCostumerService';
+import UpdateCustomerService from '@modules/customers/services/UpdateCustomerService';
+import { classToClass } from 'class-transformer';
 
 export default class CustomersController {
   public async create(request: Request, response: Response): Promise<Response> {
@@ -48,5 +50,20 @@ export default class CustomersController {
     });
 
     return response.json(costumer);
+  }
+
+  public async update(request: Request, response: Response): Promise<Response> {
+    const { id, name, phone, type } = request.body;
+
+    const updateCustomer = container.resolve(UpdateCustomerService);
+
+    const customer = await updateCustomer.execute({
+      id,
+      name,
+      phone,
+      type
+    });
+
+    return response.json(classToClass(customer));
   }
 }
