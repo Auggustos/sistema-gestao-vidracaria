@@ -34,12 +34,12 @@ app.use(
     console.log(err);
 
     return response.status(500).json({
-      status: '500',
+      status: 'error',
       message: 'Internal server error',
     });
   }
 );
 
 app.listen(process.env.PORT || 3000, () => {
-  console.log('🚀 Servidor backend iniciado na porta 3000');
+  console.log('🚀 Servidor backend iniciado!');
 });
