@@ -12,7 +12,7 @@ import * as moment from 'moment';
 @Injectable()
 export class AuthService {
 
-  private apiRoot = environment.API_URL;
+  private apiRoot = `${environment.API_URL}/`;
 
   response;
   constructor(private http: HttpClient) { }
