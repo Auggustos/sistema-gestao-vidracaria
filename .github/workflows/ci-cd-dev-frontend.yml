@@ -1,10 +1,4 @@
-name: NodeJS with Webpack
-
-on:
-  push:
-    branches: [ Develop ]
-  pull_request:
-    branches: [ Develop ]
+name: Angular - Frontend
 
 jobs:
   build:
