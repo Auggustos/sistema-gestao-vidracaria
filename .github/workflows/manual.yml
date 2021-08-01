@@ -8,13 +8,16 @@ on:
   workflow_dispatch:
     # Inputs the workflow accepts.
     inputs:
-      name:
+      stack:
         # Friendly description to be shown in the UI instead of 'name'
-        description: 'Person to greet'
-        # Default value if no value is explicitly provided
-        default: 'World'
+        description: 'frontend | backend'
         # Input has to be provided for the workflow to run
-        required: false
+        required: true
+      app:
+        # Friendly description to be shown in the UI instead of 'name'
+        description: 'trablina | trablina-frontend'
+        # Input has to be provided for the workflow to run
+        required: true
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -22,7 +25,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./projeto-vidracaria/frontend
+        working-directory: ./projeto-vidracaria/${{ github.event.inputs.stack }}
 
     strategy:
       matrix:
@@ -56,6 +59,6 @@ jobs:
       uses: akhileshns/heroku-deploy@v3.12.12
       with:
         heroku_api_key: 2af73ae6-0379-4de9-b09a-5999c1ecb674
-        heroku_app_name: trablina-frontend
+        heroku_app_name: "${{ github.event.inputs.app }}"
         heroku_email: thiagosiqueira@unifei.edu.br
-        appdir: "./projeto-vidracaria/frontend"
+        appdir: "./projeto-vidracaria/${{ github.event.inputs.stack }}"
