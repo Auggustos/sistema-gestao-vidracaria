@@ -44,6 +44,7 @@ export default class UpdateSaleService {
 
 
         service.customer_id = customer_id;
+        service.customer.id = customer_id;
         service.value = value;
         service.type = type
         service.place = place;
