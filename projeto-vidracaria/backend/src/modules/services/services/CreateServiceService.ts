@@ -45,6 +45,12 @@ class CreateSaleService {
 
         });
 
+        if (value < 0) {
+            throw new AppError(
+                'Não é possível realizar um serviço com valor negativo.'
+            );
+        }
+
 
 
         await this.servicesRepository.save(service);
