@@ -1,4 +1,5 @@
 import Sale from '@modules/sales/infra/typeorm/entities/Sale';
+import AppError from '@shared/errors/AppError';
 import { injectable, inject } from 'tsyringe';
 import ISalesRepository from '../repositories/ISalesRepository';
 
@@ -31,6 +32,12 @@ class CreateSaleService {
             payment_type,
             paid,
         });
+
+        if (value < 0) {
+            throw new AppError(
+                'Não é possível realizar uma venda com valor negativo.'
+            );
+        }
 
         await this.salesRepository.save(sale);
 
