@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PageEvent } from '@angular/material/paginator';
 import { Router } from "@angular/router";
-import { Produto } from '../classes/produto.class';
 import { ApiService } from '../shared/services/api.service'
 import { AuthService } from '../shared/services/auth.service';
 import { DialogService } from '../shared/services/dialog/dialog.service';
@@ -9,6 +7,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ModalCriarServicoComponent } from '../modais/modal-criar-servico/modal-criar-servico.component';
 import { ModalVisualizarServicosComponent } from '../modais/modal-visualizar-servicos/modal-visualizar-servicos.component';
 import { ModalAtualizarServicosComponent } from '../modais/modal-atualizar-servicos/modal-atualizar-servicos.component';
+import { Servico } from '../classes/servico.class';
 export interface PeriodicElement {
   cliente: string;
   data: string;
@@ -16,10 +15,7 @@ export interface PeriodicElement {
   tipo: string;
 }
 
-const ELEMENT_DATA: PeriodicElement[] = [
-  { cliente: "Marcio da Silva", data: '06/06/21', local: "Avenida luiz correa cardoso nº 234 -  Turquia", tipo: 'Serviço' },
-  { cliente: "Andrea Siqueira de Paula", data: '15/06/21', local: "Avenida luiz correa cardoso nº 234 -  Turquia", tipo: 'Orçamento' },
-];
+let ELEMENT_DATA: Servico[] = []
 
 @Component({
   selector: 'app-listagem-servicos',
@@ -44,9 +40,29 @@ export class ListagemServicosComponent implements OnInit {
   constructor(private apiService: ApiService, private authService: AuthService, private dialogService: DialogService, private router: Router,
     public dialog: MatDialog) { }
 
-  ngOnInit(): void {
-
-  }
+    ngOnInit(): void {
+      this.montaTabela();
+    }
+  
+    montaTabela() {
+      let dadosTabela: Servico[] = []
+      this.dialogService.showLoading();
+      this.apiService.getServicos(this.authService.token).subscribe(response => {
+        console.log(response.results)
+        this.dialogService.closeAll();
+        dadosTabela = response.results;
+        ELEMENT_DATA = dadosTabela;
+        this.atualizaTabela();
+  
+      }, error => {
+        this.dialogService.closeAll();
+        this.dialogService.showError("Erro ao obter dados das pessoas!", "Erro");
+      });
+    }
+  
+    atualizaTabela() {
+      this.dataSource = ELEMENT_DATA;
+    }
 
   createServico() {
     this.dialog.open(ModalCriarServicoComponent, {
@@ -103,15 +119,15 @@ export class ListagemServicosComponent implements OnInit {
     this.dialogService.showConfirmWaring('Excluir Serviço', 'Tem certeza que deseja excluir o serviço? ele será excluído permanentemente.').then(result => {
       if (result.value == true) {
         this.dialogService.showLoading();
-        this.apiService.deletaProduto(id).subscribe(response => {
+        this.apiService.deletaServico(id,this.authService.token).subscribe(response => {
           this.dialogService.closeAll();
-          this.dialogService.showSuccess(`${name} Deletado com sucesso!`, "Produto Deletado!").then(result => {
-            this.router.navigateByUrl('').then(success => location.reload())
+          this.dialogService.showSuccess(`Serviço Deletado com sucesso!`, "Serviço Deletado!").then(result => {
+            this.router.navigateByUrl('/servicos').then(success => location.reload())
           });
         },
           error => {
             this.dialogService.closeAll();
-            this.dialogService.showError(`${error.error.error}`, "Erro ao Excluir Produto!")
+            this.dialogService.showError(`${error.error.error}`, "Erro ao Excluir Serviço!")
           })
       }
     });

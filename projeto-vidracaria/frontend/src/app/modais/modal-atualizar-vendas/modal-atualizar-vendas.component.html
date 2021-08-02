@@ -3,10 +3,10 @@
     <form class="cadastro-form" [formGroup]="vendaForm">
         <mat-form-field class="example-full-width">
             <mat-label>Cliente</mat-label>
-            <input type="text" placeholder="Selecione um" matInput formControlName="cliente" [matAutocomplete]="auto">
+            <input matInput type="text" placeholder="Selecione um" [matAutocomplete]="auto" formControlName="cliente">
             <mat-autocomplete #auto="matAutocomplete">
-                <mat-option *ngFor="let cliente of filteredOptions | async" [value]="cliente">
-                    {{cliente}}
+                <mat-option *ngFor="let cliente of filteredOptions | async" [value]="cliente.nome">
+                    {{cliente.nome}}
                 </mat-option>
             </mat-autocomplete>
         </mat-form-field>
@@ -19,34 +19,16 @@
         </div>
 
         <div class="row">
-            <mat-form-field class="example-full-width">
-                <input matInput placeholder="Selecione uma data" [matDatepicker]="datepickerRef" formControlName="data" required readonly/>
-                <mat-datepicker-toggle [for]="datepickerRef" matSuffix></mat-datepicker-toggle>
-                <mat-datepicker #datepickerRef></mat-datepicker>
-            </mat-form-field>
-        </div>
-
-        <div class="row">
             <mat-form-field class="example-full-width" appearance="fill">
                 <mat-label>Itens</mat-label>
                 <textarea matInput placeholder="digite os produtos/serviços" [(ngModel)]="itens" formControlName="produto"></textarea>
-            </mat-form-field>
-        </div>
-        <div class="row">
-            <mat-form-field class="example-full-width">
-                <mat-label>Tipos</mat-label>
-                <mat-select [(ngModel)]="valorTipo" formControlName="tipo">
-                    <mat-option *ngFor="let tipo of tipos" [value]="tipo.id">
-                        {{tipo.tipo}}
-                    </mat-option>
-                </mat-select>
             </mat-form-field>
         </div>
 
         <div class="row">
             <mat-form-field class="example-full-width">
                 <mat-label>Pagamento</mat-label>
-                <mat-select [(ngModel)]="tipoPagamento" formControlName="pagamento">
+                <mat-select [(ngModel)]="tipoPagamento" formControlName="tipo_pagamento">
                     <mat-option *ngFor="let pagamento of pagamentos" [value]="pagamento.id">
                         {{pagamento.pagamento}}
                     </mat-option>
@@ -57,20 +39,17 @@
         <div class="row">
             <mat-form-field class="example-full-width">
                 <mat-label>Pago</mat-label>
-                <mat-select [(ngModel)]="foiPago" formControlName="pagamento">
+                <mat-select [(ngModel)]="estaPago" formControlName="pago">
                     <mat-option *ngFor="let pa of pago" [value]="pa.id">
                         {{pa.p}}
                     </mat-option>
                 </mat-select>
             </mat-form-field>
         </div>
-
-
         <br>
-
     </form>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-    <div class="buttons"><button mat-raised-button class="button-cadastrar" (click)="cadastraUsuario()" [disabled]="!this.vendaForm.valid">Atualizar</button></div>
+    <div class="buttons"><button mat-raised-button class="button-cadastrar" (click)="atualizaVenda()" [disabled]="!this.vendaForm.valid">Atualizar</button></div>
     <div class="buttons"><button mat-raised-button class="button-voltar" mat-dialog-close>Voltar</button></div>
 </mat-dialog-actions>

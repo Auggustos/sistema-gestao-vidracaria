@@ -60,9 +60,7 @@ export class ModalCriarPessoaComponent implements OnInit {
     window.history.back();
   }
   cadastraUsuario() {
-    const body = this.loadObject();
-    console.log(body);
-    
+    const body = this.loadObject();    
     this.dialogService.showLoading();
     this.apiService.postPessoa(body).subscribe(success =>{
       this.dialogService.closeAll();

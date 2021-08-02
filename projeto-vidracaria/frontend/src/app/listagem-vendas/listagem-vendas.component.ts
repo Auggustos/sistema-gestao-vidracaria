@@ -9,6 +9,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ModalCriarVendaComponent } from '../modais/modal-criar-venda/modal-criar-venda.component';
 import { ModalVisualizarVendasComponent } from '../modais/modal-visualizar-vendas/modal-visualizar-vendas.component';
 import { ModalAtualizarVendasComponent } from '../modais/modal-atualizar-vendas/modal-atualizar-vendas.component';
+import { Vendas } from '../classes/venda.class';
 
 export interface PeriodicElement {
   cliente: string;
@@ -17,10 +18,7 @@ export interface PeriodicElement {
   pago: string;
 }
 
-const ELEMENT_DATA: PeriodicElement[] = [
-  { cliente: "Marcio da Silva", valor: 820, pagamento_em: "Dinheiro", pago: 'Sim' },
-  { cliente: "Andrea Siqueira de Paula", valor: 430, pagamento_em: "Cartão", pago: 'Não' },
-];
+let ELEMENT_DATA: Vendas[] = []
 
 @Component({
   selector: 'app-listagem-vendas',
@@ -42,11 +40,36 @@ export class ListagemVendasComponent implements OnInit {
   displayedColumns: string[] = ['cliente', 'valor', 'pagamento_em', 'pago', 'acoes'];
   dataSource = ELEMENT_DATA;
 
+  vendas = [];
+
   constructor(private apiService: ApiService, private authService: AuthService, private dialogService: DialogService, private router: Router,
     public dialog: MatDialog) { }
 
   ngOnInit(): void {
+
+    this.montaTabela();
   }
+
+  montaTabela() {
+    let dadosTabela: Vendas[] = []
+    this.dialogService.showLoading();
+    this.apiService.getVendas(this.authService.token).subscribe(response => {
+      this.dialogService.closeAll();
+      dadosTabela = response.results;
+      ELEMENT_DATA = dadosTabela;
+      this.atualizaTabela();
+
+    }, error => {
+      this.dialogService.closeAll();
+      this.dialogService.showError("Erro ao obter dados das pessoas!", "Erro");
+    });
+  }
+
+  atualizaTabela() {
+    this.dataSource = ELEMENT_DATA;
+  }
+
+
   createVenda() {
     this.dialog.open(ModalCriarVendaComponent, {
     });
@@ -84,7 +107,7 @@ export class ListagemVendasComponent implements OnInit {
   onView(id: string) {
     this.dialog.open(ModalVisualizarVendasComponent, {
       data: {
-        idServico: id,
+        idVenda: id,
       }
     });
   }
@@ -101,15 +124,15 @@ export class ListagemVendasComponent implements OnInit {
     this.dialogService.showConfirmWaring('Excluir Venda', 'Tem certeza que deseja excluir a venda? ela será excluída permanentemente.').then(result => {
       if (result.value == true) {
         this.dialogService.showLoading();
-        this.apiService.deletaPessoa(id).subscribe(response => {
+        this.apiService.deletaVenda(id,this.authService.token).subscribe(response => {
           this.dialogService.closeAll();
-          this.dialogService.showSuccess(`${name} Deletado(a) com sucesso!`, "Pessoa Deletado!").then(result => {
-            this.router.navigateByUrl('/pessoas').then(success => location.reload())
+          this.dialogService.showSuccess(`Venda Deletada com sucesso!`, "Venda Deletada!").then(result => {
+            this.router.navigateByUrl('/vendas').then(success => location.reload())
           });
         },
           error => {
             this.dialogService.closeAll();
-            this.dialogService.showError(`${error.error.error}`, "Erro ao Excluir Pessoa!")
+            this.dialogService.showError(`${error.error.error}`, "Erro ao Excluir Venda!")
           })
       }
     });

@@ -8,6 +8,7 @@ import { map, startWith } from 'rxjs/operators';
 import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
 import { AppDateAdapter, APP_DATE_FORMATS } from 'src/app/shared/format-datepicker';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { AuthService } from 'src/app/shared/services/auth.service';
 
 interface Tipos {
   id: number;
@@ -17,6 +18,11 @@ interface Tipos {
 interface Situacoes {
   id: number;
   situacao: string;
+}
+
+interface Cliente {
+  id: string;
+  nome: string
 }
 
 @Component({
@@ -53,11 +59,15 @@ export class ModalAtualizarServicosComponent implements OnInit {
 
   myControl = new FormControl();
 
-  clientes: string[] = ['Ana', 'Marcos', 'Gabriel'];
+  filteredOptions: Observable<{ nome: string, id: string }[]>;
 
-  filteredOptions: Observable<string[]>;
-
-  constructor(private apiService: ApiService, private dialogService: DialogService, private router: Router, @Inject(MAT_DIALOG_DATA) public data: any) { }
+  constructor(private apiService: ApiService, private dialogService: DialogService, private router: Router, private authService: AuthService, @Inject(MAT_DIALOG_DATA) public data: any) {
+    this.filteredOptions = this.serviceForm.get('cliente').valueChanges
+      .pipe(
+        startWith(''),
+        map(cliente => cliente ? this._filter(cliente) : this.clientes.slice())
+      );
+  }
 
   hide = true;
 
@@ -66,65 +76,89 @@ export class ModalAtualizarServicosComponent implements OnInit {
     data: new FormControl('', Validators.required),
     local: new FormControl('', Validators.required),
     tipo: new FormControl('', Validators.required),
+    valor: new FormControl('', Validators.required),
     status: new FormControl('', Validators.required),
   });
 
+  clientesMap = new Map();
+
+  clientes: Cliente[] = [];
 
   ngOnInit() {
+    this.dialogService.showLoading()
+    this.apiService.getPessoas().subscribe(response => {
+      response.results.forEach(cliente => {
+        this.clientes.push({ nome: cliente.name, id: cliente.id })
+        this.clientesMap.set(cliente.name, cliente.id);
+      })
 
-    // alto preenchimento dos campos
-    let servico = {
-      cliente:'juca',
-      data: new Date(),
-      local: 'Avenida luiz correa cardoso nº234 bairro turquia - maria da fé - MG',
-      tipo: 0,
-      status: 0,
-    };
+      this.filteredOptions = this.serviceForm.get('cliente').valueChanges
+        .pipe(
+          startWith(''),
+          map(cliente => cliente ? this._filter(cliente) : this.clientes.slice())
+        );
+      this.dialogService.closeAll();
+    }, error => {
+      this.dialogService.closeAll();
+      this.dialogService.showError("Erro ao obter dados das pessoas!", "Erro");
+    });
 
-    this.valorStatus = 0
-    this.valorTipo = 0;
-    this.serviceForm.setValue(servico);
+    this.apiService.getServico(this.data.idServico, this.authService.token).subscribe(response => {
+      if (response.id == this.data.idServico) {
 
+        console.log(response)
 
+        let servico = {
+          cliente: response.customer.name,
+          data: response.date,
+          local: response.place,
+          tipo: response.type,
+          valor: response.value,
+          status: response.status,
+        };
 
-
-    this.filteredOptions = this.myControl.valueChanges
-      .pipe(
-        startWith(''),
-        map(value => this._filter(value))
-      );
+        this.serviceForm.setValue(servico);
+        this.dialogService.closeAll();
+      }
+    },
+      error => {
+        this.dialogService.closeAll();
+        this.dialogService.showError(`${error.error.error}`, "Erro ao Recuperar Serviço!")
+      })
   }
-
-  private _filter(value: string): string[] {
-    const filterValue = value.toLowerCase();
-
-    return this.clientes.filter(option => option.toLowerCase().includes(filterValue));
-  }
-
 
   goBack() {
     window.history.back();
   }
-  cadastraUsuario() {
+  atualizaServico() {
     const body = this.loadObject();
-    /*this.apiService.postUsuario(body).subscribe(success =>{
-      this.dialogService.showSuccess(`Usuário ${body.nome} cadastrado com sucesso!`,"Cadastro Concluido").then(result => {
-        this.router.navigateByUrl('login').then(success => location.reload())
+    this.dialogService.showLoading();
+    this.apiService.putServico(body,this.authService.token).subscribe(success =>{
+      this.dialogService.closeAll();
+      this.dialogService.showSuccess(`Serviço atualizado com sucesso!`,"Serviço Atualizado").then(result => {
+        this.router.navigateByUrl('/servicos').then(success => location.reload())
       });
     },
     error => {
-      this.dialogService.showError(`${error.error.message}`, "Acesso Negado!")
+      this.dialogService.closeAll();
+      this.dialogService.showError(`${error.error.message}`, "Erro ao Atualizar!")
     });
-    */
+    
   }
   loadObject() {
     return {
-      cliente: this.serviceForm.value.cliente,
-      data: this.serviceForm.value.data,
-      local: this.serviceForm.value.local,
-      tipo: this.serviceForm.value.tipo,
+      id: this.data.idServico,
+      customer_id: this.clientesMap.get(this.serviceForm.value.cliente),
+      date: this.serviceForm.value.data,
+      place: this.serviceForm.value.local,
+      type: this.serviceForm.value.tipo,
+      value: this.serviceForm.value.valor,
       status: this.serviceForm.value.status,
     }
   }
 
+  private _filter(value: string): Cliente[] {
+    const filterValue = value.toLowerCase();
+    return this.clientes.filter(cliente => cliente.nome.toLowerCase().includes(filterValue));
+  }
 }

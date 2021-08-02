@@ -8,6 +8,7 @@ import { map, startWith } from 'rxjs/operators';
 import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
 import { AppDateAdapter, APP_DATE_FORMATS } from 'src/app/shared/format-datepicker';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { AuthService } from '../../shared/services/auth.service';
 interface Tipos {
   id: number;
   tipo: string;
@@ -44,7 +45,7 @@ export class ModalAtualizarPessoasComponent implements OnInit {
 
 
 
-  constructor(private apiService: ApiService, private dialogService: DialogService, private router: Router, @Inject(MAT_DIALOG_DATA) public data: any) { }
+  constructor(private apiService: ApiService, private dialogService: DialogService, private authService: AuthService, private router: Router, @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   hide = true;
 
@@ -83,19 +84,22 @@ export class ModalAtualizarPessoasComponent implements OnInit {
   }
   atualizaUsuario() {
     const body = this.loadObject();
-    /*
-    this.apiService.putPessoa(this.data.idPessoa,body).subscribe(success => {
+    this.dialogService.showLoading()
+    this.apiService.putPessoa(body, this.authService.token).subscribe(success => {
+      this.dialogService.closeAll();
       this.dialogService.showSuccess(`Usuário ${body.name} atualizado(a) com sucesso!`, "Atualização Concluida").then(result => {
         this.router.navigateByUrl('/pessoas').then(success => location.reload())
       });
     },
       error => {
+        this.dialogService.closeAll();
         this.dialogService.showError(`${error.error.message}`, "Acesso Negado!")
       });
-  */
+
   }
   loadObject() {
     return {
+      id: this.data.idPessoa,
       name: this.pessoaForm.value.nome,
       phone: this.pessoaForm.value.celular,
       address: this.pessoaForm.value.endereco,

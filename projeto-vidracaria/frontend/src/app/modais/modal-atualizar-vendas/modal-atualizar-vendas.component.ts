@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
 import { AppDateAdapter, APP_DATE_FORMATS } from 'src/app/shared/format-datepicker';
+import { AuthService } from 'src/app/shared/services/auth.service';
 
 interface Tipos {
   id: number;
@@ -29,6 +30,11 @@ interface Pago {
   p: string;
 }
 
+interface Cliente {
+  id: string;
+  nome: string
+}
+
 @Component({
   selector: 'app-modal-atualizar-vendas',
   templateUrl: './modal-atualizar-vendas.component.html',
@@ -44,7 +50,13 @@ export class ModalAtualizarVendasComponent implements OnInit {
   itens;
   formattedAmount;
   amount;
-  constructor(private apiService: ApiService, private dialogService: DialogService, private router: Router, @Inject(MAT_DIALOG_DATA) public data: any) { }
+  constructor(private apiService: ApiService, private dialogService: DialogService, private router: Router, private authService: AuthService, @Inject(MAT_DIALOG_DATA) public data: any) {
+    this.filteredOptions = this.vendaForm.get('cliente').valueChanges
+    .pipe(
+      startWith(''),
+      map(cliente => cliente ? this._filter(cliente) : this.clientes.slice())
+    );
+  }
 
   tipos: Tipos[] = [
     { id: 0, tipo: 'Serviço' },
@@ -68,91 +80,103 @@ export class ModalAtualizarVendasComponent implements OnInit {
 
   hide = true;
 
-  myControl = new FormControl();
+  clientesMap = new Map();
 
-  clientes: string[] = ['Ana', 'Marcos', 'Gabriel'];
+  clientes: Cliente[] = [];
 
-  filteredOptions: Observable<string[]>;
+  myControl = new FormControl('', Validators.required);
+
+  filteredOptions: Observable<{ nome: string, id: string }[]>;
+
   vendaForm = new FormGroup({
     cliente: new FormControl('', Validators.required),
-    data: new FormControl('', Validators.required),
-    itens: new FormControl('', Validators.required),
     valor: new FormControl('', Validators.required),
-    pagamento: new FormControl('', Validators.required),
     produto: new FormControl('', Validators.required),
-    tipo: new FormControl('', Validators.required),
+    tipo_pagamento: new FormControl('', Validators.required),
     pago: new FormControl('', Validators.required),
   });
   valorTipo: number;
   valorStatus: number;
   tipoPagamento: number;
   foiPago: number;
+  estaPago: number;
+
 
   ngOnInit() {
+    this.dialogService.showLoading()
+    this.apiService.getPessoas().subscribe(response => {
+      response.results.forEach(cliente => {
+        this.clientes.push({ nome: cliente.name, id: cliente.id })
+        this.clientesMap.set(cliente.name, cliente.id);
+      })
 
+      this.filteredOptions = this.vendaForm.get('cliente').valueChanges
+        .pipe(
+          startWith(''),
+          map(cliente => cliente ? this._filter(cliente) : this.clientes.slice())
+        );
+      this.dialogService.closeAll();
+    }, error => {
+      this.dialogService.closeAll();
+      this.dialogService.showError("Erro ao obter dados das pessoas!", "Erro");
+    });
 
-    let venda = {
-      cliente: "Sachin",
-      data: new Date(),
-      itens: "dale",
-      valor: '850,00',
-      pagamento: 0,
-      produto: '2Kg massa de vidro, 1m² vidro fumê',
-      tipo: 0,
-      pago: "sim",
-    };
+    this.apiService.getVenda(this.data.idVenda, this.authService.token).subscribe(response => {
+      if (response.id == this.data.idVenda) {
 
-    this.valorVenda = 850
-    this.itens = '2Kg massa de vidro, 1m² vidro fumê'
-    this.valorTipo = 0;
-    this.vendaForm.setValue(venda);
-    this.tipoPagamento = 0;
-    this.foiPago = 0;
+        console.log(response)
 
-    this.filteredOptions = this.myControl.valueChanges
-      .pipe(
-        startWith(''),
-        map(value => this._filter(value))
-      );
+        let venda = {
+          cliente: response.customer.name,
+          valor: response.value,
+          produto: response.itens,
+          tipo_pagamento: response.payment_type,
+          pago: response.paid,
+        };
+
+        this.vendaForm.setValue(venda);
+        this.dialogService.closeAll();
+      }
+    },
+      error => {
+        this.dialogService.closeAll();
+        this.dialogService.showError(`${error.error.error}`, "Erro ao Recuperar Produto!")
+      })
   }
 
   goBack() {
     window.history.back();
   }
 
-  cadastraUsuario() {
+  atualizaVenda() {
     const body = this.loadObject();
-    /*this.apiService.postUsuario(body).subscribe(success =>{
-      this.dialogService.showSuccess(`Usuário ${body.nome} cadastrado com sucesso!`,"Cadastro Concluido").then(result => {
-        this.router.navigateByUrl('login').then(success => location.reload())
+    this.dialogService.showLoading();
+    this.apiService.putVenda(body,this.authService.token).subscribe(success =>{
+      this.dialogService.showSuccess(`Venda atualizada com sucesso!`,"Venda Atualizada").then(result => {
+        this.dialogService.closeAll();
+        this.router.navigateByUrl('/vendas').then(success => location.reload())
       });
     },
     error => {
+      this.dialogService.closeAll();
       this.dialogService.showError(`${error.error.message}`, "Acesso Negado!")
     });
-    */
+    
   }
 
   loadObject() {
     return {
-      cliente: this.vendaForm.value.cliente,
-      data: this.vendaForm.value.data,
+      id: this.data.idVenda,
+      customer_id: this.clientesMap.get(this.vendaForm.value.cliente),
+      value: this.vendaForm.value.valor,
       itens: this.vendaForm.value.produto,
-      valor: this.vendaForm.value.valor,
-      pagamento: this.vendaForm.value.pagamento,
-      pago: this.vendaForm.value.pago,
+      payment_type: this.vendaForm.value.tipo_pagamento,
+      paid: this.vendaForm.value.pago,
     }
   }
 
-  private _filter(value: string): string[] {
+  private _filter(value: string): Cliente[] {
     const filterValue = value.toLowerCase();
-    return this.clientes.filter(option => option.toLowerCase().includes(filterValue));
+    return this.clientes.filter(cliente => cliente.nome.toLowerCase().includes(filterValue));
   }
-
-  myFilter = (d: Date | null): boolean => {
-    const day = (d || new Date()).getDay();
-    // Prevent Saturday and Sunday from being selected.
-    return day !== 0 && day !== 6;
-  }
-
 }

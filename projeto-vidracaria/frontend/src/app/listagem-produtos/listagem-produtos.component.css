@@ -30,7 +30,7 @@
     margin-left: 15px;
     margin-right: 15px;
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     grid-column-gap: 10px;
     grid-row-gap: 10px;
 }
@@ -145,8 +145,7 @@ table {
 }
 
 .imagem-produto {
-    height: 315px;
-    width: 315px;
+    width: 108%;
 }
 
 .card-title {

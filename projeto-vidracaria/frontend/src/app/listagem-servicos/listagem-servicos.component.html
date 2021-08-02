@@ -5,16 +5,17 @@
             Listagem de Serviços
         </mat-card-title>
         <section class="content">
-            <button mat-fab color="primary" matTooltip="Cadastrar Projetos" (click)="createServico()" class="sigelu-button-novo">
-                        <mat-icon>add</mat-icon>
-                </button>
+            <button mat-fab color="primary" matTooltip="Cadastrar Serviços" (click)="createServico()" class="sigelu-button-novo">
+                <mat-icon>add</mat-icon>
+            </button>
 
             <div class="row">
                 <div class="col-lg-4 col-md-6 col-sm-12">
                     <mat-form-field class="campo-pesquisa">
                         <input matInput placeholder="Pesquisar" [(ngModel)]="pesquisaCampos[0].texto" (keyup.enter)="onEnter(pesquisaCampos[0].texto)">
                         <mat-icon class="expandir-button" style="cursor:pointer" matSuffix matTooltip="Pesquisar" (click)="onChange()">search</mat-icon>
-                        <mat-icon [class.btn-disable]="!pesquisaCampos[0].texto" class="expandir-button" style="cursor:pointer" matTooltip="Limpar" matSuffix (click)="limpaCampoPesquisa()">clear</mat-icon>
+                        <mat-icon [class.btn-disable]="!pesquisaCampos[0].texto" class="expandir-button" style="cursor:pointer" matTooltip="Limpar" matSuffix (click)="limpaCampoPesquisa()">clear
+                        </mat-icon>
                     </mat-form-field>
                 </div>
                 <div class="col-lg-4 col-md-12 col-sm-12">
@@ -31,39 +32,49 @@
                     <!-- Position Column -->
                     <ng-container matColumnDef="cliente">
                         <th mat-header-cell *matHeaderCellDef class="mat-column"> Cliente </th>
-                        <td mat-cell *matCellDef="let element" class="mat-column"> {{element.cliente}} </td>
+                        <td mat-cell *matCellDef="let element" class="mat-column"> {{element.customer == null ? '-' : element.customer.name }} </td>
                     </ng-container>
 
                     <!-- Name Column -->
                     <ng-container matColumnDef="data">
                         <th mat-header-cell *matHeaderCellDef class="mat-column"> Data </th>
-                        <td mat-cell *matCellDef="let element" class="mat-column"> {{element.data}} </td>
+                        <td mat-cell *matCellDef="let element" class="mat-column"> {{element.date | date:'dd/LL/yyyy'}} </td>
                     </ng-container>
 
                     <!-- Weight Column -->
                     <ng-container matColumnDef="local">
                         <th mat-header-cell *matHeaderCellDef class="mat-column"> Local </th>
-                        <td mat-cell *matCellDef="let element" class="mat-column"> {{element.local}} </td>
+                        <td mat-cell *matCellDef="let element" class="mat-column"> {{element.place}} </td>
                     </ng-container>
 
                     <!-- Symbol Column -->
                     <ng-container matColumnDef="tipo">
                         <th mat-header-cell *matHeaderCellDef class="mat-column"> Tipo </th>
-                        <td mat-cell *matCellDef="let element" class="mat-column"> {{element.tipo}} </td>
+                        <td mat-cell *matCellDef="let element" class="mat-column">
+                            <div *ngIf="element.type == 2">
+                                Instalação
+                            </div>
+                            <div *ngIf="element.type == 1">
+                                Orçamento
+                            </div>
+                            <div *ngIf="element.type == 0">
+                                Reforma
+                            </div>
+                        </td>
                     </ng-container>
 
                     <ng-container matColumnDef="acoes">
                         <th mat-header-cell *matHeaderCellDef class="mat-column"> Ações </th>
                         <td mat-cell *matCellDef="let element" class="mat-column">
                             <button mat-icon-button matTooltip="Visualizar serviço" (click)="onView(element.id)">
-                        <mat-icon style="color: cornflowerblue;">search</mat-icon>
-                      </button>
+                                <mat-icon style="color: cornflowerblue;">search</mat-icon>
+                            </button>
                             <button mat-icon-button matTooltip="Atualizar serviço" (click)="onUpdate(element.id)">
-                        <mat-icon style="color: darkgrey;">edit</mat-icon>
-                      </button>
+                                <mat-icon style="color: darkgrey;">edit</mat-icon>
+                            </button>
                             <button mat-icon-button matTooltip="Apaga serviço" (click)="onDelete(element.id)">
-                        <mat-icon style="color:brown ;">delete</mat-icon>
-                      </button>
+                                <mat-icon style="color:brown ;">delete</mat-icon>
+                            </button>
 
                         </td>
                     </ng-container>

@@ -1,15 +1,24 @@
 <h2 mat-dialog-title>Dados do Serviço</h2>
 <mat-dialog-content class="mat-typography">
     <mat-list>
-        <mat-list-item>Cliente: Bill Gates </mat-list-item>
+        <mat-list-item>Cliente: {{servico.customer.name}} </mat-list-item>
         <mat-divider></mat-divider>
-        <mat-list-item> Data: 30/07/2021</mat-list-item>
+        <mat-list-item> Data: {{servico.date | date:'dd/LL/yyyy'}}</mat-list-item>
         <mat-divider></mat-divider>
-        <mat-list-item>Local: Avenida luiz correa cardoso nº 234</mat-list-item>
+        <mat-list-item>Local: {{servico.place}}</mat-list-item>
         <mat-divider></mat-divider>
-        <mat-list-item>Tipo: Serviço </mat-list-item>
+        <mat-list-item>Tipo:
+            <div *ngIf="servico.type == 0"> Reforma </div>
+            <div *ngIf="servico.type == 1"> Orçamento </div>
+            <div *ngIf="servico.type == 2"> Instalação </div>
+        </mat-list-item>
         <mat-divider></mat-divider>
-        <mat-list-item>Status: Realizado</mat-list-item>
+        <mat-list-item>Valor: {{servico.value}}</mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item>Status:
+            <div *ngIf="servico.status == 0"> Realizado </div>
+            <div *ngIf="servico.status == 1"> Não Realizado </div>
+        </mat-list-item>
     </mat-list>
 </mat-dialog-content>
 <mat-dialog-actions align="end">

@@ -25,12 +25,12 @@ export class ModalAtualizarProdutosComponent implements OnInit {
 
   hide = true;
 
-  produto ;
+  produto;
   productForm = new FormGroup({
     name: new FormControl('', Validators.required),
     description: new FormControl('', Validators.required),
     quantity: new FormControl('', Validators.required),
-    image: new FormControl('', Validators.required),
+    //image: new FormControl('', Validators.required),
   });
 
   ngOnInit(): void {
@@ -38,13 +38,11 @@ export class ModalAtualizarProdutosComponent implements OnInit {
     this.dialogService.showLoading()
     this.apiService.getProduto(this.data.idProduto).subscribe(response => {
       if (response.id == this.data.idProduto) {
-        console.log(response);
 
         this.produto = {
           name: response.name,
           description: response.description,
           quantity: response.quantity,
-          image: null
         }
         this.productForm.setValue(this.produto);
         this.dialogService.closeAll();
@@ -78,26 +76,38 @@ export class ModalAtualizarProdutosComponent implements OnInit {
 
   onUpload() {
 
-    const uploadData = new FormData();
+    /*const uploadData = new FormData();
     uploadData.append('image', this.selectedFile);
     uploadData.append('name', this.productForm.value.name);
     uploadData.append('description', this.productForm.value.description);
     uploadData.append('quantity', this.productForm.value.quantity);
+    uploadData.append('id', this.data.idProduto);
+    */
     this.dialogService.showLoading();
-    this.apiService.postProdutos(uploadData) // usar isso aqui quando a api estiver esperando um formdata
+    let body = this.loadBody();
+    this.apiService.putProdutos(body, this.authService.token)
       .subscribe(
         success => {
           this.dialogService.closeAll();
-          this.dialogService.showSuccess(`${this.productForm.value.name} cadastrado com sucesso!`, "Produto Cadastrado!").then(result => {
-          this.router.navigateByUrl('').then(success => location.reload())
+          this.dialogService.showSuccess(`${this.productForm.value.name} Atualizado com sucesso!`, "Produto Atualizado!").then(result => {
+            this.router.navigateByUrl('').then(success => location.reload())
           });
         },
         error => {
           this.dialogService.closeAll();
-          this.dialogService.showError(`${error.error.error}`, "Erro no Cadastro!");
+          this.dialogService.showError(`${error.error.error}`, "Erro na Atualização!");
         }
       );
 
 
+  }
+
+  loadBody(){
+    return {
+      id: this.data.idProduto,
+      name: this.productForm.value.name,
+      quantity: this.productForm.value.quantity,
+      description: this.productForm.value.description
+    }
   }
 }

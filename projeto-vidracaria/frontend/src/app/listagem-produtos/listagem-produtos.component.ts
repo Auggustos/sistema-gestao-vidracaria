@@ -56,7 +56,6 @@ export class ListagemProdutosComponent implements OnInit {
     this.apiService.getProdutos().subscribe(response => {
       this.dialogService.closeAll();
       let resposta = response;
-      console.log(response)
       resposta.results.forEach(produto => {
         this.produtos.push(produto);
       })

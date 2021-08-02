@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ApiService } from '../../shared/services/api.service'
-import{ DialogService } from '../../shared/services/dialog/dialog.service'
-import {Observable} from 'rxjs';
-import {map, startWith} from 'rxjs/operators';
-import {DateAdapter, MAT_DATE_FORMATS} from '@angular/material/core';
+import { DialogService } from '../../shared/services/dialog/dialog.service'
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
+import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
 import { AppDateAdapter, APP_DATE_FORMATS } from 'src/app/shared/format-datepicker';
+import { AuthService } from 'src/app/shared/services/auth.service';
 
 interface Tipos {
   id: number;
@@ -18,95 +19,117 @@ interface Situacoes {
   situacao: string;
 }
 
+interface Cliente {
+  id: string;
+  nome: string
+}
+
 @Component({
   selector: 'app-modal-criar-servico',
   templateUrl: './modal-criar-servico.component.html',
   styleUrls: ['./modal-criar-servico.component.scss'],
   providers: [
-    {provide: DateAdapter, useClass: AppDateAdapter},
-    {provide: MAT_DATE_FORMATS, useValue: APP_DATE_FORMATS}
+    { provide: DateAdapter, useClass: AppDateAdapter },
+    { provide: MAT_DATE_FORMATS, useValue: APP_DATE_FORMATS }
   ]
 })
 export class ModalCriarServicoComponent implements OnInit {
-  
+
 
   tipos: Tipos[] = [
-    {id: 0, tipo:'Reforma' },
-    {id: 1, tipo:'Orçamento' },
-    {id: 2, tipo:'Instalação' },
+    { id: 0, tipo: 'Reforma' },
+    { id: 1, tipo: 'Orçamento' },
+    { id: 2, tipo: 'Instalação' },
   ];
 
   situacoes: Situacoes[] = [
-    {id: 0, situacao:'Realizado' },
-    {id: 1, situacao:'Não Realizado' },
+    { id: 0, situacao: 'Realizado' },
+    { id: 1, situacao: 'Não Realizado' },
   ];
 
- valorTipo: number;
- valorStatus: number;
- valorVenda
+  valorTipo: number;
+  valorStatus: number;
+  valorVenda
 
-  myFilter = (d: Date | null): boolean => {
-    const day = (d || new Date()).getDay();
-    // Prevent Saturday and Sunday from being selected.
-    return day !== 0 && day !== 6;
-  }
-  
+  clientesMap = new Map();
+
+  clientes: Cliente[] = [];
+
   myControl = new FormControl();
 
-  clientes: string[] = ['Ana', 'Marcos', 'Gabriel'];
+  filteredOptions: Observable<{ nome: string, id: string }[]>;
 
-  filteredOptions: Observable<string[]>;
+  constructor(private apiService: ApiService, private dialogService: DialogService, private router: Router, private authService: AuthService) {
 
-
-  ngOnInit() {
     this.filteredOptions = this.myControl.valueChanges
       .pipe(
         startWith(''),
-        map(value => this._filter(value))
+        map(cliente => cliente ? this._filter(cliente) : this.clientes.slice())
       );
   }
 
-  private _filter(value: string): string[] {
-    const filterValue = value.toLowerCase();
+  ngOnInit() {
+    this.dialogService.showLoading()
+    this.apiService.getPessoas().subscribe(response => {
+      response.results.forEach(cliente => {
+        this.clientes.push({ nome: cliente.name, id: cliente.id })
+        this.clientesMap.set(cliente.name, cliente.id);
+      })
 
-    return this.clientes.filter(option => option.toLowerCase().includes(filterValue));
+      this.filteredOptions = this.serviceForm.get('cliente').valueChanges
+        .pipe(
+          startWith(''),
+          map(cliente => cliente ? this._filter(cliente) : this.clientes.slice())
+        );
+      this.dialogService.closeAll();
+    }, error => {
+      this.dialogService.closeAll();
+      this.dialogService.showError("Erro ao obter dados das pessoas!", "Erro");
+    });
   }
-
-  constructor(private apiService: ApiService, private dialogService: DialogService, private router : Router) { }
 
   hide = true;
 
   serviceForm = new FormGroup({
-    cliente: new FormControl('',Validators.required),
-    data: new FormControl('',Validators.required),
-    local: new FormControl('',Validators.required),
-    tipo: new FormControl('',Validators.required),
-    valor: new FormControl('',Validators.required),
-    status: new FormControl('',Validators.required),
+    cliente: new FormControl('', Validators.required),
+    data: new FormControl('', Validators.required),
+    local: new FormControl('', Validators.required),
+    tipo: new FormControl('', Validators.required),
+    valor: new FormControl('', Validators.required),
+    status: new FormControl('', Validators.required),
   });
   goBack() {
     window.history.back();
   }
   cadastraServico() {
     const body = this.loadObject();
-    /*this.apiService.postServico(body).subscribe(success =>{
-      this.dialogService.showSuccess(`Serviço cadastrado com sucesso!`,"Cadastro Concluido").then(result => {
-        this.router.navigateByUrl('login').then(success => location.reload())
+    this.dialogService.showLoading()
+    this.apiService.postServico(body, this.authService.token).subscribe(success => {
+      this.dialogService.closeAll();
+      this.dialogService.showSuccess(`Serviço cadastrado com sucesso!`, "Cadastro Concluido").then(result => {
+        this.router.navigateByUrl('servicos').then(success => location.reload())
       });
     },
-    error => {
-      this.dialogService.showError(`${error.error.message}`, "Acesso Negado!")
-    });
-    */
+      error => {
+        this.dialogService.closeAll();
+        this.dialogService.showError(`${error.error.message}`, "Acesso Negado!")
+      });
+
   }
-  loadObject(){
-    return{
-      cliente: this.serviceForm.value.cliente,
-      data: this.serviceForm.value.data,
-      local: this.serviceForm.value.local,
-      tipo: this.serviceForm.value.tipo,
-      valor: this.serviceForm.value.valor,
+  loadObject() {
+    return {
+      customer_id: this.clientesMap.get(this.serviceForm.value.cliente),
+      date: this.serviceForm.value.data,
+      place: this.serviceForm.value.local,
+      type: this.serviceForm.value.tipo,
+      value: this.serviceForm.value.valor,
       status: this.serviceForm.value.status,
     }
+  }
+
+  private _filter(value: string): Cliente[] {
+
+    const filterValue = value.toLowerCase();
+    return this.clientes.filter(cliente => cliente.nome.toLowerCase().includes(filterValue));
   }
 }

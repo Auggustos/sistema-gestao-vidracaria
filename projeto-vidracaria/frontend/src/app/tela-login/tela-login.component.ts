@@ -37,7 +37,7 @@ export class TelaLoginComponent implements OnInit {
       success => {
         this.dialogService.closeAll();
         this.dialogService.showSuccess(`Bem vindo ${this.authService.getUser()}`, "Login Realizado!").then(result => {
-          console.log(result);
+
           this.router.navigateByUrl('').then(success => location.reload())
         })
       },
