@@ -80,7 +80,7 @@ export class ListagemProdutosComponent implements OnInit {
     });
   }
   onDelete(id: string, name: string) {
-    this.dialogService.showConfirmWaring('Excluir produto', 'Tem certeza que deseja excluir o produto? eles será excluído permanentemente.').then(result => {
+    this.dialogService.showConfirmWaring('Excluir produto', 'Tem certeza que deseja excluir o produto? ele será excluído permanentemente.').then(result => {
       if (result.value == true) {
         this.dialogService.showLoading();
         this.apiService.deletaProduto(id).subscribe(response => {
