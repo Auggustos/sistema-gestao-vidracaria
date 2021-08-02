@@ -6,6 +6,7 @@ import swaggerDocs from '@shared/infra/http/routes/swagger.json';
 import sessionsRouter from '@modules/users/infra/http/routes/sessions.routes';
 import usersRouter from '@modules/users/infra/http/routes/users.routes';
 import salesRouter from '@modules/sales/infra/http/routes/sales.routes';
+import servicesRouter from '@modules/services/infra/http/routes/services.routes';
 
 const routes = Router();
 
@@ -13,6 +14,7 @@ routes.use('/products', productsRouter);
 routes.use('/auth', sessionsRouter);
 routes.use('/users', usersRouter);
 routes.use('/customers', customersRouter);
+routes.use('/services', servicesRouter);
 routes.use('/sales', salesRouter);
 routes.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
