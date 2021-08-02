@@ -1,0 +1,693 @@
+import { browser, by, element, Key, logging, ExpectedConditions as EC } from 'protractor';
+
+describe('CT1 Serviços - Sem campos nulos', () => {
+
+	beforeAll(async () => { });
+	beforeEach(async () => { });
+
+	it('should do something', async () => {
+		await browser.get('http://trablina-frontend.herokuapp.com/servicos');
+		await element(by.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Listagem de Serviços'])[1]/following::button[1]")).click();
+		await element(by.xpath("//mat-option[@id='mat-option-24']/span")).click();
+		await element(by.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Selecione uma data'])[1]/following::*[name()='svg'][1]")).click();
+		await element(by.xpath("//mat-calendar[@id='mat-datepicker-2']/div/mat-month-view/table/tbody/tr[2]/td[4]/div")).click();
+		await element(by.id("mat-input-11")).click();
+		await element(by.id("mat-input-11")).sendKeys('teste');
+		await element(by.xpath("//div[@id='mat-select-value-9']/span")).click();
+		await element(by.xpath("//mat-option[@id='mat-option-18']/span")).click();
+		await element(by.id("mat-input-12")).click();
+		await element(by.xpath("//mat-dialog-container[@id='mat-dialog-2']/app-modal-criar-servico/mat-dialog-content/form/div[4]/mat-form-field/div/div/div")).click();
+		await element(by.xpath("//div[@id='mat-select-value-11']/span")).click();
+		await element(by.xpath("//mat-option[@id='mat-option-21']/span")).click();
+		await element(by.xpath("//mat-dialog-container[@id='mat-dialog-2']/app-modal-criar-servico/mat-dialog-actions/div/button/span")).click();
+		await element(by.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Serviço cadastrado com sucesso!'])[1]/following::button[1]")).click();
+	});
+
+	afterEach(async () => {
+		// Assert that there are no errors emitted from the browser
+		const logs = await browser.manage().logs().get(logging.Type.BROWSER);
+		expect(logs).not.toContain(jasmine.objectContaining({
+			level: logging.Level.SEVERE,
+		} as logging.Entry));
+	});
+
+});
+
+import { browser, by, element, Key, logging, ExpectedConditions as EC } from 'protractor';
+
+describe('CT2 Serviços - Cliente nulo', () => {
+
+	beforeAll(async () => { });
+	beforeEach(async () => { });
+
+	it('should do something', async () => {
+		await browser.get('http://trablina-frontend.herokuapp.com/servicos');
+		await element(by.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Listagem de Serviços'])[1]/following::mat-icon[1]")).click();
+		await element(by.id("mat-dialog-title-4")).click();
+		await element(by.css("path")).click();
+		await element(by.xpath("//mat-calendar[@id='mat-datepicker-4']/div/mat-month-view/table/tbody/tr[2]/td[3]/div")).click();
+		await element(by.id("mat-input-19")).click();
+		await element(by.id("mat-input-19")).sendKeys('TESTE');
+		await element(by.xpath("//div[@id='mat-select-value-17']/span")).click();
+		await element(by.xpath("//mat-option[@id='mat-option-36']/span")).click();
+		await element(by.id("mat-input-20")).click();
+		await element(by.xpath("//mat-dialog-container[@id='mat-dialog-4']/app-modal-criar-servico/mat-dialog-actions/div")).click();
+		await element(by.xpath("//mat-dialog-container[@id='mat-dialog-4']/app-modal-criar-servico/mat-dialog-content/form/div[5]/mat-form-field/div/div/div")).click();
+		await element(by.xpath("//mat-option[@id='mat-option-39']/span")).click();
+		await element(by.xpath("//mat-dialog-container[@id='mat-dialog-4']/app-modal-criar-servico/mat-dialog-actions/div/button/span")).click();
+	});
+
+	afterEach(async () => {
+		// Assert that there are no errors emitted from the browser
+		const logs = await browser.manage().logs().get(logging.Type.BROWSER);
+		expect(logs).not.toContain(jasmine.objectContaining({
+			level: logging.Level.SEVERE,
+		} as logging.Entry));
+	});
+
+});
+
+import { browser, by, element, Key, logging, ExpectedConditions as EC } from 'protractor';
+
+describe('CT3 Serviços - Data nulo', () => {
+
+	beforeAll(async () => { });
+	beforeEach(async () => { });
+
+	it('should do something', async () => {
+		await browser.get('http://trablina-frontend.herokuapp.com/servicos');
+		await element(by.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Listagem de Serviços'])[1]/following::mat-icon[1]")).click();
+		await element(by.xpath("//mat-option[@id='mat-option-51']/span")).click();
+		await element(by.id("mat-input-23")).click();
+		await element(by.id("mat-input-23")).sendKeys('teste');
+		await element(by.xpath("//mat-dialog-container[@id='mat-dialog-5']/app-modal-criar-servico/mat-dialog-content/form/div[3]/mat-form-field/div/div/div")).click();
+		await element(by.xpath("//mat-option[@id='mat-option-46']/span")).click();
+		await element(by.xpath("//mat-dialog-container[@id='mat-dialog-5']/app-modal-criar-servico/mat-dialog-content/form/div[4]/mat-form-field/div/div/div")).click();
+		await element(by.xpath("//div[@id='mat-select-value-23']/span")).click();
+		await element(by.xpath("//mat-option[@id='mat-option-49']/span")).click();
+		await element(by.xpath("//mat-dialog-container[@id='mat-dialog-5']/app-modal-criar-servico/mat-dialog-actions/div/button/span")).click();
+	});
+
+	afterEach(async () => {
+		// Assert that there are no errors emitted from the browser
+		const logs = await browser.manage().logs().get(logging.Type.BROWSER);
+		expect(logs).not.toContain(jasmine.objectContaining({
+			level: logging.Level.SEVERE,
+		} as logging.Entry));
+	});
+
+});
+
+import { browser, by, element, Key, logging, ExpectedConditions as EC } from 'protractor';
+
+describe('CT3 Serviços - Local nulo', () => {
+
+	beforeAll(async () => { });
+	beforeEach(async () => { });
+
+	it('should do something', async () => {
+		await browser.get('http://trablina-frontend.herokuapp.com/servicos');
+		await element(by.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Listagem de Serviços'])[1]/following::mat-icon[1]")).click();
+		await element(by.xpath("//mat-option[@id='mat-option-15']/span")).click();
+		await element(by.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Selecione uma data'])[1]/following::*[name()='svg'][1]")).click();
+		await element(by.xpath("//mat-calendar[@id='mat-datepicker-1']/div/mat-month-view/table/tbody/tr[2]/td[3]/div")).click();
+		await element(by.xpath("//div[@id='mat-select-value-5']/span")).click();
+		await element(by.xpath("//mat-option[@id='mat-option-9']/span")).click();
+		await element(by.id("mat-input-8")).click();
+		await element(by.xpath("//mat-dialog-container[@id='mat-dialog-1']/app-modal-criar-servico/mat-dialog-content")).click();
+		await element(by.xpath("//div[@id='mat-select-value-7']/span")).click();
+		await element(by.xpath("//mat-option[@id='mat-option-13']/span")).click();
+		await element(by.xpath("//mat-dialog-container[@id='mat-dialog-1']/app-modal-criar-servico/mat-dialog-actions/div/button/span")).click();
+	});
+
+	afterEach(async () => {
+		// Assert that there are no errors emitted from the browser
+		const logs = await browser.manage().logs().get(logging.Type.BROWSER);
+		expect(logs).not.toContain(jasmine.objectContaining({
+			level: logging.Level.SEVERE,
+		} as logging.Entry));
+	});
+
+});
+
+import { browser, by, element, Key, logging, ExpectedConditions as EC } from 'protractor';
+
+describe('CT4 Serviços - Tipo nulo', () => {
+
+	beforeAll(async () => { });
+	beforeEach(async () => { });
+
+	it('should do something', async () => {
+		await browser.get('http://trablina-frontend.herokuapp.com/servicos');
+		await element(by.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Listagem de Serviços'])[1]/following::button[1]")).click();
+		await element(by.xpath("//mat-option[@id='mat-option-24']/span")).click();
+		await element(by.css("path")).click();
+		await element(by.xpath("//mat-calendar[@id='mat-datepicker-2']/div/mat-month-view/table/tbody/tr[2]/td[3]/div")).click();
+		await element(by.id("mat-input-11")).click();
+		await element(by.id("mat-input-11")).sendKeys('bteste');
+		await element(by.id("mat-input-12")).click();
+		await element(by.xpath("//mat-dialog-container[@id='mat-dialog-2']/app-modal-criar-servico/mat-dialog-actions/div")).click();
+		await element(by.xpath("//mat-dialog-container[@id='mat-dialog-2']/app-modal-criar-servico/mat-dialog-content/form/div[5]/mat-form-field/div/div/div")).click();
+		await element(by.xpath("//mat-option[@id='mat-option-21']/span")).click();
+		await element(by.xpath("//mat-dialog-container[@id='mat-dialog-2']/app-modal-criar-servico/mat-dialog-actions/div/button/span")).click();
+	});
+
+	afterEach(async () => {
+		// Assert that there are no errors emitted from the browser
+		const logs = await browser.manage().logs().get(logging.Type.BROWSER);
+		expect(logs).not.toContain(jasmine.objectContaining({
+			level: logging.Level.SEVERE,
+		} as logging.Entry));
+	});
+
+});
+
+import { browser, by, element, Key, logging, ExpectedConditions as EC } from 'protractor';
+
+describe('CT5 Serviços - Valor nulo', () => {
+
+	beforeAll(async () => { });
+	beforeEach(async () => { });
+
+	it('should do something', async () => {
+		await browser.get('http://trablina-frontend.herokuapp.com/servicos');
+		await element(by.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Listagem de Serviços'])[1]/following::mat-icon[1]")).click();
+		await element(by.xpath("//mat-option[@id='mat-option-33']/span")).click();
+		await element(by.css("path")).click();
+		await element(by.xpath("//mat-calendar[@id='mat-datepicker-3']/div/mat-month-view/table/tbody/tr[2]/td[3]/div")).click();
+		await element(by.id("mat-input-15")).click();
+		await element(by.id("mat-input-15")).sendKeys('teste');
+		await element(by.xpath("//div[@id='mat-select-value-13']/span")).click();
+		await element(by.xpath("//mat-option[@id='mat-option-27']/span")).click();
+		await element(by.xpath("//div[@id='mat-select-value-15']/span")).click();
+		await element(by.xpath("//mat-option[@id='mat-option-30']/span")).click();
+		await element(by.xpath("//mat-dialog-container[@id='mat-dialog-3']/app-modal-criar-servico/mat-dialog-actions/div/button/span")).click();
+	});
+
+	afterEach(async () => {
+		// Assert that there are no errors emitted from the browser
+		const logs = await browser.manage().logs().get(logging.Type.BROWSER);
+		expect(logs).not.toContain(jasmine.objectContaining({
+			level: logging.Level.SEVERE,
+		} as logging.Entry));
+	});
+
+});
+
+import { browser, by, element, Key, logging, ExpectedConditions as EC } from 'protractor';
+
+describe('CT6 Serviços - Status nulo ', () => {
+
+	beforeAll(async () => { });
+	beforeEach(async () => { });
+
+	it('should do something', async () => {
+		await browser.get('http://trablina-frontend.herokuapp.com/servicos');
+		await element(by.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Listagem de Serviços'])[1]/following::button[1]")).click();
+		await element(by.xpath("//mat-option[@id='mat-option-42']/span")).click();
+		await element(by.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Selecione uma data'])[1]/following::*[name()='svg'][1]")).click();
+		await element(by.xpath("//mat-calendar[@id='mat-datepicker-4']/div/mat-month-view/table/tbody/tr[2]/td[4]/div")).click();
+		await element(by.id("mat-input-19")).click();
+		await element(by.id("mat-input-19")).sendKeys('teste');
+		await element(by.xpath("//div[@id='mat-select-value-17']/span")).click();
+		await element(by.xpath("//mat-option[@id='mat-option-37']/span")).click();
+		await element(by.id("mat-input-20")).click();
+		await element(by.xpath("//mat-dialog-container[@id='mat-dialog-4']/app-modal-criar-servico/mat-dialog-actions/div")).click();
+		await element(by.xpath("//mat-dialog-container[@id='mat-dialog-4']/app-modal-criar-servico/mat-dialog-actions/div/button/span")).click();
+	});
+
+	afterEach(async () => {
+		// Assert that there are no errors emitted from the browser
+		const logs = await browser.manage().logs().get(logging.Type.BROWSER);
+		expect(logs).not.toContain(jasmine.objectContaining({
+			level: logging.Level.SEVERE,
+		} as logging.Entry));
+	});
+
+});
+
+import { browser, by, element, Key, logging, ExpectedConditions as EC } from 'protractor';
+
+describe('CT7 Serviços - Valor negativo', () => {
+
+	beforeAll(async () => { });
+	beforeEach(async () => { });
+
+	it('should do something', async () => {
+		await browser.get('http://trablina-frontend.herokuapp.com/servicos');
+		await element(by.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Listagem de Serviços'])[1]/following::button[1]")).click();
+		await element(by.xpath("//mat-option[@id='mat-option-26']/span")).click();
+		await element(by.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Selecione uma data'])[1]/following::*[name()='svg'][1]")).click();
+		await element(by.xpath("//mat-calendar[@id='mat-datepicker-2']/div/mat-month-view/table/tbody/tr[2]/td[4]/div")).click();
+		await element(by.id("mat-input-10")).click();
+		await element(by.id("mat-input-10")).sendKeys('teste');
+		await element(by.xpath("//mat-dialog-container[@id='mat-dialog-5']/app-modal-criar-servico/mat-dialog-content/form/div[3]/mat-form-field/div/div/div")).click();
+		await element(by.xpath("//mat-option[@id='mat-option-20']/span")).click();
+		await element(by.id("mat-input-11")).click();
+		await element(by.xpath("//mat-dialog-container[@id='mat-dialog-5']/app-modal-criar-servico/mat-dialog-content/form/div[4]/mat-form-field/div/div/div")).click();
+		await element(by.xpath("//mat-dialog-container[@id='mat-dialog-5']/app-modal-criar-servico/mat-dialog-content/form/div[5]/mat-form-field/div")).click();
+		await element(by.xpath("//div[@id='mat-select-value-11']/span")).click();
+		await element(by.xpath("//mat-option[@id='mat-option-23']/span")).click();
+		await element(by.xpath("//mat-dialog-container[@id='mat-dialog-5']/app-modal-criar-servico/mat-dialog-actions/div/button")).click();
+		await element(by.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Serviço cadastrado com sucesso!'])[1]/following::button[1]")).click();
+	});
+
+	afterEach(async () => {
+		// Assert that there are no errors emitted from the browser
+		const logs = await browser.manage().logs().get(logging.Type.BROWSER);
+		expect(logs).not.toContain(jasmine.objectContaining({
+			level: logging.Level.SEVERE,
+		} as logging.Entry));
+	});
+
+});
+
+import { browser, by, element, Key, logging, ExpectedConditions as EC } from 'protractor';
+
+describe('CT8 Serviços - Data inválida ', () => {
+
+	beforeAll(async () => { });
+	beforeEach(async () => { });
+
+	it('should do something', async () => {
+		await browser.get('http://trablina-frontend.herokuapp.com/servicos');
+		await element(by.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Listagem de Serviços'])[1]/following::mat-icon[1]")).click();
+		await element(by.xpath("//mat-option[@id='mat-option-6']/span")).click();
+		await element(by.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Selecione uma data'])[1]/following::*[name()='svg'][1]")).click();
+		await element(by.xpath("//mat-calendar[@id='mat-datepicker-0']/div/mat-month-view/table/tbody/tr[2]/td[2]/div")).click();
+		await element(by.id("mat-input-3")).click();
+		await element(by.id("mat-input-3")).sendKeys('teste');
+		await element(by.xpath("//div[@id='mat-select-value-1']/span")).click();
+		await element(by.xpath("//mat-option[@id='mat-option-1']/span")).click();
+		await element(by.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Selecione uma data'])[1]/following::*[name()='svg'][1]")).click();
+		await element(by.xpath("//mat-calendar[@id='mat-datepicker-0']/mat-calendar-header/div/div/button[2]")).click();
+		await element(by.xpath("//mat-calendar[@id='mat-datepicker-0']/div/mat-month-view/table/tbody/tr[5]/td[7]/div")).click();
+		await element(by.id("mat-input-4")).click();
+		await element(by.xpath("//mat-dialog-container[@id='mat-dialog-0']/app-modal-criar-servico/mat-dialog-actions")).click();
+		await element(by.xpath("//div[@id='mat-select-value-3']/span")).click();
+		await element(by.xpath("//mat-option[@id='mat-option-4']/span")).click();
+		await element(by.xpath("//mat-dialog-container[@id='mat-dialog-0']/app-modal-criar-servico/mat-dialog-actions/div/button/span")).click();
+		await element(by.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Você não pode criar um serviço com data passada.'])[1]/following::button[1]")).click();
+	});
+
+	afterEach(async () => {
+		// Assert that there are no errors emitted from the browser
+		const logs = await browser.manage().logs().get(logging.Type.BROWSER);
+		expect(logs).not.toContain(jasmine.objectContaining({
+			level: logging.Level.SEVERE,
+		} as logging.Entry));
+	});
+
+});
+
+import { browser, by, element, Key, logging, ExpectedConditions as EC } from 'protractor';
+
+describe('CT9 Serviços - Visualizar serviços ', () => {
+
+	beforeAll(async () => { });
+	beforeEach(async () => { });
+
+	it('should do something', async () => {
+		await browser.get('http://trablina-frontend.herokuapp.com/servicos');
+		await element(by.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Orçamento'])[1]/following::mat-icon[1]")).click();
+		await element(by.xpath("//mat-dialog-container[@id='mat-dialog-1']/app-modal-visualizar-servicos/mat-dialog-actions/button/span")).click();
+	});
+
+	afterEach(async () => {
+		// Assert that there are no errors emitted from the browser
+		const logs = await browser.manage().logs().get(logging.Type.BROWSER);
+		expect(logs).not.toContain(jasmine.objectContaining({
+			level: logging.Level.SEVERE,
+		} as logging.Entry));
+	});
+
+});
+
+import { browser, by, element, Key, logging, ExpectedConditions as EC } from 'protractor';
+
+describe('CT10 Serviços - Excluir serviços ', () => {
+
+	beforeAll(async () => { });
+	beforeEach(async () => { });
+
+	it('should do something', async () => {
+		await browser.get('http://trablina-frontend.herokuapp.com/servicos');
+		await element(by.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Orçamento'])[1]/following::mat-icon[3]")).click();
+		await element(by.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Tem certeza que deseja excluir o serviço? ele será excluído permanentemente.'])[1]/following::button[1]")).click();
+		await element(by.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Serviço Deletado com sucesso!'])[1]/following::button[1]")).click();
+	});
+
+	afterEach(async () => {
+		// Assert that there are no errors emitted from the browser
+		const logs = await browser.manage().logs().get(logging.Type.BROWSER);
+		expect(logs).not.toContain(jasmine.objectContaining({
+			level: logging.Level.SEVERE,
+		} as logging.Entry));
+	});
+
+});
+
+import { browser, by, element, Key, logging, ExpectedConditions as EC } from 'protractor';
+
+describe('CT11 Serviços - Editar serviços', () => {
+
+	beforeAll(async () => { });
+	beforeEach(async () => { });
+
+	it('should do something', async () => {
+		await browser.get('http://trablina-frontend.herokuapp.com/servicos');
+		await element(by.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Instalação'])[1]/following::mat-icon[2]")).click();
+		await element(by.id("mat-input-3")).click();
+		await element(by.id("mat-input-3")).click();
+		await browser.actions().doubleClick(element(by.id("mat-input-3"))).perform();
+		await element(by.id("mat-input-3")).sendKeys('qqq');
+		await element(by.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Selecione uma data'])[1]/following::*[name()='svg'][1]")).click();
+		await element(by.xpath("//mat-calendar[@id='mat-datepicker-0']/div/mat-month-view/table/tbody/tr[2]/td[5]/div")).click();
+		await element(by.id("mat-select-value-1")).click();
+		await element(by.xpath("//mat-option[@id='mat-option-1']/span")).click();
+		await element(by.id("mat-select-value-3")).click();
+		await element(by.xpath("//mat-option[@id='mat-option-4']/span")).click();
+		await element(by.xpath("//mat-dialog-container[@id='mat-dialog-0']/app-modal-atualizar-servicos/mat-dialog-actions/div/button/span")).click();
+		await element(by.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Serviço atualizado com sucesso!'])[1]/following::button[1]")).click();
+	});
+
+	afterEach(async () => {
+		// Assert that there are no errors emitted from the browser
+		const logs = await browser.manage().logs().get(logging.Type.BROWSER);
+		expect(logs).not.toContain(jasmine.objectContaining({
+			level: logging.Level.SEVERE,
+		} as logging.Entry));
+	});
+
+});
+
+import { browser, by, element, Key, logging, ExpectedConditions as EC } from 'protractor';
+
+describe('CT1 Vendas - Sem campos nulos', () => {
+
+	beforeAll(async () => { });
+	beforeEach(async () => { });
+
+	it('should do something', async () => {
+		await browser.get('http://trablina-frontend.herokuapp.com/vendas');
+		await element(by.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Listagem de Vendas'])[1]/following::span[1]")).click();
+		await element(by.xpath("//mat-option[@id='mat-option-14']/span")).click();
+		await element(by.id("mat-input-7")).click();
+		await element(by.xpath("//mat-dialog-container[@id='mat-dialog-1']/app-modal-criar-venda/mat-dialog-actions/div")).click();
+		await element(by.id("mat-input-8")).click();
+		await element(by.id("mat-input-8")).sendKeys('teste');
+		await element(by.xpath("//div[@id='mat-select-value-5']/span")).click();
+		await element(by.xpath("//mat-option[@id='mat-option-9']/span")).click();
+		await element(by.xpath("//div[@id='mat-select-value-7']/span")).click();
+		await element(by.xpath("//mat-option[@id='mat-option-11']/span")).click();
+		await element(by.xpath("//mat-dialog-container[@id='mat-dialog-1']/app-modal-criar-venda/mat-dialog-actions/div/button/span")).click();
+		await element(by.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Venda cadastrada com sucesso!'])[1]/following::button[1]")).click();
+	});
+
+	afterEach(async () => {
+		// Assert that there are no errors emitted from the browser
+		const logs = await browser.manage().logs().get(logging.Type.BROWSER);
+		expect(logs).not.toContain(jasmine.objectContaining({
+			level: logging.Level.SEVERE,
+		} as logging.Entry));
+	});
+
+});
+
+import { browser, by, element, Key, logging, ExpectedConditions as EC } from 'protractor';
+
+describe('CT2 Vendas - Cliente nulo', () => {
+
+	beforeAll(async () => { });
+	beforeEach(async () => { });
+
+	it('should do something', async () => {
+		await browser.get('http://trablina-frontend.herokuapp.com/vendas');
+		await element(by.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Listagem de Vendas'])[1]/following::mat-icon[1]")).click();
+		await element(by.xpath("//mat-dialog-container[@id='mat-dialog-0']/app-modal-criar-venda/mat-dialog-actions")).click();
+		await element(by.id("mat-input-2")).click();
+		await element(by.xpath("//mat-dialog-container[@id='mat-dialog-0']/app-modal-criar-venda/mat-dialog-actions/div")).click();
+		await element(by.xpath("//mat-dialog-container[@id='mat-dialog-0']/app-modal-criar-venda/mat-dialog-content/form/div[2]/mat-form-field/div/div/div")).click();
+		await element(by.id("mat-input-3")).click();
+		await element(by.id("mat-input-3")).sendKeys('teste');
+		await element(by.xpath("//mat-dialog-container[@id='mat-dialog-0']/app-modal-criar-venda/mat-dialog-content/form/div[3]/mat-form-field/div/div/div")).click();
+		await element(by.xpath("//mat-option[@id='mat-option-0']/span")).click();
+		await element(by.xpath("//div[@id='mat-select-value-3']/span")).click();
+		await element(by.xpath("//mat-option[@id='mat-option-2']/span")).click();
+		await element(by.xpath("//mat-dialog-container[@id='mat-dialog-0']/app-modal-criar-venda/mat-dialog-actions/div/button/span")).click();
+	});
+
+	afterEach(async () => {
+		// Assert that there are no errors emitted from the browser
+		const logs = await browser.manage().logs().get(logging.Type.BROWSER);
+		expect(logs).not.toContain(jasmine.objectContaining({
+			level: logging.Level.SEVERE,
+		} as logging.Entry));
+	});
+
+});
+
+import { browser, by, element, Key, logging, ExpectedConditions as EC } from 'protractor';
+
+describe('CT3 Vendas - Valor nulo', () => {
+
+	beforeAll(async () => { });
+	beforeEach(async () => { });
+
+	it('should do something', async () => {
+		await browser.get('http://trablina-frontend.herokuapp.com/vendas');
+		await element(by.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Listagem de Vendas'])[1]/following::button[1]")).click();
+		await element(by.xpath("//mat-option[@id='mat-option-13']/span")).click();
+		await element(by.id("mat-input-6")).click();
+		await element(by.id("mat-input-6")).sendKeys('teste');
+		await element(by.xpath("//div[@id='mat-select-value-5']/span")).click();
+		await element(by.xpath("//mat-option[@id='mat-option-9']/span")).click();
+		await element(by.id("mat-select-value-7")).click();
+		await element(by.xpath("//mat-option[@id='mat-option-11']/span")).click();
+		await element(by.xpath("//mat-dialog-container[@id='mat-dialog-1']/app-modal-criar-venda/mat-dialog-actions/div/button/span")).click();
+	});
+
+	afterEach(async () => {
+		// Assert that there are no errors emitted from the browser
+		const logs = await browser.manage().logs().get(logging.Type.BROWSER);
+		expect(logs).not.toContain(jasmine.objectContaining({
+			level: logging.Level.SEVERE,
+		} as logging.Entry));
+	});
+
+});
+
+import { browser, by, element, Key, logging, ExpectedConditions as EC } from 'protractor';
+
+describe('CT4 Vendas - Itens nulo', () => {
+
+	beforeAll(async () => { });
+	beforeEach(async () => { });
+
+	it('should do something', async () => {
+		await browser.get('http://trablina-frontend.herokuapp.com/vendas');
+		await element(by.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Listagem de Vendas'])[1]/following::mat-icon[1]")).click();
+		await element(by.xpath("//mat-option[@id='mat-option-21']/span")).click();
+		await element(by.id("mat-input-8")).click();
+		await element(by.xpath("//mat-dialog-container[@id='mat-dialog-2']/app-modal-criar-venda/mat-dialog-content/form/div[4]/mat-form-field/div")).click();
+		await element(by.id("mat-input-9")).click();
+		await element(by.id("mat-input-9")).sendKeys('teste');
+		await element(by.xpath("//mat-dialog-container[@id='mat-dialog-2']/app-modal-criar-venda/mat-dialog-content/form/div[3]/mat-form-field/div/div/div")).click();
+		await element(by.xpath("//mat-option[@id='mat-option-17']/span")).click();
+		await element(by.xpath("//div[@id='mat-select-value-11']/span")).click();
+		await element(by.xpath("//mat-option[@id='mat-option-19']/span")).click();
+		await element(by.id("mat-input-9")).click();
+		await element(by.id("mat-input-9")).click();
+		await browser.actions().doubleClick(element(by.id("mat-input-9"))).perform();
+		await element(by.id("mat-input-9")).sendKeys('');
+	});
+
+	afterEach(async () => {
+		// Assert that there are no errors emitted from the browser
+		const logs = await browser.manage().logs().get(logging.Type.BROWSER);
+		expect(logs).not.toContain(jasmine.objectContaining({
+			level: logging.Level.SEVERE,
+		} as logging.Entry));
+	});
+
+});
+
+import { browser, by, element, Key, logging, ExpectedConditions as EC } from 'protractor';
+
+describe('CT5 Vendas - Pagamento nulo', () => {
+
+	beforeAll(async () => { });
+	beforeEach(async () => { });
+
+	it('should do something', async () => {
+		await browser.get('http://trablina-frontend.herokuapp.com/vendas');
+		await element(by.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Listagem de Vendas'])[1]/following::button[1]")).click();
+		await element(by.xpath("//mat-option[@id='mat-option-29']/span")).click();
+		await element(by.id("mat-input-11")).click();
+		await element(by.xpath("//mat-dialog-container[@id='mat-dialog-3']/app-modal-criar-venda/mat-dialog-content/form")).click();
+		await element(by.id("mat-input-12")).click();
+		await element(by.id("mat-input-12")).sendKeys('teste');
+		await element(by.xpath("//div[@id='mat-select-value-13']/span")).click();
+		await element(by.xpath("//div[3]/div[3]")).click();
+		await element(by.xpath("//div[@id='mat-select-value-15']/span")).click();
+		await element(by.xpath("//mat-option[@id='mat-option-26']/span")).click();
+		await element(by.xpath("//mat-dialog-container[@id='mat-dialog-3']/app-modal-criar-venda/mat-dialog-actions/div/button/span")).click();
+	});
+
+	afterEach(async () => {
+		// Assert that there are no errors emitted from the browser
+		const logs = await browser.manage().logs().get(logging.Type.BROWSER);
+		expect(logs).not.toContain(jasmine.objectContaining({
+			level: logging.Level.SEVERE,
+		} as logging.Entry));
+	});
+
+});
+
+import { browser, by, element, Key, logging, ExpectedConditions as EC } from 'protractor';
+
+describe('CT6 Vendas - Pago nulo', () => {
+
+	beforeAll(async () => { });
+	beforeEach(async () => { });
+
+	it('should do something', async () => {
+		await browser.get('http://trablina-frontend.herokuapp.com/vendas');
+		await element(by.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Listagem de Vendas'])[1]/following::button[1]")).click();
+		await element(by.xpath("//mat-option[@id='mat-option-37']/span")).click();
+		await element(by.xpath("//mat-dialog-container[@id='mat-dialog-4']/app-modal-criar-venda/mat-dialog-content/form/div/mat-form-field/div/div/div")).click();
+		await element(by.id("mat-input-15")).click();
+		await element(by.id("mat-input-15")).sendKeys('teste');
+		await element(by.xpath("//div[@id='mat-select-value-17']/span")).click();
+		await element(by.xpath("//mat-option[@id='mat-option-32']/span")).click();
+		await element(by.id("mat-select-value-19")).click();
+		await element(by.xpath("//div[3]/div[3]")).click();
+	});
+
+	afterEach(async () => {
+		// Assert that there are no errors emitted from the browser
+		const logs = await browser.manage().logs().get(logging.Type.BROWSER);
+		expect(logs).not.toContain(jasmine.objectContaining({
+			level: logging.Level.SEVERE,
+		} as logging.Entry));
+	});
+
+});
+
+import { browser, by, element, Key, logging, ExpectedConditions as EC } from 'protractor';
+
+describe('CT7 Vendas - Valor negativo', () => {
+
+	beforeAll(async () => { });
+	beforeEach(async () => { });
+
+	it('should do something', async () => {
+		await browser.get('http://trablina-frontend.herokuapp.com/vendas');
+		await element(by.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Listagem de Vendas'])[1]/following::mat-icon[1]")).click();
+		await element(by.xpath("//mat-option[@id='mat-option-53']/span")).click();
+		await element(by.id("mat-input-20")).click();
+		await element(by.xpath("//mat-dialog-container[@id='mat-dialog-6']/app-modal-criar-venda/mat-dialog-content")).click();
+		await element(by.id("mat-input-21")).click();
+		await element(by.id("mat-input-21")).sendKeys('teste');
+		await element(by.xpath("//div[@id='mat-select-value-25']/span")).click();
+		await element(by.xpath("//mat-option[@id='mat-option-49']/span")).click();
+		await element(by.xpath("//div[@id='mat-select-value-27']/span")).click();
+		await element(by.xpath("//mat-option[@id='mat-option-50']/span")).click();
+		await element(by.xpath("//mat-dialog-container[@id='mat-dialog-6']/app-modal-criar-venda/mat-dialog-actions/div/button/span")).click();
+		await element(by.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Não é possível realizar uma venda com valor negativo.'])[1]/following::button[1]")).click();
+	});
+
+	afterEach(async () => {
+		// Assert that there are no errors emitted from the browser
+		const logs = await browser.manage().logs().get(logging.Type.BROWSER);
+		expect(logs).not.toContain(jasmine.objectContaining({
+			level: logging.Level.SEVERE,
+		} as logging.Entry));
+	});
+
+});
+
+import { browser, by, element, Key, logging, ExpectedConditions as EC } from 'protractor';
+
+describe('CT8 Vendas - Visualizar vendas ', () => {
+
+	beforeAll(async () => { });
+	beforeEach(async () => { });
+
+	it('should do something', async () => {
+		await browser.get('http://trablina-frontend.herokuapp.com/vendas');
+		await element(by.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Sim'])[1]/following::mat-icon[1]")).click();
+		await element(by.xpath("//mat-dialog-container[@id='mat-dialog-7']/app-modal-visualizar-vendas/mat-dialog-actions/button/span")).click();
+	});
+
+	afterEach(async () => {
+		// Assert that there are no errors emitted from the browser
+		const logs = await browser.manage().logs().get(logging.Type.BROWSER);
+		expect(logs).not.toContain(jasmine.objectContaining({
+			level: logging.Level.SEVERE,
+		} as logging.Entry));
+	});
+
+});
+
+import { browser, by, element, Key, logging, ExpectedConditions as EC } from 'protractor';
+
+describe('CT9 Vendas - Excluir venda', () => {
+
+	beforeAll(async () => { });
+	beforeEach(async () => { });
+
+	it('should do something', async () => {
+		await browser.get('http://trablina-frontend.herokuapp.com/vendas');
+		await element(by.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Não'])[1]/following::mat-icon[3]")).click();
+		await element(by.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Tem certeza que deseja excluir a venda? ela será excluída permanentemente.'])[1]/following::button[1]")).click();
+		await element(by.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Venda Deletada com sucesso!'])[1]/following::button[1]")).click();
+	});
+
+	afterEach(async () => {
+		// Assert that there are no errors emitted from the browser
+		const logs = await browser.manage().logs().get(logging.Type.BROWSER);
+		expect(logs).not.toContain(jasmine.objectContaining({
+			level: logging.Level.SEVERE,
+		} as logging.Entry));
+	});
+
+});
+
+import { browser, by, element, Key, logging, ExpectedConditions as EC } from 'protractor';
+
+describe('CT10 Vendas - Editar vendas', () => {
+
+	beforeAll(async () => { });
+	beforeEach(async () => { });
+
+	it('should do something', async () => {
+		await browser.get('http://trablina-frontend.herokuapp.com/vendas');
+		await element(by.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Não'])[2]/following::mat-icon[2]")).click();
+		await element(by.xpath("//mat-dialog-container[@id='mat-dialog-0']/app-modal-atualizar-vendas/mat-dialog-content/form/div/mat-form-field/div")).click();
+		await element(by.id("mat-input-2")).click();
+		await element(by.id("mat-input-2")).click();
+		await browser.actions().doubleClick(element(by.id("mat-input-2"))).perform();
+		await element(by.id("mat-input-3")).click();
+		await element(by.id("mat-input-3")).click();
+		await browser.actions().doubleClick(element(by.id("mat-input-3"))).perform();
+		await element(by.id("mat-input-3")).sendKeys('teste');
+		await element(by.xpath("//mat-dialog-container[@id='mat-dialog-0']/app-modal-atualizar-vendas/mat-dialog-content/form/div[3]/mat-form-field/div/div/div")).click();
+		await element(by.xpath("//mat-option[@id='mat-option-1']/span")).click();
+		await element(by.id("mat-select-value-3")).click();
+		await element(by.xpath("//mat-option[@id='mat-option-2']/span")).click();
+		await element(by.xpath("//mat-dialog-container[@id='mat-dialog-0']/app-modal-atualizar-vendas/mat-dialog-actions/div/button/span")).click();
+		await element(by.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Venda atualizada com sucesso!'])[1]/following::button[1]")).click();
+		await element(by.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Sim'])[2]/following::mat-icon[1]")).click();
+		await element(by.xpath("//mat-dialog-container[@id='mat-dialog-0']/app-modal-visualizar-vendas/mat-dialog-actions/button/span")).click();
+	});
+
+	afterEach(async () => {
+		// Assert that there are no errors emitted from the browser
+		const logs = await browser.manage().logs().get(logging.Type.BROWSER);
+		expect(logs).not.toContain(jasmine.objectContaining({
+			level: logging.Level.SEVERE,
+		} as logging.Entry));
+	});
+
+});
