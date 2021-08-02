@@ -50,6 +50,7 @@ export class ModalAtualizarServicosComponent implements OnInit {
 
   valorTipo: number;
   valorStatus: number;
+  valorVenda
 
   myFilter = (d: Date | null): boolean => {
     const day = (d || new Date()).getDay();
