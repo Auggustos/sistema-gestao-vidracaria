@@ -37,6 +37,12 @@
         </div>
         <div class="row">
             <mat-form-field class="example-full-width">
+                <mat-label>Valor</mat-label>
+                <input currencyMask matInput [(ngModel)]="valorVenda" formControlName="valor" [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" />
+            </mat-form-field>
+        </div>
+        <div class="row">
+            <mat-form-field class="example-full-width">
                 <mat-label>Status</mat-label>
                 <mat-select [(ngModel)]="valorStatus" formControlName="status">
                     <mat-option *ngFor="let situacao of situacoes" [value]="situacao.id">

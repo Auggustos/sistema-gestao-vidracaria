@@ -89,7 +89,7 @@ export class ModalCriarVendaComponent implements OnInit {
   filteredOptions: Observable<{ nome: string, id: string }[]>;
   vendaForm = new FormGroup({
     cliente: new FormControl('', Validators.required),
-    valor: new FormControl('', Validators.required),
+    valor: new FormControl('', [Validators.required,Validators.min(0.01)]),
     produto: new FormControl('', Validators.required),
     tipo_pagamento: new FormControl('', Validators.required),
     pago: new FormControl('', Validators.required),

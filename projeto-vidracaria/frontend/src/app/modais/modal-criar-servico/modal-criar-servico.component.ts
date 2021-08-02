@@ -95,7 +95,7 @@ export class ModalCriarServicoComponent implements OnInit {
     data: new FormControl('', Validators.required),
     local: new FormControl('', Validators.required),
     tipo: new FormControl('', Validators.required),
-    valor: new FormControl('', Validators.required),
+    valor: new FormControl('', [Validators.required,Validators.min(0.01)]),
     status: new FormControl('', Validators.required),
   });
   goBack() {
