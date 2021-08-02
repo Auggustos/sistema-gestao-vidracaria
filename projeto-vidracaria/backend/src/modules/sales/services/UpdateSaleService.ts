@@ -40,8 +40,9 @@ export default class UpdateSaleService {
         }
 
 
-
         sale.customer_id = customer_id;
+
+        sale.customer.id = customer_id;
         sale.value = value;
         sale.itens = itens;
         sale.payment_type = payment_type
