@@ -26,29 +26,16 @@
             <div class="container-card">
                 <mat-card class="example-card" *ngFor="let produto of produtos">
                     <mat-card-header class="teste-pai">
-
-                        <button *ngIf='logado' mat-icon-button class="button-delete" matTooltip="Deletar produto" (click)="onDelete(produto.id,produto.name)" style="margin-bottom: 30%;">
-                            <mat-icon>delete</mat-icon>
-                        </button>
-
-                        <button *ngIf='logado' mat-icon-button class="button-edit" matTooltip="Editar produto" (click)="onUpdate(produto.id)">
-                            <mat-icon>edit</mat-icon>
-                        </button>
-
-
                         <div class="card-title">{{produto.name}} </div>
+                        <div class="botoes-adm">
+                            <button *ngIf='logado' mat-icon-button class="button-delete" matTooltip="Deletar produto" (click)="onDelete(produto.id,produto.name)" style="margin-bottom: 30%;">
+                                    <mat-icon>delete</mat-icon>
+                                </button>
 
-                        <!--
-                        <mat-card-subtitle>
-                            <div *ngIf="!produto.usuario.pagamento_cartao">
-                                <span style="color: #b24c4c;">Não aceita cartão</span>
-                            </div>
-                            <div *ngIf="produto.usuario.pagamento_cartao">
-                                <span style="color: #4CB258;">Aceita cartão</span>
-                            </div>
-                        </mat-card-subtitle>
-                        -->
-
+                            <button *ngIf='logado' mat-icon-button class="button-edit" matTooltip="Editar produto" (click)="onUpdate(produto.id)">
+                                    <mat-icon>edit</mat-icon>
+                                </button>
+                        </div>
                     </mat-card-header>
                     <div (click)="visualizaProduto(produto.id)" class="mat-content">
                         <!--<img mat-card-image src="http://127.0.0.1:3000/files/{{produto.imagem}}" class="imagem-produto">-->

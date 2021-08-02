@@ -63,6 +63,8 @@ body {
     position: relative;
 }
 
+
+/*
 .button-delete {
     color: #de4a3a;
     position: absolute;
@@ -76,6 +78,7 @@ body {
     top: 0;
     margin-left: 94%;
 }
+*/
 
 .mat-content {
     margin-top: 10px;
@@ -145,11 +148,32 @@ table {
 }
 
 .imagem-produto {
-    width: 108%;
+    max-width: 300px;
+    max-height: 300px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
 }
 
 .card-title {
-    margin-bottom: 10%;
+    margin-top: 4%;
     max-width: 76%;
     font-size: large;
+    display: inline-block;
+}
+
+.botoes-adm {
+    margin-left: 18%;
+    display: inline-block;
+}
+
+.button-edit {
+    float: left;
+    color: darkgrey;
+}
+
+.button-delete {
+    float: right;
+    color: #de4a3a;
 }
