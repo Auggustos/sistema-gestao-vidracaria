@@ -30,6 +30,7 @@ class CreateSaleService {
 
     }: IRequest): Promise<Service> {
         const serviceDate = startOfHour(date)
+        console.log(serviceDate)
 
         if (isBefore(serviceDate, Date.now())) {
             throw new AppError("Você não pode criar um serviço com data passada.");

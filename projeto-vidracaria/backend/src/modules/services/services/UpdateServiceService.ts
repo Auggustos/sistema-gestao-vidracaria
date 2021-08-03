@@ -12,7 +12,7 @@ import Service from '../infra/typeorm/entities/Service';
 interface IRequestDTO {
     id: string;
     customer_id: string;
-    date: string;
+    date: Date;
     place: string;
     type: number;
     value: number;
