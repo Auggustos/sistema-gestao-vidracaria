@@ -34,6 +34,7 @@ export class ListagemPessoasComponent implements OnInit {
     public dialog: MatDialog) { }
 
   ngOnInit(): void {
+    ELEMENT_DATA = []
     this.montaTabela();
   }
   createPessoa() {

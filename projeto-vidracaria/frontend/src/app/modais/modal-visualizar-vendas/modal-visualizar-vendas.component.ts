@@ -27,7 +27,6 @@ export class ModalVisualizarVendasComponent implements OnInit {
     this.apiService.getVenda(this.data.idVenda,this.authService.token).subscribe(response =>{
       this.dialogService.closeAll();
       if(response.id == this.data.idVenda){
-        console.log(response);
         this.venda = response;
       }
     },

@@ -69,4 +69,26 @@ body {
     margin-top: 10px;
 }
 
-.imagem-produto {}
+.botoes-adm {
+    display: inline-block;
+    float: right;
+}
+
+.button-edit {
+    float: left;
+    color: darkgrey;
+}
+
+.button-delete {
+    float: right;
+    color: #de4a3a;
+}
+
+.op1 {
+    display: inline-block;
+}
+
+.imagem-produto {
+    height: 500px;
+    width: 500px;
+}

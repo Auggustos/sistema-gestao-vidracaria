@@ -1,13 +1,13 @@
 <h2 mat-dialog-title>Dados da Pessoa</h2>
 <mat-dialog-content class="mat-typography">
     <mat-list>
-        <mat-list-item>Nome: {{pessoa.name}} </mat-list-item>
+        <mat-list-item>Nome: {{pessoa?.name}} </mat-list-item>
         <mat-divider></mat-divider>
-        <mat-list-item>Contato: {{pessoa.phone}}</mat-list-item>
+        <mat-list-item>Contato: {{pessoa?.phone}}</mat-list-item>
         <mat-divider></mat-divider>
-        <mat-list-item>Endereço: {{pessoa.address}}</mat-list-item>
+        <mat-list-item>Endereço: {{pessoa?.address}}</mat-list-item>
         <mat-divider></mat-divider>
-        <mat-list-item>Tipo: {{pessoa.type == 0 ? 'Cliente' : 'Fornecedor'}} </mat-list-item>
+        <mat-list-item>Tipo: {{pessoa?.type == 0 ? 'Cliente' : 'Fornecedor'}} </mat-list-item>
     </mat-list>
 </mat-dialog-content>
 <mat-dialog-actions align="end">

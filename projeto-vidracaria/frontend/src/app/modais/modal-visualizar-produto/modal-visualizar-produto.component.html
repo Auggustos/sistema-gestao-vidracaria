@@ -1,10 +1,25 @@
-<h2 mat-dialog-title>Produto: {{produto.name}}</h2>
+<div>
+    <div class="op1">
+        <h2 mat-dialog-title>Produto: {{produto?.name}}</h2>
+    </div>
+    <div class="botoes-adm">
+        <button *ngIf='logado' mat-icon-button class="button-delete" matTooltip="Deletar produto" (click)="onDelete(produto.id,produto.name)">
+                <mat-icon>delete</mat-icon>
+            </button>
+
+        <button *ngIf='logado' mat-icon-button class="button-edit" matTooltip="Editar produto" (click)="onUpdate(produto.id)">
+                <mat-icon>edit</mat-icon>
+            </button>
+    </div>
+</div>
 
 <mat-dialog-content class="mat-typography">
-    <img mat-card-image src="{{produto.image_url}}" class="imagem-produto">
+    <img mat-card-image src="{{produto?.image_url}}" class="imagem-produto">
     <mat-list>
-        <mat-list-item>Descrição: {{produto.description}} </mat-list-item>
+        <mat-list-item>Descrição: {{produto?.description}} </mat-list-item>
         <mat-divider></mat-divider>
-        <mat-list-item>Quantidade disponível: {{produto.quantity}}</mat-list-item>
+        <mat-list-item>Quantidade disponível: {{produto?.quantity}}</mat-list-item>
     </mat-list>
+
+
 </mat-dialog-content>

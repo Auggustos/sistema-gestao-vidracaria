@@ -48,7 +48,6 @@ export class ListagemServicosComponent implements OnInit {
       let dadosTabela: Servico[] = []
       this.dialogService.showLoading();
       this.apiService.getServicos(this.authService.token).subscribe(response => {
-        console.log(response.results)
         this.dialogService.closeAll();
         dadosTabela = response.results;
         ELEMENT_DATA = dadosTabela;
