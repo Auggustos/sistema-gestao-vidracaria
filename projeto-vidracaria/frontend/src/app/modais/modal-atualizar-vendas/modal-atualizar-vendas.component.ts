@@ -9,6 +9,8 @@ import { map, startWith } from 'rxjs/operators';
 import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
 import { AppDateAdapter, APP_DATE_FORMATS } from 'src/app/shared/format-datepicker';
 import { AuthService } from 'src/app/shared/services/auth.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ModalCriarPessoaComponent } from '../modal-criar-pessoa/modal-criar-pessoa.component';
 
 interface Tipos {
   id: number;
@@ -46,11 +48,12 @@ interface Cliente {
 })
 export class ModalAtualizarVendasComponent implements OnInit {
   name = 'Angular';
+  logado = false
   valorVenda;
   itens;
   formattedAmount;
   amount;
-  constructor(private apiService: ApiService, private dialogService: DialogService, private router: Router, private authService: AuthService, @Inject(MAT_DIALOG_DATA) public data: any) {
+  constructor(private apiService: ApiService, private dialogService: DialogService, private router: Router, private authService: AuthService,public dialog: MatDialog, @Inject(MAT_DIALOG_DATA) public data: any) {
     this.filteredOptions = this.vendaForm.get('cliente').valueChanges
     .pipe(
       startWith(''),
@@ -104,6 +107,11 @@ export class ModalAtualizarVendasComponent implements OnInit {
 
   ngOnInit() {
     this.dialogService.showLoading()
+    if (!this.authService.isLoggedIn()) {
+      this.logado = false
+    } else {
+      this.logado = true;
+    }
     this.apiService.getPessoas().subscribe(response => {
       response.results.forEach(cliente => {
         this.clientes.push({ nome: cliente.name, id: cliente.id })
@@ -123,9 +131,6 @@ export class ModalAtualizarVendasComponent implements OnInit {
 
     this.apiService.getVenda(this.data.idVenda, this.authService.token).subscribe(response => {
       if (response.id == this.data.idVenda) {
-
-        console.log(response)
-
         let venda = {
           cliente: response.customer.name,
           valor: response.value,
@@ -174,7 +179,11 @@ export class ModalAtualizarVendasComponent implements OnInit {
       paid: this.vendaForm.value.pago,
     }
   }
-
+  cadastraCliente(){
+    this.dialog.open(ModalCriarPessoaComponent, {
+    });
+  }
+  
   private _filter(value: string): Cliente[] {
     const filterValue = value.toLowerCase();
     return this.clientes.filter(cliente => cliente.nome.toLowerCase().includes(filterValue));

@@ -1,17 +1,17 @@
 <h2 mat-dialog-title>Dados da Venda</h2>
 <mat-dialog-content class="mat-typography">
     <mat-list>
-        <mat-list-item>Cliente: {{venda.customer.name}} </mat-list-item>
+        <mat-list-item>Cliente: {{venda?.customer.name}} </mat-list-item>
         <mat-divider></mat-divider>
-        <mat-list-item>Data: {{venda.created_at}}</mat-list-item>
+        <mat-list-item>Data: {{venda?.created_at}}</mat-list-item>
         <mat-divider></mat-divider>
-        <mat-list-item>Itens: {{venda.itens}}</mat-list-item>
+        <mat-list-item>Itens: {{venda?.itens}}</mat-list-item>
         <mat-divider></mat-divider>
-        <mat-list-item>Valor: {{venda.value}}</mat-list-item>
+        <mat-list-item>Valor: {{venda?.value}}</mat-list-item>
         <mat-divider></mat-divider>
-        <mat-list-item>Pagamento em: {{venda.payment_type == 0? 'Pagamento em cartão' : 'Pagamento em dinheiro'}}</mat-list-item>
+        <mat-list-item>Pagamento em: {{venda?.payment_type == 0? 'Pagamento em cartão' : 'Pagamento em dinheiro'}}</mat-list-item>
         <mat-divider></mat-divider>
-        <mat-list-item>Pago: {{venda.paid == 0? 'Sim' : 'Não'}}</mat-list-item>
+        <mat-list-item>Pago: {{venda?.paid == 0? 'Sim' : 'Não'}}</mat-list-item>
     </mat-list>
 </mat-dialog-content>
 <mat-dialog-actions align="end">

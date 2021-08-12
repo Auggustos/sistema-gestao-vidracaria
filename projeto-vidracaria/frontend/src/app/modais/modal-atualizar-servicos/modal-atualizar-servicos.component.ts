@@ -9,6 +9,8 @@ import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
 import { AppDateAdapter, APP_DATE_FORMATS } from 'src/app/shared/format-datepicker';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AuthService } from 'src/app/shared/services/auth.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ModalCriarPessoaComponent } from '../modal-criar-pessoa/modal-criar-pessoa.component';
 
 interface Tipos {
   id: number;
@@ -48,6 +50,8 @@ export class ModalAtualizarServicosComponent implements OnInit {
     { id: 1, situacao: 'Não Realizado' },
   ];
 
+  logado = false
+
   valorTipo: number;
   valorStatus: number;
   valorVenda
@@ -62,7 +66,7 @@ export class ModalAtualizarServicosComponent implements OnInit {
 
   filteredOptions: Observable<{ nome: string, id: string }[]>;
 
-  constructor(private apiService: ApiService, private dialogService: DialogService, private router: Router, private authService: AuthService, @Inject(MAT_DIALOG_DATA) public data: any) {
+  constructor(private apiService: ApiService, private dialogService: DialogService, private router: Router,public dialog: MatDialog, private authService: AuthService, @Inject(MAT_DIALOG_DATA) public data: any) {
     this.filteredOptions = this.serviceForm.get('cliente').valueChanges
       .pipe(
         startWith(''),
@@ -87,6 +91,11 @@ export class ModalAtualizarServicosComponent implements OnInit {
 
   ngOnInit() {
     this.dialogService.showLoading()
+    if (!this.authService.isLoggedIn()) {
+      this.logado = false
+    } else {
+      this.logado = true;
+    }
     this.apiService.getPessoas().subscribe(response => {
       response.results.forEach(cliente => {
         this.clientes.push({ nome: cliente.name, id: cliente.id })
@@ -106,9 +115,6 @@ export class ModalAtualizarServicosComponent implements OnInit {
 
     this.apiService.getServico(this.data.idServico, this.authService.token).subscribe(response => {
       if (response.id == this.data.idServico) {
-
-        console.log(response)
-
         let servico = {
           cliente: response.customer.name,
           data: response.date,
@@ -157,7 +163,10 @@ export class ModalAtualizarServicosComponent implements OnInit {
       status: this.serviceForm.value.status,
     }
   }
-
+  cadastraCliente(){
+    this.dialog.open(ModalCriarPessoaComponent, {
+    });
+  }
   private _filter(value: string): Cliente[] {
     const filterValue = value.toLowerCase();
     return this.clientes.filter(cliente => cliente.nome.toLowerCase().includes(filterValue));

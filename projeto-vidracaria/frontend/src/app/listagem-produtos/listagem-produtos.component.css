@@ -148,8 +148,8 @@ table {
 }
 
 .imagem-produto {
-    max-width: 300px;
-    max-height: 300px;
+    max-width: 100%;
+    max-height: 100%;
     display: block;
     margin-left: auto;
     margin-right: auto;
@@ -164,17 +164,8 @@ table {
     display: inline-block;
 }
 
-.botoes-adm {
-    margin-left: 18%;
-    display: inline-block;
-}
-
-.button-edit {
-    float: left;
-    color: darkgrey;
-}
-
-.button-delete {
-    float: right;
-    color: #de4a3a;
+.div-imagem {
+    height: 300px;
+    width: 300px;
+    align-content: center;
 }

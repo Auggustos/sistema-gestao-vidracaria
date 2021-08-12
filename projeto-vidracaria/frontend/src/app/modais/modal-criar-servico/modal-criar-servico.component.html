@@ -1,19 +1,27 @@
-<h2 mat-dialog-title> Cadastro de Serviço</h2>
+<div>
+    <div class="op1">
+        <h2 mat-dialog-title> Cadastro de Serviço</h2>
+    </div>
+    <div class="botoes-adm">
+        <button *ngIf='logado' mat-icon-button class="button-edit" matTooltip="Cadastrar Cliente" (click)="cadastraCliente()">
+            <mat-icon>add</mat-icon>
+        </button>
+    </div>
+</div>
 <mat-dialog-content class="mat-typography">
     <form class="cadastro-form" [formGroup]="serviceForm">
         <mat-form-field class="example-full-width">
             <mat-label>Cliente</mat-label>
-            <input type="text" placeholder="Selecione um" matInput formControlName="cliente" [matAutocomplete]="auto">
-            <mat-autocomplete #auto="matAutocomplete">
-                <mat-option *ngFor="let cliente of filteredOptions | async" [value]="cliente.nome">
+            <mat-select formControlName="cliente">
+                <mat-option *ngFor="let cliente of clientes" [value]="cliente.nome">
                     {{cliente.nome}}
                 </mat-option>
-            </mat-autocomplete>
+            </mat-select>
         </mat-form-field>
 
         <div class="row">
             <mat-form-field class="example-full-width">
-                <input matInput placeholder="Selecione uma data" [matDatepicker]="datepickerRef" formControlName="data" required readonly/>
+                <input matInput placeholder="Selecione uma data" [matDatepicker]="datepickerRef" formControlName="data" required readonly />
                 <mat-datepicker-toggle [for]="datepickerRef" matSuffix></mat-datepicker-toggle>
                 <mat-datepicker #datepickerRef></mat-datepicker>
             </mat-form-field>

@@ -12,7 +12,7 @@
             <div class="col-lg-4 col-md-6 col-sm-12">
                 <mat-form-field class="campo-pesquisa">
                     <input matInput placeholder="Pesquisar" [(ngModel)]="pesquisaCampos[0].texto" (keyup.enter)="onEnter(pesquisaCampos[0].texto)">
-                    <mat-icon class="expandir-button" style="cursor:pointer" matSuffix matTooltip="Pesquisar" (click)="onChange()">search</mat-icon>
+                    <mat-icon class="expandir-button" style="cursor:pointer" matSuffix matTooltip="Pesquisar" (click)="onEnter(pesquisaCampos[0].texto)">search</mat-icon>
                     <mat-icon [class.btn-disable]="!pesquisaCampos[0].texto" class="expandir-button" style="cursor:pointer" matTooltip="Limpar" matSuffix (click)="onClean()">clear</mat-icon>
                 </mat-form-field>
             </div>
@@ -31,34 +31,34 @@
                 <!-- Position Column -->
                 <ng-container matColumnDef="nome">
                     <th mat-header-cell *matHeaderCellDef class="mat-column"> Nome </th>
-                    <td mat-cell *matCellDef="let element" class="mat-column"> {{element.name}} </td>
+                    <td mat-cell *matCellDef="let element" class="mat-column"> {{element?.name}} </td>
                 </ng-container>
 
                 <!-- Name Column -->
                 <ng-container matColumnDef="contato">
                     <th mat-header-cell *matHeaderCellDef class="mat-column"> Contato </th>
-                    <td mat-cell *matCellDef="let element" class="mat-column"> {{element.phone}} </td>
+                    <td mat-cell *matCellDef="let element" class="mat-column"> {{element?.phone}} </td>
                 </ng-container>
 
                 <!-- Weight Column -->
                 <ng-container matColumnDef="tipo">
                     <th mat-header-cell *matHeaderCellDef class="mat-column"> Tipo </th>
-                    <td mat-cell *matCellDef="let element" class="mat-column"> {{element.type == 0 ? 'Cliente' : 'Fornecedor'}} </td>
+                    <td mat-cell *matCellDef="let element" class="mat-column"> {{element?.type == 0 ? 'Cliente' : 'Fornecedor'}} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="acoes">
                     <th mat-header-cell *matHeaderCellDef class="mat-column"> Ações </th>
                     <td mat-cell *matCellDef="let element" class="mat-column">
-                        <button mat-icon-button matTooltip="Visualizar pessoa" (click)="onView(element.id)">
+                        <button mat-icon-button matTooltip="Visualizar pessoa" (click)="onView(element?.id)">
                             <mat-icon style="color: cornflowerblue;">search</mat-icon>
                   </button>
 
 
-                        <button mat-icon-button matTooltip="Atualizar pessoa" (click)="onUpdate(element.id)">
+                        <button mat-icon-button matTooltip="Atualizar pessoa" (click)="onUpdate(element?.id)">
                             <mat-icon style="color: darkgrey;">edit</mat-icon>
                   </button>
 
-                        <button mat-icon-button matTooltip="Deletar pessoa" (click)="onDelete(element.id,element.name)">
+                        <button mat-icon-button matTooltip="Deletar pessoa" (click)="onDelete(element?.id,element?.name)">
                             <mat-icon style="color:brown ;">delete</mat-icon>
                   </button>
 

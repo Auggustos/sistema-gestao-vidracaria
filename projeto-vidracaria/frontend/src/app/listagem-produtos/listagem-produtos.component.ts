@@ -9,7 +9,7 @@ import { ModalVisualizarProdutoComponent } from '../modais/modal-visualizar-prod
 import { ModalCadastraProdutoComponent } from '../modais/modal-cadastra-produto/modal-cadastra-produto.component';
 
 import { Produto } from 'src/app/classes/produto.class';
-import { ModalAtualizarProdutosComponent } from '../modais/modal-atualizar-produtos/modal-atualizar-produtos.component';
+
 
 @Component({
   selector: 'app-listagem-produtos',
@@ -46,6 +46,7 @@ export class ListagemProdutosComponent implements OnInit {
   showFiller = false;
 
   ngOnInit(): void {
+    this.produtos = [];
 
     if (!this.authService.isLoggedIn()) {
       this.logado = false
@@ -79,30 +80,7 @@ export class ListagemProdutosComponent implements OnInit {
     this.dialog.open(ModalCadastraProdutoComponent, {
     });
   }
-  onDelete(id: string, name: string) {
-    this.dialogService.showConfirmWaring('Excluir produto', 'Tem certeza que deseja excluir o produto? ele será excluído permanentemente.').then(result => {
-      if (result.value == true) {
-        this.dialogService.showLoading();
-        this.apiService.deletaProduto(id).subscribe(response => {
-          this.dialogService.closeAll();
-          this.dialogService.showSuccess(`${name} Deletado com sucesso!`, "Produto Deletado!").then(result => {
-            this.router.navigateByUrl('').then(success => location.reload())
-          });
-        },
-          error => {
-            this.dialogService.closeAll();
-            this.dialogService.showError(`${error.error.error}`, "Erro ao Excluir Produto!")
-          })
-      }
-    });
-  }
-  onUpdate(id: string) {
-    this.dialog.open(ModalAtualizarProdutosComponent, {
-      data: {
-        idProduto: id,
-      }
-    });
-  }
+
   onChange() {
   }
 

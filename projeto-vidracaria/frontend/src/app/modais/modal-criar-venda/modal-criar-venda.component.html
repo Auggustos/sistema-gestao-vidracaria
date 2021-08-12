@@ -1,14 +1,22 @@
-<h2 mat-dialog-title> Cadastro de Venda</h2>
+<div>
+    <div class="op1">
+        <h2 mat-dialog-title> Cadastro de Venda</h2>
+    </div>
+    <div class="botoes-adm">
+        <button *ngIf='logado' mat-icon-button class="button-edit" matTooltip="Cadastrar Cliente" (click)="cadastraCliente()">
+            <mat-icon>add</mat-icon>
+        </button>
+    </div>
+</div>
 <mat-dialog-content class="mat-typography">
     <form class="cadastro-form" [formGroup]="vendaForm">
         <mat-form-field class="example-full-width">
             <mat-label>Cliente</mat-label>
-            <input matInput type="text" placeholder="Selecione um" [matAutocomplete]="auto" formControlName="cliente">
-            <mat-autocomplete #auto="matAutocomplete">
-                <mat-option *ngFor="let cliente of filteredOptions | async" [value]="cliente.nome">
+            <mat-select formControlName="cliente">
+                <mat-option *ngFor="let cliente of clientes" [value]="cliente.nome">
                     {{cliente.nome}}
                 </mat-option>
-            </mat-autocomplete>
+            </mat-select>
         </mat-form-field>
 
         <div class="row">

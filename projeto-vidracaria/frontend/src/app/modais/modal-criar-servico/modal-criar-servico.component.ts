@@ -8,6 +8,8 @@ import { map, startWith } from 'rxjs/operators';
 import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
 import { AppDateAdapter, APP_DATE_FORMATS } from 'src/app/shared/format-datepicker';
 import { AuthService } from 'src/app/shared/services/auth.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ModalCriarPessoaComponent } from '../modal-criar-pessoa/modal-criar-pessoa.component';
 
 interface Tipos {
   id: number;
@@ -46,7 +48,7 @@ export class ModalCriarServicoComponent implements OnInit {
     { id: 0, situacao: 'Realizado' },
     { id: 1, situacao: 'Não Realizado' },
   ];
-
+  logado = false
   valorTipo: number;
   valorStatus: number;
   valorVenda
@@ -59,7 +61,7 @@ export class ModalCriarServicoComponent implements OnInit {
 
   filteredOptions: Observable<{ nome: string, id: string }[]>;
 
-  constructor(private apiService: ApiService, private dialogService: DialogService, private router: Router, private authService: AuthService) {
+  constructor(private apiService: ApiService, private dialogService: DialogService, private router: Router, private authService: AuthService, public dialog: MatDialog) {
 
     this.filteredOptions = this.myControl.valueChanges
       .pipe(
@@ -70,6 +72,11 @@ export class ModalCriarServicoComponent implements OnInit {
 
   ngOnInit() {
     this.dialogService.showLoading()
+    if (!this.authService.isLoggedIn()) {
+      this.logado = false
+    } else {
+      this.logado = true;
+    }
     this.apiService.getPessoas().subscribe(response => {
       response.results.forEach(cliente => {
         this.clientes.push({ nome: cliente.name, id: cliente.id })
@@ -125,6 +132,10 @@ export class ModalCriarServicoComponent implements OnInit {
       value: this.serviceForm.value.valor,
       status: this.serviceForm.value.status,
     }
+  }
+  cadastraCliente(){
+    this.dialog.open(ModalCriarPessoaComponent, {
+    });
   }
 
   private _filter(value: string): Cliente[] {
